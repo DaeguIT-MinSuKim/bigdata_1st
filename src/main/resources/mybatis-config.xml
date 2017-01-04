@@ -2,9 +2,6 @@
 <!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<properties resource="application.properties" />
-	<!-- <settings>		
-		<setting name="mapUnderscoreToCamelCase" value="true" />		
-	</settings> -->
 	<typeAliases>
 		<package name="kr.or.dgit.bigdata.diet.dto"/>
 	</typeAliases>
