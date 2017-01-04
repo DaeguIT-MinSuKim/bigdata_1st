@@ -1,6 +1,12 @@
 package kr.or.dgit.bigdata.diet.service;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
+
+import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.mappers.MemberMapper;
+import kr.or.dgit.bigdata.diet.util.MyBatisSqlSessionFactory;
+
 
 public class MemberService {
 
@@ -12,4 +18,18 @@ public class MemberService {
 		return instance;
 	}
 	
+	public int insertMember(Member member){
+		if (logger.isDebugEnabled()) {
+			logger.debug("insertMember(Member) - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			int res = memberMapper.insertMember(member);
+			sqlSession.commit();
+			return res;
+		}finally{
+			sqlSession.close();
+		}
+	}	
 }

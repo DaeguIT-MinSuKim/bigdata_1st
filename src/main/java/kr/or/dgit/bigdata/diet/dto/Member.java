@@ -10,6 +10,24 @@ public class Member {
 	private String phone;
 	private String address;
 	private int budget;
+	
+	
+	public Member(String name, String gender, 
+			int weight, int age, String phone, String address, int budget) {
+
+		
+		this.name = name;
+		this.gender = gender;
+		this.weight = weight;
+		this.age = age;
+		this.phone = phone;
+		this.address = address;
+		this.budget = budget;
+	}
+
+
+	public Member() {}
+
 	public int getNo() 				{return no;	}
 	public String getName() 		{return name;	}
 	public String getGender() 		{return gender;	}

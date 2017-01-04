@@ -2,18 +2,22 @@ package kr.or.dgit.bigdata.diet.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class MainGUI extends JFrame {
+import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.MemberService;
+
+public class MainGUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tf_no;
@@ -30,7 +34,8 @@ public class MainGUI extends JFrame {
 	private JButton btnLeft;
 	private JButton btnRight;
 	private JSeparator separator;
-
+	private static MemberService memberService;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,55 +66,56 @@ public class MainGUI extends JFrame {
 		p_display.setLayout(null);
 		
 		JLabel label = new JLabel("회원번호");
-		label.setBounds(108, 19, 48, 15);
+		label.setBounds(78, 19, 78, 15);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label);
 		
 		JLabel label_1 = new JLabel("이름");
-		label_1.setBounds(132, 62, 24, 15);
+		label_1.setBounds(78, 62, 78, 15);
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_1);
 		
 		JLabel label_2 = new JLabel("성별");
-		label_2.setBounds(132, 105, 24, 15);
+		label_2.setBounds(78, 105, 78, 15);
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_2);
 		
 		JLabel label_3 = new JLabel("몸무게");
-		label_3.setBounds(120, 148, 36, 15);
+		label_3.setBounds(78, 148, 78, 15);
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_3);
 		
 		JLabel label_4 = new JLabel("나이");
-		label_4.setBounds(132, 191, 24, 15);
+		label_4.setBounds(78, 191, 78, 15);
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_4);
 		
 		JLabel label_5 = new JLabel("휴대전화");
-		label_5.setBounds(108, 234, 48, 15);
+		label_5.setBounds(78, 234, 78, 15);
 		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_5);
 		
 		JLabel label_6 = new JLabel("거주지");
-		label_6.setBounds(120, 277, 36, 15);
+		label_6.setBounds(78, 277, 78, 15);
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_6);
 		
 		JLabel label_7 = new JLabel("월 예산");
-		label_7.setBounds(116, 320, 40, 15);
+		label_7.setBounds(78, 320, 78, 15);
 		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_7);
 		
 		btnMenu = new JButton("다이어트식단");
-		btnMenu.setBounds(40, 405, 111, 23);
+		btnMenu.setBounds(27, 405, 124, 23);
 		p_display.add(btnMenu);
 		
 		btnOneReg = new JButton("회원등록");
+		btnOneReg.addActionListener(this);
 		btnOneReg.setBounds(163, 405, 97, 23);
 		p_display.add(btnOneReg);
 		
 		btnGrpReg = new JButton("단체회원등록");
-		btnGrpReg.setBounds(272, 405, 111, 23);
+		btnGrpReg.setBounds(272, 405, 124, 23);
 		p_display.add(btnGrpReg);
 		
 		btnLeft = new JButton("◀");
@@ -126,6 +132,8 @@ public class MainGUI extends JFrame {
 		p_display.add(lblNewLabel);
 		
 		tf_no = new JTextField();
+		tf_no.setEnabled(false);
+		tf_no.setEditable(false);
 		tf_no.setBounds(192, 16, 116, 21);
 		p_display.add(tf_no);
 		tf_no.setColumns(10);
@@ -180,5 +188,29 @@ public class MainGUI extends JFrame {
 		separator = new JSeparator();
 		separator.setBounds(0, 355, 424, 7);
 		p_display.add(separator);
+	}
+
+	
+	//회원 입력 버튼
+	@Override
+	public void actionPerformed(ActionEvent e) {  
+		
+		Member mem = new Member(tf_name.getText(),tf_gender.getText(),
+								Integer.parseInt(tf_weight.getText()),Integer.parseInt(tf_age.getText()),
+								tf_phone.getText(),tf_location.getText(),Integer.parseInt(tf_budg.getText())				
+				);
+		memberService = MemberService.getInstance();
+		memberService.insertMember(mem);	
+				
+		tf_no.setText("");
+		tf_name.setText("");
+		tf_gender.setText("");
+		tf_weight.setText("");
+		tf_age.setText("");
+		tf_phone.setText("");
+		tf_location.setText("");
+		tf_budg.setText("");
+		
+		
 	}
 }
