@@ -244,6 +244,7 @@ public class MainGUI extends JFrame {
 			throw new Exception(msg);
 		}
 	}
+	
 	//내용 초기화
 	private void clearTf() {
 		tfName.setText("");
