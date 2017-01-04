@@ -10,6 +10,7 @@ public class Calorie {
 	private int cal_woman;
 	private int h_woman;
 	private int w_woman;
+	
 	public int getMinage() {
 		return minage;
 	}

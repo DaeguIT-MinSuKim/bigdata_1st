@@ -10,6 +10,7 @@ public class Member {
 	private String phone;
 	private String address;
 	private int budget;
+	
 	public int getNo() {
 		return no;
 	}
@@ -58,6 +59,7 @@ public class Member {
 	public void setBudget(int budget) {
 		this.budget = budget;
 	}
+	
 	@Override
 	public String toString() {
 		return String.format("Member [no=%s, name=%s, gender=%s, weight=%s, age=%s, phone=%s, address=%s, budget=%s]",

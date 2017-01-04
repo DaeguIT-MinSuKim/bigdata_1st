@@ -11,6 +11,7 @@ public class Menu {
 	private int protein;
 	private int cost;
 	private String con;
+	
 	public int getNo() {
 		return no;
 	}
