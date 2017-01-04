@@ -32,4 +32,19 @@ public class MemberService {
 			sqlSession.close();
 		}
 	}	
+	
+	
+	public Member selectMemberByNo(int no){
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectMemberByNo(no) - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			Member res = memberMapper.selectMemberByNo(no);
+			return res;
+		}finally{
+			sqlSession.close();
+		}
+	}
 }

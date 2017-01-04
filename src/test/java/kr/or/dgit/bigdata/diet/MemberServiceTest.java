@@ -45,5 +45,13 @@ public class MemberServiceTest {
 		int res= memberService.insertMember(mem);
 		Assert.assertEquals(1, res);
 	}
+	
+	@Test
+	public void testSelectMemberByNo() {
+		
+		Member res= memberService.selectMemberByNo(2);
+		Assert.assertNotNull(res);
+		
+	}
 
 }
