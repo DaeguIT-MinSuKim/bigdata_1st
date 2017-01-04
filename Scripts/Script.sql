@@ -43,3 +43,20 @@ CREATE TABLE diet.Menu (
 	con     VARCHAR(20) NULL COMMENT '조건' -- 조건
 )
 COMMENT 'Menu';
+
+
+
+-- Menu
+ALTER TABLE diet.Menu
+	ADD CONSTRAINT PK_Menu -- Menu 기본키
+		PRIMARY KEY (
+			no -- 번호
+		);
+
+
+-- Member
+ALTER TABLE diet.Member
+	ADD CONSTRAINT PK_Member -- Member 기본키
+		PRIMARY KEY (
+			no -- 회원번호
+		);
