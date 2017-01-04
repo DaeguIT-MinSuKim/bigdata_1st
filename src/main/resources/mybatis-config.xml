@@ -23,6 +23,7 @@
 		</environment>
 	</environments>
 	<mappers>
+	<!-- <mapper resource="kr/co/dgit/bigdate/mybatis_dev/mappers/StudentMapper.xml" /> -->
 		<package name="kr.or.dgit.bigdata.diet.mappers" />
 	</mappers>
 </configuration>
