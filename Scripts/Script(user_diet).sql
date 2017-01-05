@@ -44,6 +44,7 @@ CREATE TABLE diet.Menu (
 )
 COMMENT 'Menu';
 
+
 LOAD DATA LOCAL INFILE 'D:/workspace/workspace_mybatis/dietfoodmanager/DataFiles/menu.txt' 
 INTO TABLE menu character set 'UTF8' fields TERMINATED by ',';
 
@@ -57,6 +58,16 @@ select * from calorie;
 update menu set no=1 where no=0;
 update calorie set minage=6 where minage=0;
 
-insert into member values(001, '강보미', '여', 45, 22, '010-1234-5617', '대구', 320000);
+insert into member values(1, '강보미', '여', 45, 22, '010-1234-5617', '대구', 320000);
 
 select no, name, gender, weight, age, phone, address, budget from member;
+
+-- 1일 평균 소비 금액
+select name, round(budget/30,-1), age from member;
+
+select name, age, case
+					when gender = '여' then cal_woman
+					when gender = '남' then cal_man
+					end as '1일권장칼로리'
+from calorie inner join member on age >= minage and age <= maxage
+where name='강보미';

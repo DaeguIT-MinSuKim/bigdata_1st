@@ -26,7 +26,7 @@ import kr.or.dgit.bigdata.diet.service.MemberService;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainGUI extends JFrame {
+public class MemberInputGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfNo;
@@ -48,7 +48,7 @@ public class MainGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainGUI frame = new MainGUI();
+					MemberInputGUI frame = new MemberInputGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class MainGUI extends JFrame {
 		});
 	}
 	
-	public MainGUI() {
+	public MemberInputGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
