@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +38,12 @@ public class MainGUI extends JFrame implements ActionListener {
 	private JButton btnRight;
 	private JSeparator separator;
 	private static MemberService memberService;
+	private ArrayList<Member> memberList;			//회원 명부
+	private int sumNumber;                      //회원 총 갯수
+	private int memberIndex=0;
+	private JLabel lbl_sum;
+	private JLabel lbl_number;
+	
 	
 	/**
 	 * Launch the application.
@@ -119,19 +128,22 @@ public class MainGUI extends JFrame implements ActionListener {
 		p_display.add(btnGrpReg);
 		
 		btnLeft = new JButton("◀");
+		btnLeft.addActionListener(this);
 		btnLeft.setBounds(108, 367, 47, 23);
 		p_display.add(btnLeft);
 		
 		btnRight = new JButton("▶");
+		btnRight.addActionListener(this);
 		btnRight.setBounds(259, 367, 48, 23);
 		p_display.add(btnRight);
 		
-		JLabel lblNewLabel = new JLabel("회원검색(N/M)");
+		JLabel lblNewLabel = new JLabel("회원검색");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(158, 371, 99, 15);
+		lblNewLabel.setBounds(158, 371, 57, 15);
 		p_display.add(lblNewLabel);
 		
 		tf_no = new JTextField();
+		tf_no.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_no.setEnabled(false);
 		tf_no.setEditable(false);
 		tf_no.setBounds(192, 16, 116, 21);
@@ -139,36 +151,50 @@ public class MainGUI extends JFrame implements ActionListener {
 		tf_no.setColumns(10);
 		
 		tf_name = new JTextField();
+		tf_name.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_name.setEditable(false);
 		tf_name.setBounds(192, 59, 116, 21);
 		p_display.add(tf_name);
 		tf_name.setColumns(10);
 		
 		tf_gender = new JTextField();
+		tf_gender.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_gender.setEditable(false);
 		tf_gender.setBounds(192, 102, 116, 21);
 		p_display.add(tf_gender);
 		tf_gender.setColumns(10);
 		
 		tf_weight = new JTextField();
+		tf_weight.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_weight.setEditable(false);
 		tf_weight.setBounds(192, 145, 116, 21);
 		p_display.add(tf_weight);
 		tf_weight.setColumns(10);
 		
 		tf_age = new JTextField();
+		tf_age.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_age.setEditable(false);
 		tf_age.setBounds(192, 188, 116, 21);
 		p_display.add(tf_age);
 		tf_age.setColumns(10);
 		
 		tf_phone = new JTextField();
+		tf_phone.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_phone.setEditable(false);
 		tf_phone.setBounds(192, 231, 116, 21);
 		p_display.add(tf_phone);
 		tf_phone.setColumns(10);
 		
 		tf_location = new JTextField();
+		tf_location.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_location.setEditable(false);
 		tf_location.setBounds(192, 274, 116, 21);
 		p_display.add(tf_location);
 		tf_location.setColumns(10);
 		
 		tf_budg = new JTextField();
+		tf_budg.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_budg.setEditable(false);
 		tf_budg.setBounds(192, 317, 116, 21);
 		p_display.add(tf_budg);
 		tf_budg.setColumns(10);
@@ -188,29 +214,150 @@ public class MainGUI extends JFrame implements ActionListener {
 		separator = new JSeparator();
 		separator.setBounds(0, 355, 424, 7);
 		p_display.add(separator);
+		
+		lbl_number = new JLabel("N");
+		lbl_number.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_number.setBounds(216, 371, 16, 15);
+		p_display.add(lbl_number);
+		
+		lbl_sum = new JLabel("N");
+		lbl_sum.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_sum.setBounds(239, 371, 16, 15);
+		p_display.add(lbl_sum);
+		
+		JLabel label_9 = new JLabel("/");
+		label_9.setHorizontalAlignment(SwingConstants.CENTER);
+		label_9.setBounds(227, 371, 16, 15);
+		p_display.add(label_9);
+		
+	// JFRAME 생성시에 member의 전체 racord 갯수를 가져와 화면에 출력
+		memberService = MemberService.getInstance();
+		sumNumber = memberService.selectMemberSum();
+		lbl_sum.setText(sumNumber+"");
+		
+	// JFRAME 생성시에 member의 첫째 racord를 가져와 화면에 출력
+		lbl_number.setText("0");
+		
+		memberService = MemberService.getInstance();
+		memberList = (ArrayList<Member>) memberService.selectAllMember();
+		
+		//데이터가 있으면 1로 시작
+		if(memberList != null) {
+
+			//화면에  member 출력
+			lbl_number.setText("1");
+			
+			tf_no.setText		(memberList.get(0).getNo()+"");
+			tf_name.setText		(memberList.get(0).getName());
+			tf_gender.setText	(memberList.get(0).getGender());
+			tf_weight.setText	(memberList.get(0).getWeight()+"");
+			tf_age.setText		(memberList.get(0).getAge()+"");
+			tf_phone.setText	(memberList.get(0).getPhone());
+			tf_location.setText	(memberList.get(0).getAddress());
+			tf_budg.setText		(memberList.get(0).getBudget()+"");
+		}		
 	}
 
 	
-	//회원 입력 버튼
+
 	@Override
 	public void actionPerformed(ActionEvent e) {  
+
+		//회원 입력 버튼		
+		if(e.getSource() == btnOneReg ){
+			
+			tf_no.setEditable(true);
+			tf_name.setEditable(true);
+			tf_gender.setEditable(true);
+			tf_weight.setEditable(true);
+			tf_age.setEditable(true);
+			tf_phone.setEditable(true);
+			tf_location.setEditable(true);
+			tf_budg.setEditable(true);
+			
+			tf_no.setText("");
+			tf_name.setText("");
+			tf_gender.setText("");
+			tf_weight.setText("");
+			tf_age.setText("");
+			tf_phone.setText("");
+			tf_location.setText("");
+			tf_budg.setText("");
+			
+			/*Member mem = new Member(1,tf_name.getText(),tf_gender.getText(),
+					Integer.parseInt(tf_weight.getText()),Integer.parseInt(tf_age.getText()),
+					tf_phone.getText(),tf_location.getText(),Integer.parseInt(tf_budg.getText())				
+					);
+			memberService = MemberService.getInstance();
+			memberService.insertMember(mem);	
+	
+			tf_no.setText("");
+			tf_name.setText("");
+			tf_gender.setText("");
+			tf_weight.setText("");
+			tf_age.setText("");
+			tf_phone.setText("");
+			tf_location.setText("");
+			tf_budg.setText("");*/
+		}
+
+		//회원 조회 우측 버튼		
+		if(e.getSource() == btnRight){
+			
+			tf_no.setEditable(false);
+			tf_name.setEditable(false);
+			tf_gender.setEditable(false);
+			tf_weight.setEditable(false);
+			tf_age.setEditable(false);
+			tf_phone.setEditable(false);
+			tf_location.setEditable(false);
+			tf_budg.setEditable(false);
+			
+			//System.out.println(sumNumber);
+			//System.out.println(memberIndex);
+			if((sumNumber-1) != memberIndex){
+				memberIndex++;
+				lbl_number.setText((memberIndex+1)+"");
+				Member temp = memberList.get(memberIndex);
+				tf_no.setText(temp.getNo()+"");
+				tf_name.setText(temp.getName());
+				tf_gender.setText(temp.getGender());
+				tf_weight.setText(temp.getWeight()+"");
+				tf_age.setText(temp.getAge()+"");
+				tf_phone.setText(temp.getPhone());
+				tf_location.setText(temp.getAddress());
+				tf_budg.setText(temp.getBudget()+"");				
+			}			
+		}
 		
-		Member mem = new Member(tf_name.getText(),tf_gender.getText(),
-								Integer.parseInt(tf_weight.getText()),Integer.parseInt(tf_age.getText()),
-								tf_phone.getText(),tf_location.getText(),Integer.parseInt(tf_budg.getText())				
-				);
-		memberService = MemberService.getInstance();
-		memberService.insertMember(mem);	
+		//회원 조회 좌측 버튼 
+		if(e.getSource() == btnLeft){
+			
+			tf_no.setEditable(false);
+			tf_name.setEditable(false);
+			tf_gender.setEditable(false);
+			tf_weight.setEditable(false);
+			tf_age.setEditable(false);
+			tf_phone.setEditable(false);
+			tf_location.setEditable(false);
+			tf_budg.setEditable(false);			
+			
+			if(memberIndex != 0){
+				memberIndex--;
+				lbl_number.setText((memberIndex+1)+"");
+				//System.out.println(memberIndex);
+				Member temp = memberList.get(memberIndex);
+				tf_no.setText(temp.getNo()+"");
+				tf_name.setText(temp.getName());
+				tf_gender.setText(temp.getGender());
+				tf_weight.setText(temp.getWeight()+"");
+				tf_age.setText(temp.getAge()+"");
+				tf_phone.setText(temp.getPhone());
+				tf_location.setText(temp.getAddress());
+				tf_budg.setText(temp.getBudget()+"");
 				
-		tf_no.setText("");
-		tf_name.setText("");
-		tf_gender.setText("");
-		tf_weight.setText("");
-		tf_age.setText("");
-		tf_phone.setText("");
-		tf_location.setText("");
-		tf_budg.setText("");
-		
+			}			
+		}
 		
 	}
 }

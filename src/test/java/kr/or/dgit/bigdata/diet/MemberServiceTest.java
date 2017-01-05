@@ -28,7 +28,8 @@ public class MemberServiceTest {
 		memberService=null;
 	}
 
-	@Test
+	//데이터 삽입 테스트 성공함...
+	/*@Test
 	public void testInsert() {
 		
 		Member mem = new Member();
@@ -44,14 +45,14 @@ public class MemberServiceTest {
 		
 		int res= memberService.insertMember(mem);
 		Assert.assertEquals(1, res);
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void testSelectMemberByNo() {
 		
 		Member res= memberService.selectMemberByNo(2);
 		Assert.assertNotNull(res);
 		
-	}
+	}*/
 
 }

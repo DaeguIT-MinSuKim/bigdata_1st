@@ -12,10 +12,10 @@ public class Member {
 	private int budget;
 	
 	
-	public Member(String name, String gender, 
+	public Member(int no, String name, String gender, 
 			int weight, int age, String phone, String address, int budget) {
 
-		
+		this.no = no;
 		this.name = name;
 		this.gender = gender;
 		this.weight = weight;

@@ -67,7 +67,10 @@ select * from member;
 insert into member(name,gender,weight,age,phone,address,budget) 
 		 			 values('임선희','여',55,27,'010-9471-5821','세종',950000);
 		 			 
-delete from member where no = 1;		 			 
+delete from member where no = 1;		
+
+select count(*) from member;
+select no,name,gender,weight,age,phone,address,budget from member ;
 		 			 
 		 			 
 		 			 

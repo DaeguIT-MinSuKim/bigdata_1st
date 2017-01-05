@@ -15,4 +15,16 @@
 		 from member where no = #{no};
 	</select>
 
+	<select id="selectMemberSum"   resultType="int">
+		 select count(*) from member;
+	</select>
+	
+	<select id="selectAllMember" resultType="member"  >
+		 select no,name,gender,weight,age,phone,address,budget  
+		 from member ;
+	</select>
+
+
+
+
 </mapper>

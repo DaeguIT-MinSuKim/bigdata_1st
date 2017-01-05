@@ -1,5 +1,8 @@
 package kr.or.dgit.bigdata.diet.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
@@ -47,4 +50,34 @@ public class MemberService {
 			sqlSession.close();
 		}
 	}
+
+	public int selectMemberSum() {
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectMemberSum() - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			int res = memberMapper.selectMemberSum();
+			return res;
+		}finally{
+			sqlSession.close();
+		}		
+	}
+
+	public List<Member> selectAllMember() {
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectAllMember() - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			ArrayList<Member> memberList = memberMapper.selectAllMember();
+			return memberList;
+		}finally{
+			sqlSession.close();
+		}
+	}
+
+	
 }
