@@ -10,6 +10,7 @@ public class Member {
 	private String phone;
 	private String address;
 	private int budget;
+	
 	public int getNo() {
 		return no;
 	}
