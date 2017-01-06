@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
-public class MainGUI extends JFrame implements ActionListener {
+public class __MainGUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tf_no;
@@ -52,7 +52,7 @@ public class MainGUI extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainGUI frame = new MainGUI();
+					__MainGUI frame = new __MainGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +62,7 @@ public class MainGUI extends JFrame implements ActionListener {
 	}
 
 	
-	public MainGUI() {
+	public __MainGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 487);
 		contentPane = new JPanel();
