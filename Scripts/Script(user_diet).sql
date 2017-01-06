@@ -71,3 +71,14 @@ select name, age, case
 					end as '1일권장칼로리'
 from calorie inner join member on age >= minage and age <= maxage
 where name='강보미';
+
+select grp, item, cal, fat, carbo, protein, cost from menu
+order by rand();
+
+select * from menu where grp = '고기';
+
+select * from menu where grp = '생선&해산물';
+
+select * from menu where grp = '음료';
+
+select * from menu where grp <> '고기' and grp <> '생선&해산물' and grp <> '음료';
