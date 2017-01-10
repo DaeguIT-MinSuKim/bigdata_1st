@@ -12,7 +12,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
@@ -251,11 +250,80 @@ public class SignupUI extends JFrame {
 		tf_budg.setColumns(10);
 		tf_budg.setBounds(263, 458, 135, 21);
 		signPanel.add(tf_budg);
-
-		JButton btnNewButton = new JButton("");
+		
+		//이미지 아이콘
+		ImageIcon originSignup = new ImageIcon("pictogram/signup.png");
+		Image originSignImg = originSignup.getImage();
+		Image changeSignImg = originSignImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSign = new ImageIcon(changeSignImg);
+				
+		ImageIcon originClear = new ImageIcon("pictogram/clear.png");
+		Image originClearImg = originClear.getImage();
+		Image changeClearImg = originClearImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon changeClear = new ImageIcon(changeClearImg);
+				
+		ImageIcon originCancel = new ImageIcon("pictogram/cancel.png");
+		Image originCancelImg = originCancel.getImage();
+		Image changeCancelImg = originCancelImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon changeCancel = new ImageIcon(changeCancelImg);
+		
+		
+		//버튼
+		JButton btnSign = new JButton("");
+		btnSign.setFocusable(false);
+		btnSign.setBorder(null);
+		btnSign.setBackground(null);
+		btnSign.setBounds(100, 530, 100, 100);
+		btnSign.setBorderPainted(false);
+		btnSign.setFocusPainted(false);
+		btnSign.setContentAreaFilled(false);
+		btnSign.setIcon(changeSign);
+		signPanel.add(btnSign);
+		btnSign.setToolTipText("등록하기");
+		//btnSign.setToolTipText(
+		//		"<html><body style='background-color:white;'>"
+		//		+ "<center><h4>등록하기</h4></center></body></html>");
+	
+		
+		JButton btnClear = new JButton("");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tf_no.setText("");
+				tf_name.setText("");
+				tf_weight.setText("");
+				tf_age.setText("");
+				tf_phone.setText("");
+				tf_budg.setText("");
+			}
+		});
+		btnClear.setFocusable(false);
+		btnClear.setBorder(null);
+		btnClear.setBackground(Color.WHITE);
+		btnClear.setBounds(35, 563, 60, 60);
+		btnClear.setBorderPainted(false);
+        btnClear.setFocusPainted(false);
+        btnClear.setContentAreaFilled(false);
+		btnClear.setIcon(changeClear);
+		signPanel.add(btnClear);
+		
+		JButton btnCancel = new JButton("");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancel.setFocusable(false);
+		btnCancel.setBorder(null);
+		btnCancel.setBackground(Color.WHITE);
+		btnCancel.setBounds(205, 570, 60, 60);
+		btnCancel.setBorderPainted(false);
+       	btnCancel.setFocusPainted(false);
+      	btnCancel.setContentAreaFilled(false);
+		btnCancel.setIcon(changeCancel);
+		signPanel.add(btnCancel);
 		
 		//입력 버튼 이벤트
-		btnNewButton.addActionListener(new ActionListener() {
+		btnSign.addActionListener(new ActionListener() {
 			
 			//입력 버튼 이벤트
 			public void actionPerformed(ActionEvent arg0) {
@@ -299,13 +367,6 @@ public class SignupUI extends JFrame {
 				}								
 			}
 		});
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setFont(new Font("나눔바른고딕", Font.BOLD, 16));
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setIcon(new ImageIcon("images\\signup.png"));
-		btnNewButton.setBounds(122, 535, 108, 116);
-		btnNewButton.setBorder(null);
-		signPanel.add(btnNewButton);
 		
 		//라디오버튼 그룹화를 위한 버튼그룹 설정
 		ButtonGroup  group = new ButtonGroup(); 
