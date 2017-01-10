@@ -11,9 +11,22 @@ public class Menu {
 	private int protein;
 	private int cost;
 	private String con;
-	public int getNo() {
-		return no;
+	
+	public Menu() {	}
+	
+	public Menu(int no, String grp, String item, int cal, int fat, int carbo, int protein, int cost, String con) {
+	
+		this.no = no;
+		this.grp = grp;
+		this.item = item;
+		this.cal = cal;
+		this.fat = fat;
+		this.carbo = carbo;
+		this.protein = protein;
+		this.cost = cost;
+		this.con = con;
 	}
+	public int getNo() {return no;	}
 	public String getGrp() 	{return grp;	}
 	public String getItem() {return item;	}
 	public int getCal() 	{return cal;	}
