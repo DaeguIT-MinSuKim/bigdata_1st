@@ -3,6 +3,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.bigdata.diet.mappers.MemberMapper">
 	
+	
+	
+	<insert id="insertMember" parameterType="member">
+		 insert into member(name,gender,weight,age,phone,address,budget) 
+		 			 values(#{name},#{gender},#{weight},#{age},#{phone},#{address},#{budget});
+	</insert>
+
+	<select id="selectMemberByNo" parameterType="int"  resultType="member">
+		 select no,name,gender,weight,age,phone,address,budget  
+		 from member where no = #{no};
+	</select>
+
+	<select id="selectMemberSum"   resultType="int">
+		 select count(*) from member;
+	</select>
+	
+	<select id="selectAllMember" resultType="member"  >
+		 select no,name,gender,weight,age,phone,address,budget  
+		 from member ;
+	</select>
+
+
 
 
 </mapper>

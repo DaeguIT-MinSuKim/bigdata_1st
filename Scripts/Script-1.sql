@@ -43,3 +43,34 @@ CREATE TABLE diet.Menu (
 	con     VARCHAR(20) NULL COMMENT '조건' -- 조건
 )
 COMMENT 'Menu';
+
+
+
+-- Menu
+ALTER TABLE diet.Menu
+	ADD CONSTRAINT PK_Menu -- Menu 기본키
+		PRIMARY KEY (
+			no -- 번호
+		);
+
+
+-- Member
+ALTER TABLE diet.Member
+	ADD CONSTRAINT PK_Member -- Member 기본키
+		PRIMARY KEY (
+			no -- 회원번호
+		);
+
+select * from member;
+	
+
+insert into member(name,gender,weight,age,phone,address,budget) 
+		 			 values('임선희','여',55,27,'010-9471-5821','세종',950000);
+		 			 
+delete from member where no = 1;		
+
+select count(*) from member;
+select no,name,gender,weight,age,phone,address,budget from member ;
+		 			 
+		 			 
+		 			 
