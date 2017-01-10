@@ -29,6 +29,8 @@ import javax.swing.event.MouseInputListener;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 import javax.swing.JRadioButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SignupUI extends JFrame {
 
@@ -134,26 +136,117 @@ public class SignupUI extends JFrame {
 		tf_no.setColumns(10);
 
 		tf_name = new JTextField();
+		tf_name.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//특수문자 배제시킴
+				char t = e.getKeyChar();
+				if (! (   ( Character.isDigit(t))
+						||(Character.isAlphabetic(t))
+						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_DELETE) ) ) {
+					getToolkit().beep();
+					e.consume();
+				}
+				//한글 최대 8자까지 받음 			
+				if(!Pattern.matches("^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{1,8}",tf_name.getText()+t)){
+					e.consume();
+					getToolkit().beep();
+				}
+			}
+		});
 		tf_name.setColumns(10);
 		tf_name.setBounds(263, 218, 135, 21);
 		signPanel.add(tf_name);
 
 		tf_weight = new JTextField();
+		tf_weight.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//특수문자와 알파벳 배제시킴
+				char t = e.getKeyChar();
+				if (! ( (Character.isDigit(t))
+						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_DELETE) ) ) {
+					getToolkit().beep();
+					e.consume();
+				}
+				//최대 8자까지 받음 			
+				if(!Pattern.matches("^[0-9]{1,3}",tf_weight.getText()+t)){
+					e.consume();
+					getToolkit().beep();
+				}
+			}
+		});
 		tf_weight.setColumns(10);
 		tf_weight.setBounds(263, 299, 135, 21);
 		signPanel.add(tf_weight);
 
 		tf_age = new JTextField();
+		tf_age.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//백스페이스 및 숫자만 받음
+				char t = e.getKeyChar();
+				if (! ( (Character.isDigit(t))
+						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_DELETE) ) ) {
+					getToolkit().beep();
+					e.consume();
+				}
+				//최대 3자까지 받음 			
+				if(!Pattern.matches("^[0-9]{1,3}",tf_age.getText()+t)){
+					e.consume();
+					getToolkit().beep();
+				}
+			}
+		});
 		tf_age.setColumns(10);
 		tf_age.setBounds(263, 340, 135, 21);
 		signPanel.add(tf_age);
 
 		tf_phone = new JTextField();
+		tf_phone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//백스페이스 및 숫자만 받음				
+				char t = e.getKeyChar();
+				if (! ( (Character.isDigit(t))
+						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_DELETE) ) ) {
+					getToolkit().beep();
+					e.consume();
+				}
+				//최대 15자까지 받음 			
+				if(!Pattern.matches("^[0-9]{1,15}",tf_phone.getText()+t)){
+					e.consume();
+					getToolkit().beep();
+				}
+			}
+		});
 		tf_phone.setColumns(10);
 		tf_phone.setBounds(263, 380, 135, 21);
 		signPanel.add(tf_phone);
 
 		tf_budg = new JTextField();
+		tf_budg.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//백스페이스 및 숫자만 받음
+				char t = e.getKeyChar();
+				if (! ( (Character.isDigit(t))
+						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_DELETE) ) ) {
+					getToolkit().beep();
+					e.consume();
+				}
+				//최대 8자까지 받음 			
+				if(!Pattern.matches("^[0-9]{1,8}",tf_budg.getText()+t)){
+					e.consume();
+					getToolkit().beep();
+				}
+			}
+		});
 		tf_budg.setColumns(10);
 		tf_budg.setBounds(263, 458, 135, 21);
 		signPanel.add(tf_budg);
@@ -202,12 +295,7 @@ public class SignupUI extends JFrame {
 					tf_phone.setText("");
 					tf_budg.setText("");
 
-				}
-				
-				
-				
-				
-								
+				}								
 			}
 		});
 		btnNewButton.setBackground(Color.WHITE);
