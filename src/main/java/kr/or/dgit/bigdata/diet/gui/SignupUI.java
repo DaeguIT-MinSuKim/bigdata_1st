@@ -279,8 +279,23 @@ public class SignupUI extends JFrame {
 		btnSign.setContentAreaFilled(false);
 		btnSign.setIcon(changeSign);
 		signPanel.add(btnSign);
+		btnSign.setToolTipText("등록하기");
+		//btnSign.setToolTipText(
+		//		"<html><body style='background-color:white;'>"
+		//		+ "<center><h4>등록하기</h4></center></body></html>");
+	
 		
 		JButton btnClear = new JButton("");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tf_no.setText("");
+				tf_name.setText("");
+				tf_weight.setText("");
+				tf_age.setText("");
+				tf_phone.setText("");
+				tf_budg.setText("");
+			}
+		});
 		btnClear.setFocusable(false);
 		btnClear.setBorder(null);
 		btnClear.setBackground(Color.WHITE);
@@ -292,6 +307,11 @@ public class SignupUI extends JFrame {
 		signPanel.add(btnClear);
 		
 		JButton btnCancel = new JButton("");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancel.setFocusable(false);
 		btnCancel.setBorder(null);
 		btnCancel.setBackground(Color.WHITE);
