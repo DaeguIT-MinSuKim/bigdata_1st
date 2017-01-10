@@ -78,21 +78,55 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		Image originSignUpImg = originSignUp.getImage();
 		Image changeSignUpImg = originSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		ImageIcon changeSignUp = new ImageIcon(changeSignUpImg);
+		ImageIcon originSignUp2 = new ImageIcon("pictogram/signup2.png");
+		Image originSignUpImg2 = originSignUp2.getImage();
+		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSignUp2 = new ImageIcon(changeSignUpImg2);
+		ImageIcon originSignUp3 = new ImageIcon("pictogram/signup3.png");
+		Image originSignUpImg3 = originSignUp3.getImage();
+		Image changeSignUpImg3 = originSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSignUp3 = new ImageIcon(changeSignUpImg3);
 		
 		ImageIcon originGroupSignUp = new ImageIcon("pictogram/group.png");
 		Image originGroupSignUpImg = originGroupSignUp.getImage();
 		Image changeGroupSignUpImg = originGroupSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		ImageIcon changeGroupSignUp = new ImageIcon(changeGroupSignUpImg);
+		ImageIcon originGroupSignUp2 = new ImageIcon("pictogram/group2.png");
+		Image originGroupSignUpImg2 = originGroupSignUp2.getImage();
+		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeGroupSignUp2 = new ImageIcon(changeGroupSignUpImg2);
+		ImageIcon originGroupSignUp3 = new ImageIcon("pictogram/group3.png");
+		Image originGroupSignUpImg3 = originGroupSignUp3.getImage();
+		Image changeGroupSignUpImg3 = originGroupSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeGroupSignUp3 = new ImageIcon(changeGroupSignUpImg3);
 		
 		ImageIcon originSearch = new ImageIcon("pictogram/search.png");
 		Image originSearchImg = originSearch.getImage();
 		Image changeSearchImg = originSearchImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		ImageIcon changeSearch = new ImageIcon(changeSearchImg);
+		ImageIcon originSearch2 = new ImageIcon("pictogram/search2.png");
+		Image originSearchImg2 = originSearch2.getImage();
+		Image changeSearchImg2 = originSearchImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSearch2 = new ImageIcon(changeSearchImg2);
+		ImageIcon originSearch3 = new ImageIcon("pictogram/search3.png");
+		Image originSearchImg3 = originSearch3.getImage();
+		Image changeSearchImg3 = originSearchImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSearch3 = new ImageIcon(changeSearchImg3);
 		
 		ImageIcon originDiet = new ImageIcon("pictogram/diet.png");
 		Image originDietImg = originDiet.getImage();
 		Image changeDietImg = originDietImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeDiet = new ImageIcon(changeDietImg);
+		ImageIcon changeDiet = new ImageIcon(changeDietImg);		
+		ImageIcon originDiet2 = new ImageIcon("pictogram/diet2.png");
+		Image originDietImg2 = originDiet2.getImage();
+		Image changeDietImg2 = originDietImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeDiet2 = new ImageIcon(changeDietImg2);
+		ImageIcon originDiet3 = new ImageIcon("pictogram/diet3.png");
+		Image originDietImg3 = originDiet3.getImage();
+		Image changeDietImg3 = originDietImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeDiet3 = new ImageIcon(changeDietImg3);
+		
+		
 		
 		btnSignup = new JButton("");
 		btnSignup.setFocusable(false);
@@ -104,6 +138,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
         btnSignup.setFocusPainted(false);
         btnSignup.setContentAreaFilled(false);
 		btnSignup.setIcon(changeSignUp);
+		btnSignup.setPressedIcon(changeSignUp2);
+		btnSignup.setRolloverIcon(changeSignUp3);
 		panel.add(btnSignup);
 		
 		btnSignupGroup = new JButton("");
@@ -116,6 +152,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
         btnSignupGroup.setFocusPainted(false);
         btnSignupGroup.setContentAreaFilled(false);
 		btnSignupGroup.setIcon(changeGroupSignUp);
+		btnSignupGroup.setPressedIcon(changeGroupSignUp2);
+		btnSignupGroup.setRolloverIcon(changeGroupSignUp3);
 		panel.add(btnSignupGroup);
 		
 		btnSearch = new JButton("");
@@ -128,6 +166,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
         btnSearch.setFocusPainted(false);
         btnSearch.setContentAreaFilled(false);
 		btnSearch.setIcon(changeSearch);
+		btnSearch.setPressedIcon(changeSearch2);
+		btnSearch.setRolloverIcon(changeSearch3);
 		panel.add(btnSearch);
 		
 		btnMakePlan = new JButton("");
@@ -140,6 +180,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
         btnMakePlan.setFocusPainted(false);
         btnMakePlan.setContentAreaFilled(false);
 		btnMakePlan.setIcon(changeDiet);
+		btnMakePlan.setPressedIcon(changeDiet2);
+		btnMakePlan.setRolloverIcon(changeDiet3);
 		panel.add(btnMakePlan);
 		
 		//라벨
@@ -196,7 +238,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원등록
 		if(e.getSource() == btnSignup ){
 			
-			(new SignupUI()).setVisible(true);;
+			new SignupUI();
 		}
 		
 //////////그룹 등록

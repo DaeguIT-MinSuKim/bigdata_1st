@@ -11,10 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class DietGUI extends JFrame {
+public class DietGUI extends JDialog {
 
 	Container contentPane;
 	private JTextField tfName;
@@ -48,7 +49,7 @@ public class DietGUI extends JFrame {
 	 */
 	public DietGUI() {
 		setTitle("식단생성");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 700);
 		contentPane = getContentPane();
 		DietBgPanel dbp = new DietBgPanel();
@@ -151,6 +152,8 @@ public class DietGUI extends JFrame {
 		lblBudget.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBudget.setBounds(13, 413, 57, 15);
 		dbp.add(lblBudget);
+		
+		setLocationRelativeTo(null); 
 	}
 }
 

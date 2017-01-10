@@ -18,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class SignupUI extends JFrame {
+public class SignupUI extends JDialog {
 
 	private Container contentPane;
 	private JTextField tf_no;
@@ -67,7 +68,9 @@ public class SignupUI extends JFrame {
 	 * Create the frame.
 	 */
 	public SignupUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setModal(true);
+		setResizable(false);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = getContentPane();
 		SignPanel signPanel = new SignPanel();
@@ -352,7 +355,7 @@ public class SignupUI extends JFrame {
 							  Integer.parseInt(tf_budg.getText()));
 					
 					int rs = memberService.insertMember(mem);
-					// ???					
+					// 
 					if (rs != 0)
 						JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
 					else{JOptionPane.showMessageDialog(null, "입력오류가 발생했습니다.(데이터베이스 오류)");}
@@ -363,7 +366,6 @@ public class SignupUI extends JFrame {
 					tf_age.setText("");
 					tf_phone.setText("");
 					tf_budg.setText("");
-
 				}								
 			}
 		});
@@ -395,8 +397,6 @@ public class SignupUI extends JFrame {
 		addMouseMotionListener(mouseListener);
 
 		// setUndecorated(true); //상태줄 없애기
-		setLocationRelativeTo(null); // 중앙 위치토록 함수 호출
-
 		setLocationRelativeTo(null); // 중앙 위치토록 함수 호출
 		setVisible(true);
 	} // constructor end
