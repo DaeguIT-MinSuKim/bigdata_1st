@@ -60,6 +60,8 @@ public class SignupUI extends JFrame {
 		contentPane.add(signPanel, BorderLayout.CENTER);
 		signPanel.setLayout(null);
 		
+		
+		//라벨
 		JLabel lblSignUp = new JLabel("SIGN UP | 회원등록");
 		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSignUp.setFont(new Font("10X10 Bold", Font.PLAIN, 30));
@@ -114,6 +116,8 @@ public class SignupUI extends JFrame {
 		label_7.setBounds(154, 456, 76, 21);
 		signPanel.add(label_7);
 		
+		
+		//텍스트필드
 		textField = new JTextField();
 		textField.setBounds(263, 176, 135, 21);
 		signPanel.add(textField);
@@ -154,19 +158,64 @@ public class SignupUI extends JFrame {
 		textField_7.setBounds(263, 458, 135, 21);
 		signPanel.add(textField_7);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		//이미지 아이콘
+		ImageIcon originSignup = new ImageIcon("pictogram/signup.png");
+		Image originSignImg = originSignup.getImage();
+		Image changeSignImg = originSignImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSign = new ImageIcon(changeSignImg);
+		
+		ImageIcon originClear = new ImageIcon("pictogram/clear.png");
+		Image originClearImg = originClear.getImage();
+		Image changeClearImg = originClearImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon changeClear = new ImageIcon(changeClearImg);
+		
+		ImageIcon originCancel = new ImageIcon("pictogram/cancel.png");
+		Image originCancelImg = originCancel.getImage();
+		Image changeCancelImg = originCancelImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon changeCancel = new ImageIcon(changeCancelImg);
+
+		
+		
+		//버튼
+		JButton btnSign = new JButton("");
+		btnSign.setFocusable(false);
+		btnSign.setBorder(null);
+		btnSign.setBackground(null);
+		btnSign.setBounds(100, 530, 100, 100);
+		btnSign.setBorderPainted(false);
+		btnSign.setFocusPainted(false);
+        btnSign.setContentAreaFilled(false);
+		btnSign.setIcon(changeSign);
+		signPanel.add(btnSign);
+		
+		JButton btnClear = new JButton("");
+		btnClear.setFocusable(false);
+		btnClear.setBorder(null);
+		btnClear.setBackground(Color.WHITE);
+		btnClear.setBounds(35, 563, 60, 60);
+		btnClear.setBorderPainted(false);
+        btnClear.setFocusPainted(false);
+        btnClear.setContentAreaFilled(false);
+		btnClear.setIcon(changeClear);
+		signPanel.add(btnClear);
+		
+		JButton btnCancel = new JButton("");
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
+				
 			}
 		});
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setFont(new Font("나눔바른고딕", Font.BOLD, 16));
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\LJH\\Desktop\\hak\\signup.png"));
-		btnNewButton.setBounds(122, 535, 108, 116);
-		btnNewButton.setBorder(null);
-		signPanel.add(btnNewButton);
+		
+		btnCancel.setFocusable(false);
+		btnCancel.setBorder(null);
+		btnCancel.setBackground(Color.WHITE);
+		btnCancel.setBounds(205, 570, 60, 60);
+		btnCancel.setBorderPainted(false);
+        btnCancel.setFocusPainted(false);
+        btnCancel.setContentAreaFilled(false);
+		btnCancel.setIcon(changeCancel);
+		signPanel.add(btnCancel);
+		
 		setSize(500,700);
 		setVisible(true);
 	}
