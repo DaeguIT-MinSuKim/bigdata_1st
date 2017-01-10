@@ -59,4 +59,9 @@ ALTER TABLE diet.Member
 	ADD CONSTRAINT PK_Member -- Member 기본키
 		PRIMARY KEY (
 			no -- 회원번호
+
 		);
+
+ALTER TABLE diet.`member` MODIFY COLUMN `no` int(4) NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+

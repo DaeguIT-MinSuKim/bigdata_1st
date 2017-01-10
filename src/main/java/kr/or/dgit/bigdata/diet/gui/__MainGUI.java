@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
-public class SearchUI extends JFrame implements ActionListener {
+public class __MainGUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tf_no;
@@ -31,6 +31,9 @@ public class SearchUI extends JFrame implements ActionListener {
 	private JTextField tf_phone;
 	private JTextField tf_location;
 	private JTextField tf_budg;
+	private JButton btnMenu;
+	private JButton btnOneReg;
+	private JButton btnGrpReg;
 	private JButton btnLeft;
 	private JButton btnRight;
 	private JSeparator separator;
@@ -49,7 +52,7 @@ public class SearchUI extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SearchUI frame = new SearchUI();
+					__MainGUI frame = new __MainGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,9 +62,9 @@ public class SearchUI extends JFrame implements ActionListener {
 	}
 
 	
-	public SearchUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 453);
+	public __MainGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 487);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,6 +113,19 @@ public class SearchUI extends JFrame implements ActionListener {
 		label_7.setBounds(78, 320, 78, 15);
 		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
 		p_display.add(label_7);
+		
+		btnMenu = new JButton("다이어트식단");
+		btnMenu.setBounds(27, 405, 124, 23);
+		p_display.add(btnMenu);
+		
+		btnOneReg = new JButton("회원등록");
+		btnOneReg.addActionListener(this);
+		btnOneReg.setBounds(163, 405, 97, 23);
+		p_display.add(btnOneReg);
+		
+		btnGrpReg = new JButton("단체회원등록");
+		btnGrpReg.setBounds(272, 405, 124, 23);
+		p_display.add(btnGrpReg);
 		
 		btnLeft = new JButton("◀");
 		btnLeft.addActionListener(this);
@@ -214,8 +230,6 @@ public class SearchUI extends JFrame implements ActionListener {
 		label_9.setBounds(227, 371, 16, 15);
 		p_display.add(label_9);
 		
-		setVisible(true);
-		
 	// JFRAME 생성시에 member의 전체 racord 갯수를 가져와 화면에 출력
 		memberService = MemberService.getInstance();
 		sumNumber = memberService.selectMemberSum();
@@ -228,13 +242,12 @@ public class SearchUI extends JFrame implements ActionListener {
 		memberList = (ArrayList<Member>) memberService.selectAllMember();
 		
 		//데이터가 있으면 1로 시작
-		if(memberList.size() != 0) {
+		if(memberList != null) {
 
 			//화면에  member 출력
 			lbl_number.setText("1");
 			
-			DecimalFormat df = new DecimalFormat("000");			
-			tf_no.setText( df.format(memberList.get(0).getNo()) );
+			tf_no.setText		(memberList.get(0).getNo()+"");
 			tf_name.setText		(memberList.get(0).getName());
 			tf_gender.setText	(memberList.get(0).getGender());
 			tf_weight.setText	(memberList.get(0).getWeight()+"");
@@ -242,16 +255,51 @@ public class SearchUI extends JFrame implements ActionListener {
 			tf_phone.setText	(memberList.get(0).getPhone());
 			tf_location.setText	(memberList.get(0).getAddress());
 			tf_budg.setText		(memberList.get(0).getBudget()+"");
-		}else{
-			JOptionPane.showMessageDialog(null,"등록된 사용자가 없습니다.");
-			dispose();
-		}
+		}		
 	}
 
 	
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {  
+
+		//회원 입력 버튼		
+		if(e.getSource() == btnOneReg ){
+			
+			tf_no.setEditable(true);
+			tf_name.setEditable(true);
+			tf_gender.setEditable(true);
+			tf_weight.setEditable(true);
+			tf_age.setEditable(true);
+			tf_phone.setEditable(true);
+			tf_location.setEditable(true);
+			tf_budg.setEditable(true);
+			
+			tf_no.setText("");
+			tf_name.setText("");
+			tf_gender.setText("");
+			tf_weight.setText("");
+			tf_age.setText("");
+			tf_phone.setText("");
+			tf_location.setText("");
+			tf_budg.setText("");
+			
+			/*Member mem = new Member(1,tf_name.getText(),tf_gender.getText(),
+					Integer.parseInt(tf_weight.getText()),Integer.parseInt(tf_age.getText()),
+					tf_phone.getText(),tf_location.getText(),Integer.parseInt(tf_budg.getText())				
+					);
+			memberService = MemberService.getInstance();
+			memberService.insertMember(mem);	
+	
+			tf_no.setText("");
+			tf_name.setText("");
+			tf_gender.setText("");
+			tf_weight.setText("");
+			tf_age.setText("");
+			tf_phone.setText("");
+			tf_location.setText("");
+			tf_budg.setText("");*/
+		}
 
 		//회원 조회 우측 버튼		
 		if(e.getSource() == btnRight){
@@ -271,9 +319,7 @@ public class SearchUI extends JFrame implements ActionListener {
 				memberIndex++;
 				lbl_number.setText((memberIndex+1)+"");
 				Member temp = memberList.get(memberIndex);
-				
-				DecimalFormat df = new DecimalFormat("000");			
-				tf_no.setText( df.format(temp.getNo()) );
+				tf_no.setText(temp.getNo()+"");
 				tf_name.setText(temp.getName());
 				tf_gender.setText(temp.getGender());
 				tf_weight.setText(temp.getWeight()+"");
@@ -301,10 +347,7 @@ public class SearchUI extends JFrame implements ActionListener {
 				lbl_number.setText((memberIndex+1)+"");
 				//System.out.println(memberIndex);
 				Member temp = memberList.get(memberIndex);
-				
-				DecimalFormat df = new DecimalFormat("000");			
-				tf_no.setText( df.format(temp.getNo()) );
-								
+				tf_no.setText(temp.getNo()+"");
 				tf_name.setText(temp.getName());
 				tf_gender.setText(temp.getGender());
 				tf_weight.setText(temp.getWeight()+"");
