@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -213,6 +214,8 @@ public class SearchUI extends JFrame implements ActionListener {
 		label_9.setBounds(227, 371, 16, 15);
 		p_display.add(label_9);
 		
+		setVisible(true);
+		
 	// JFRAME 생성시에 member의 전체 racord 갯수를 가져와 화면에 출력
 		memberService = MemberService.getInstance();
 		sumNumber = memberService.selectMemberSum();
@@ -225,7 +228,7 @@ public class SearchUI extends JFrame implements ActionListener {
 		memberList = (ArrayList<Member>) memberService.selectAllMember();
 		
 		//데이터가 있으면 1로 시작
-		if(memberList != null) {
+		if(memberList.size() != 0) {
 
 			//화면에  member 출력
 			lbl_number.setText("1");
@@ -239,7 +242,10 @@ public class SearchUI extends JFrame implements ActionListener {
 			tf_phone.setText	(memberList.get(0).getPhone());
 			tf_location.setText	(memberList.get(0).getAddress());
 			tf_budg.setText		(memberList.get(0).getBudget()+"");
-		}		
+		}else{
+			JOptionPane.showMessageDialog(null,"등록된 사용자가 없습니다.");
+			dispose();
+		}
 	}
 
 	
@@ -295,7 +301,10 @@ public class SearchUI extends JFrame implements ActionListener {
 				lbl_number.setText((memberIndex+1)+"");
 				//System.out.println(memberIndex);
 				Member temp = memberList.get(memberIndex);
-				tf_no.setText(temp.getNo()+"");
+				
+				DecimalFormat df = new DecimalFormat("000");			
+				tf_no.setText( df.format(temp.getNo()) );
+								
 				tf_name.setText(temp.getName());
 				tf_gender.setText(temp.getGender());
 				tf_weight.setText(temp.getWeight()+"");

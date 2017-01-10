@@ -104,7 +104,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		//GraphicsDevice gd = ge.getDefaultScreenDevice();							   //풀 스크린
 		//gd.setFullScreenWindow(this);
 		
-		setUndecorated(true);        //상태줄 없애기
+		//setUndecorated(true);        //상태줄 없애기
 		setLocationRelativeTo(null); //중앙 위치토록 함수 호출
 		setVisible(true);
 	}
@@ -125,7 +125,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////그룹 등록
 		if(e.getSource() == btnSignupGroup ){
 			File fileName=null;
-			JFileChooser chooser = new JFileChooser(); 
+			JFileChooser chooser = new JFileChooser();
+			
 			FileNameExtensionFilter filter
 			   = new FileNameExtensionFilter("회원리스트 엑셀 파일(csv)", "csv"); //description,......확장자					
 			chooser.setFileFilter(filter);						//필터 셋팅
@@ -162,14 +163,13 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원찾기
 		if(e.getSource() == btnSearch ){
 	
-			(new SearchUI()).setVisible(true);
-			System.out.println("aa");
+			new SearchUI();
 		}
 		
 //////////식단 짜기
 		if(e.getSource() == btnMakePlan ){
-	
-	
+			System.out.println("menuUI");
+			new MenuUI();
 		}
 	}
 }

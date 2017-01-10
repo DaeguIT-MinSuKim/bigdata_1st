@@ -173,12 +173,19 @@ public class SignupUI extends JFrame {
 						tf_phone.getText(),tf_location.getText(),Integer.parseInt(tf_budg.getText())				
 						);
 				memberService = MemberService.getInstance();
-				memberService.insertMember(mem);	
+				int rs = memberService.insertMember(mem);	
+				//???
+				if(rs != 0)	JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
 				
+				tf_no.setText("");
+				tf_name.setText("");
+				tf_gender.setText("");
+				tf_weight.setText("");
+				tf_age.setText("");
+				tf_phone.setText("");
+				tf_location.setText("");
+				tf_budg.setText("");
 				
-				
-				
-				JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
 			}
 		});
 		btnNewButton.setBackground(Color.WHITE);
@@ -196,7 +203,7 @@ public class SignupUI extends JFrame {
 		addMouseMotionListener(mouseListener);
 		
 		
-		setUndecorated(true);        //상태줄 없애기
+		//setUndecorated(true);        //상태줄 없애기
 		setLocationRelativeTo(null); //중앙 위치토록 함수 호출
 		
 		setLocationRelativeTo(null); //중앙 위치토록 함수 호출
