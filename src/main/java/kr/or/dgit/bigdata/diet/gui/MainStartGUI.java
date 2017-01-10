@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -23,7 +24,9 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -70,30 +73,104 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		btnSignup = new JButton("회원등록");
-		btnSignup.setBackground(SystemColor.info);
+		//이미지 아이콘
+		ImageIcon originSignUp = new ImageIcon("pictogram/signup.png");
+		Image originSignUpImg = originSignUp.getImage();
+		Image changeSignUpImg = originSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSignUp = new ImageIcon(changeSignUpImg);
+		
+		ImageIcon originGroupSignUp = new ImageIcon("pictogram/group.png");
+		Image originGroupSignUpImg = originGroupSignUp.getImage();
+		Image changeGroupSignUpImg = originGroupSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeGroupSignUp = new ImageIcon(changeGroupSignUpImg);
+		
+		ImageIcon originSearch = new ImageIcon("pictogram/search.png");
+		Image originSearchImg = originSearch.getImage();
+		Image changeSearchImg = originSearchImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeSearch = new ImageIcon(changeSearchImg);
+		
+		ImageIcon originDiet = new ImageIcon("pictogram/diet.png");
+		Image originDietImg = originDiet.getImage();
+		Image changeDietImg = originDietImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		ImageIcon changeDiet = new ImageIcon(changeDietImg);
+		
+		btnSignup = new JButton("");
+		btnSignup.setFocusable(false);
+		btnSignup.setBorder(null);
+		btnSignup.setBackground(Color.WHITE);
 		btnSignup.addActionListener(this);
-		btnSignup.setBounds(530, 196, 135, 31);
+		btnSignup.setBounds(150, 180, 120, 120);
+		btnSignup.setBorderPainted(false);
+        btnSignup.setFocusPainted(false);
+        btnSignup.setContentAreaFilled(false);
+		btnSignup.setIcon(changeSignUp);
 		panel.add(btnSignup);
 		
-		btnSignupGroup = new JButton("단체회원등록");
+		btnSignupGroup = new JButton("");
 		btnSignupGroup.addActionListener(this);
-		btnSignupGroup.setBackground(new Color(255, 127, 80));
-		btnSignupGroup.setBounds(530, 229, 135, 31);
+		btnSignupGroup.setFocusable(false);
+		btnSignupGroup.setBorder(null);
+		btnSignupGroup.setBackground(Color.WHITE);
+		btnSignupGroup.setBounds(280, 180, 120, 120);
+		btnSignupGroup.setBorderPainted(false);
+        btnSignupGroup.setFocusPainted(false);
+        btnSignupGroup.setContentAreaFilled(false);
+		btnSignupGroup.setIcon(changeGroupSignUp);
 		panel.add(btnSignupGroup);
 		
-		btnSearch = new JButton("회원검색");
+		btnSearch = new JButton("");
 		btnSearch.addActionListener(this);
-		btnSearch.setBackground(new Color(100, 149, 237));
-		btnSearch.setBounds(530, 263, 135, 31);
+		btnSearch.setFocusable(false);
+		btnSearch.setBorder(null);
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setBounds(410, 180, 120, 120);
+		btnSearch.setBorderPainted(false);
+        btnSearch.setFocusPainted(false);
+        btnSearch.setContentAreaFilled(false);
+		btnSearch.setIcon(changeSearch);
 		panel.add(btnSearch);
 		
-		btnMakePlan = new JButton("식단생성");
+		btnMakePlan = new JButton("");
 		btnMakePlan.addActionListener(this);
-		btnMakePlan.setBackground(new Color(255, 215, 0));
-		btnMakePlan.setBounds(530, 297, 135, 31);
+		btnMakePlan.setFocusable(false);
+		btnMakePlan.setBorder(null);
+		btnMakePlan.setBackground(Color.WHITE);
+		btnMakePlan.setBounds(540, 180, 120, 120);
+		btnMakePlan.setBorderPainted(false);
+        btnMakePlan.setFocusPainted(false);
+        btnMakePlan.setContentAreaFilled(false);
+		btnMakePlan.setIcon(changeDiet);
 		panel.add(btnMakePlan);
+		
+		//라벨
+		
+		JLabel lblSignup = new JLabel("회원등록");
+		lblSignup.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSignup.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSignup.setBounds(150, 310, 120, 20);
+		panel.add(lblSignup);
+		
+		JLabel lblGroupSignup = new JLabel("단체회원등록");
+		lblGroupSignup.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGroupSignup.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblGroupSignup.setBounds(280, 310, 120, 20);
+		panel.add(lblGroupSignup);
+		
+		JLabel lblSearch = new JLabel("회원검색");
+		lblSearch.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSearch.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSearch.setBounds(410, 310, 120, 20);
+		panel.add(lblSearch);
+		
+		JLabel lblDiet = new JLabel("식단생성");
+		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblDiet.setBounds(535, 310, 120, 20);
+		panel.add(lblDiet);
+		
+		setResizable(false);
 		setSize(800, 600);
+		setVisible(true);
 		
 ///////////마우스 이벤트 처리 클래스
 		 MouseEventListener mouseListener = new MouseEventListener(this);
