@@ -14,14 +14,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -90,6 +89,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		panel.add(btnSearch);
 		
 		btnMakePlan = new JButton("식단생성");
+		btnMakePlan.addActionListener(this);
 		btnMakePlan.setBackground(new Color(255, 215, 0));
 		btnMakePlan.setBounds(530, 297, 135, 31);
 		panel.add(btnMakePlan);
@@ -169,7 +169,14 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////식단 짜기
 		if(e.getSource() == btnMakePlan ){
 			System.out.println("menuUI");
-			new MenuUI();
+			JFrame temp =  new JFrame();
+			JEditorPane edPane = new JEditorPane();
+			edPane.setEditable(false);
+			edPane.setContentType("text/html");
+			edPane.setText("<html><p style='font-size: 36pt;'>보미씨 바보</P></html>");			
+			temp.add(edPane);
+			temp.setSize(300, 300);
+			temp.setVisible(true);
 		}
 	}
 }
