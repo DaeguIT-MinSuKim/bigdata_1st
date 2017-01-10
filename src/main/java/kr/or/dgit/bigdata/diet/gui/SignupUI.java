@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -306,12 +307,17 @@ public class SignupUI extends JFrame {
 		btnNewButton.setBorder(null);
 		signPanel.add(btnNewButton);
 		
+		//라디오버튼 그룹화를 위한 버튼그룹 설정
+		ButtonGroup  group = new ButtonGroup(); 
 		rdbtnMale = new JRadioButton("남성");
-		rdbtnMale.setBounds(275, 258, 54, 23);
-		signPanel.add(rdbtnMale);
-		
 		rdbtnFemale = new JRadioButton("여성");
+		//같은 그룹끼리는 그룹중에 1개만 선택된다.
+		//그룹에 그룹화시킬 버튼들을 추가
+		group.add(rdbtnMale);  group.add(rdbtnFemale); 
+		rdbtnMale.setBounds(275, 258, 54, 23);
 		rdbtnFemale.setBounds(333, 258, 54, 23);
+		 //라디오 버튼 frame에 추가
+		signPanel.add(rdbtnMale);
 		signPanel.add(rdbtnFemale);
 		
 		cmbHabitat = new JComboBox();
