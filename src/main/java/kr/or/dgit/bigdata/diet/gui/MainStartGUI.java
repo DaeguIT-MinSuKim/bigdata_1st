@@ -80,7 +80,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		ImageIcon changeSignUp = new ImageIcon(changeSignUpImg);
 		ImageIcon originSignUp2 = new ImageIcon("pictogram/signup2.png");
 		Image originSignUpImg2 = originSignUp2.getImage();
-		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 		ImageIcon changeSignUp2 = new ImageIcon(changeSignUpImg2);
 		ImageIcon originSignUp3 = new ImageIcon("pictogram/signup3.png");
 		Image originSignUpImg3 = originSignUp3.getImage();
@@ -93,7 +93,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		ImageIcon changeGroupSignUp = new ImageIcon(changeGroupSignUpImg);
 		ImageIcon originGroupSignUp2 = new ImageIcon("pictogram/group2.png");
 		Image originGroupSignUpImg2 = originGroupSignUp2.getImage();
-		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 		ImageIcon changeGroupSignUp2 = new ImageIcon(changeGroupSignUpImg2);
 		ImageIcon originGroupSignUp3 = new ImageIcon("pictogram/group3.png");
 		Image originGroupSignUpImg3 = originGroupSignUp3.getImage();
@@ -106,7 +106,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		ImageIcon changeSearch = new ImageIcon(changeSearchImg);
 		ImageIcon originSearch2 = new ImageIcon("pictogram/search2.png");
 		Image originSearchImg2 = originSearch2.getImage();
-		Image changeSearchImg2 = originSearchImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSearchImg2 = originSearchImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 		ImageIcon changeSearch2 = new ImageIcon(changeSearchImg2);
 		ImageIcon originSearch3 = new ImageIcon("pictogram/search3.png");
 		Image originSearchImg3 = originSearch3.getImage();
@@ -119,7 +119,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		ImageIcon changeDiet = new ImageIcon(changeDietImg);		
 		ImageIcon originDiet2 = new ImageIcon("pictogram/diet2.png");
 		Image originDietImg2 = originDiet2.getImage();
-		Image changeDietImg2 = originDietImg2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeDietImg2 = originDietImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 		ImageIcon changeDiet2 = new ImageIcon(changeDietImg2);
 		ImageIcon originDiet3 = new ImageIcon("pictogram/diet3.png");
 		Image originDietImg3 = originDiet3.getImage();
