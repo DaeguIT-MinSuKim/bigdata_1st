@@ -19,15 +19,15 @@ public class MenuService {
 	public static MenuService getInstance() {
 		return instance;
 	}
-	public List<Menu> selectAllMenu() {
+	public Menu getMenu(int no) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("selectAllMenu() - start"); 
+			logger.debug("getMenu(int) - start"); 
 		}
 		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
 		try{
 			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
-			ArrayList<Menu> menuList = menuMapper.selectAllMenu();
-			return menuList;
+			Menu menu = menuMapper.getMenu(no);
+			return menu;
 		}finally{
 			sqlSession.close();
 		}

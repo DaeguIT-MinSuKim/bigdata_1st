@@ -3,9 +3,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.bigdata.diet.mappers.MenuMapper">
 	
-	<select id="selectAllMenu" resultType="menu">
-		select cal,carbo,con,cost,fat,grp,item,no,protein
-		from menu;
+	<select id="getMenu" resultType="menu" parameterType="int">
+		select cal, carbo, con, cost, fat, grp, item, no, protein
+		from menu where no = #{no};
 	</select>
 
 </mapper>

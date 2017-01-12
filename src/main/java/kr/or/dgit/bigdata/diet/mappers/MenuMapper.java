@@ -6,6 +6,6 @@ import kr.or.dgit.bigdata.diet.dto.Menu;
 
 public interface MenuMapper {
 
-	ArrayList<Menu> selectAllMenu();
+	Menu getMenu(int no);
 
 }

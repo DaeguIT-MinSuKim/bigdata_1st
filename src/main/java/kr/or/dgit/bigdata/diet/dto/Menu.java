@@ -68,7 +68,9 @@ public class Menu {
 				grp, item, cal, fat, carbo, protein, cost, con);
 	}
 	
-	
+	public String[] toArray(){
+		return new String[]{grp, item, cal+"", fat+"", carbo+"", protein+"", cost+""};
+	}
 	
 	
 	
