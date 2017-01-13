@@ -32,6 +32,7 @@ import kr.or.dgit.bigdata.diet.service.MemberService;
 import javax.swing.JRadioButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 
 public class SignupUI extends JDialog {
 
@@ -83,12 +84,6 @@ public class SignupUI extends JDialog {
 		lblSignUp.setBounds(210, 62, 262, 71);
 		signPanel.add(lblSignUp);
 
-		JLabel label = new JLabel("회원번호");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
-		label.setBounds(154, 175, 76, 21);
-		signPanel.add(label);
-
 		JLabel label_1 = new JLabel("이름");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
@@ -132,13 +127,16 @@ public class SignupUI extends JDialog {
 		signPanel.add(label_7);
 
 		tf_no = new JTextField();
-		tf_no.setEditable(false);
+		tf_no.setEditable(true);
 		tf_no.setEnabled(false);
+		tf_no.setBorder(null);
+					
 		tf_no.setBounds(263, 176, 135, 21);
 		signPanel.add(tf_no);
 		tf_no.setColumns(10);
 
 		tf_name = new JTextField();
+		tf_name.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_name.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -163,6 +161,7 @@ public class SignupUI extends JDialog {
 		signPanel.add(tf_name);
 
 		tf_weight = new JTextField();
+		tf_weight.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_weight.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -186,6 +185,7 @@ public class SignupUI extends JDialog {
 		signPanel.add(tf_weight);
 
 		tf_age = new JTextField();
+		tf_age.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_age.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -209,6 +209,7 @@ public class SignupUI extends JDialog {
 		signPanel.add(tf_age);
 
 		tf_phone = new JTextField();
+		tf_phone.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_phone.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -232,6 +233,7 @@ public class SignupUI extends JDialog {
 		signPanel.add(tf_phone);
 
 		tf_budg = new JTextField();
+		tf_budg.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_budg.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -374,6 +376,8 @@ public class SignupUI extends JDialog {
 		ButtonGroup  group = new ButtonGroup(); 
 		rdbtnMale = new JRadioButton("남성");
 		rdbtnFemale = new JRadioButton("여성");
+		rdbtnMale.setBackground(Color.white);
+		rdbtnFemale.setBackground(Color.white);
 		//같은 그룹끼리는 그룹중에 1개만 선택된다.
 		//그룹에 그룹화시킬 버튼들을 추가
 		group.add(rdbtnMale);  group.add(rdbtnFemale); 
@@ -388,6 +392,7 @@ public class SignupUI extends JDialog {
 			cmbHabitat.addItem(s);
 		}
 		cmbHabitat.setBounds(263, 421, 135, 21);
+		cmbHabitat.setBackground(Color.white);
 		signPanel.add(cmbHabitat);
 		setSize(500, 700);
 

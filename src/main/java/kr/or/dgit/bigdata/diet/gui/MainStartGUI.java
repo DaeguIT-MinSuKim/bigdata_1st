@@ -287,15 +287,9 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 //////////식단 짜기
 		if(e.getSource() == btnMakePlan ){
-			System.out.println("menuUI");
-			JFrame temp =  new JFrame();
-			JEditorPane edPane = new JEditorPane();
-			edPane.setEditable(false);
-			edPane.setContentType("text/html");
-			edPane.setText("<html><p style='font-size: 36pt;'>보미씨 바보</P></html>");			
-			temp.add(edPane);
-			temp.setSize(300, 300);
-			temp.setVisible(true);
+			
+			//DietGUI dgui = new DietGUI();
+			
 		}
 	}
 }
