@@ -2,26 +2,29 @@ package kr.or.dgit.bigdata.diet.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.EventQueue;
+import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JScrollBar;
+
+import kr.or.dgit.bigdata.diet.dto.Calorie;
+import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.CalorieService;
 
 public class MenuListGUI extends JFrame {
 
 	private Container contentPane;
-	private JTextField tfName;
+	private JTextField tfNo;
 	private JTextField tfAge;
 	private JTextField tfGender;
 	private JTextField tfCal;
@@ -42,15 +45,16 @@ public class MenuListGUI extends JFrame {
 	private String carb;
 	private String protein;
 	private String cost;
-
-	/**
+	private static Member member; //회원받아옴
+/*
+	*//**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuListGUI frame = new MenuListGUI();
+					MenuListGUI frame = new MenuListGUI(member);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,13 +62,13 @@ public class MenuListGUI extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
-	public MenuListGUI() {
+	public MenuListGUI(Member member) {
 		setTitle("식단생성");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1400, 800);
 		contentPane = getContentPane();
 		
@@ -132,17 +136,21 @@ public class MenuListGUI extends JFrame {
         pnlTop.setBounds(0, 104, 1384, 31);
         getContentPane().add(pnlTop);
         
-        JLabel lblName = new JLabel("회원번호");
-        pnlTop.add(lblName);
+        JLabel lblNo = new JLabel("회원번호");
+        pnlTop.add(lblNo);
         
-        tfName = new JTextField();
-        pnlTop.add(tfName);
-        tfName.setColumns(10);
+        tfNo = new JTextField();
+        tfNo.setText(member.getNo()+"");
+        tfNo.setEnabled(false);
+        pnlTop.add(tfNo);
+        tfNo.setColumns(10);
         
         JLabel lblAge = new JLabel("나이");
         pnlTop.add(lblAge);
         
-        tfAge = new JTextField();
+        tfAge = new JTextField(member.getAge());
+        tfAge.setText(member.getAge()+"");
+        tfAge.setEnabled(false);
         tfAge.setColumns(10);
         pnlTop.add(tfAge);
         
@@ -150,13 +158,20 @@ public class MenuListGUI extends JFrame {
         pnlTop.add(lblGender);
         
         tfGender = new JTextField();
+        tfGender.setText(member.getGender());
+        tfGender.setEnabled(false);
         tfGender.setColumns(10);
         pnlTop.add(tfGender);
         
         JLabel lblCal = new JLabel("1일 권장칼로리");
         pnlTop.add(lblCal);
         
+        //회원의 나이에 맞는 1일 권장 칼로리 가져오기
         tfCal = new JTextField();
+        
+        Calorie cal = CalorieService.getInstance().selectCalorieByAgeNo(member);
+        tfCal.setText(     member.getGender().equals("여") ? cal.getCal_woman()+"" : cal.getCal_man()+""     );
+        tfCal.setEnabled(false);
         tfCal.setColumns(10);
         pnlTop.add(tfCal);
         jEditorPane.setDocument(doc);

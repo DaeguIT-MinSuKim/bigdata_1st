@@ -11,11 +11,11 @@ public class Menu {
 	private int protein;
 	private int cost;
 	private String con;
+	private String mealTime;
 	
 	public Menu() {	}
 	
-	public Menu(int no, String grp, String item, int cal, int fat, int carbo, int protein, int cost, String con) {
-	
+	public Menu(int no, String grp, String item, int cal, int fat, int carbo, int protein, int cost, String con, String mealTime) {
 		this.no = no;
 		this.grp = grp;
 		this.item = item;
@@ -25,6 +25,7 @@ public class Menu {
 		this.protein = protein;
 		this.cost = cost;
 		this.con = con;
+		this.mealTime = mealTime;
 	}
 	public int getNo() {return no;	}
 	public String getGrp() 	{return grp;	}

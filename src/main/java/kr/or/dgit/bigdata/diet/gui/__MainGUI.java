@@ -116,6 +116,7 @@ public class __MainGUI extends JDialog implements ActionListener {
 		p_display.add(label_7);
 		
 		btnMenu = new JButton("다이어트식단");
+		btnMenu.addActionListener(this);
 		btnMenu.setBounds(27, 405, 124, 23);
 		p_display.add(btnMenu);
 		
@@ -264,7 +265,7 @@ public class __MainGUI extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {  
 
-		//회원 입력 버튼		
+		//회원 등록 버튼		
 		if(e.getSource() == btnOneReg ){
 			
 			tf_no.setEditable(true);
@@ -358,6 +359,14 @@ public class __MainGUI extends JDialog implements ActionListener {
 				tf_budg.setText(temp.getBudget()+"");
 				
 			}			
+		}
+		
+		//다이어트 식단 클릭
+		if (e.getSource() == btnMenu) {
+			Member member = memberService.selectMemberByNo(Integer.parseInt(tf_no.getText()));
+			
+			MenuListGUI ml = new MenuListGUI(memberService.selectMemberByNo(2));
+			ml.setVisible(true);
 		}
 		
 	}

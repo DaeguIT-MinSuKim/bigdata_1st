@@ -8,23 +8,46 @@ import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.service.MenuService;
 
 public class OneDayMenu {
-	int n;	         //메뉴개수
+	int n;	         //1일메뉴개수
 	int calSum;	     //1일칼로리합
 	int costSum;     //1일총예산합
 	int seafoodCnt;  //생선%해산물 횟수
 	int meatCnt;     //고기 횟수
 	int drinkCalSum; //음료칼로리합
+	int breakfast; //아침
+	int lunch; //점심
+	int dinner; //저녁
 	
 	ArrayList<Menu> menuList = new ArrayList<Menu>(); //메뉴 리스트
 	private ArrayList<Menu> tempmenuList;
 	
-	public OneDayMenu(int goodCal, int oneDayCost) { //(권장 칼로리, 1일예산, 시도횟수)
-		
-		
+	public OneDayMenu(int goodCal, int oneDayCost) { // (권장 칼로리, 1일예산, 시도횟수)
+
 		tempmenuList = MenuService.getInstance().getMenuAll();
-		while(true){
-			 if(makeOneDay(goodCal, oneDayCost)) break;
-			 //System.out.println("repeat");
+		while (true) {
+			if (makeOneDay(goodCal, oneDayCost)) {
+				getMealTime(n); //아침 점심 저녁 나누는 메소드
+				break;
+			}
+			// System.out.println("repeat");
+		}
+	}
+
+	private void getMealTime(int n2) {
+		breakfast = 0;
+		lunch = 0;
+		dinner = 0;
+		for (int i = 0; i < n2; i++) {
+			if (n2 % 3 == 0) { //아침카운트
+				breakfast++;
+			}else if(n2 % 3 == 1){ //점심카운트
+				lunch++;
+			}else{ //저녁 카운트
+				dinner++;
+			}
+		}
+		for (int i = 0; i < n2; i++) {
+			
 		}
 	}
 
@@ -46,15 +69,17 @@ public class OneDayMenu {
 		int newCost = (int)(    (  Math.random() * ( Math.min(oneDayCost+10000, 30000)-(oneDayCost-10000) )  )     +     (oneDayCost-10000)    );
 		
 		Random rnd = new Random();
-		
-		while (true) {			
-						
-			int x = rnd.nextInt(15)+1;  //1~15 <--- 1~24
-			
-			if (x == 1) { 					// 1 이면 고기
-				int y = rnd.nextInt(4)+1;   //1~4
-				x = y;
-			}else if(x==2 || x==3){ 		//2도는 3 이면 생선 & 해산물
+		boolean meatFlag = false;
+	      while (true) {         
+	         
+	         int x = rnd.nextInt(15)+1;  //1~15 <--- 1~24
+	         
+	         if (x == 1) {                // 1 이면 고기
+	        	 int y = rnd.nextInt(4)+1;   //1~4
+	        	 if(!meatFlag) meatFlag = true;
+	        	 else meatFlag = false;
+	        	 if(meatFlag) x = y+10;
+	         }else if(x==2 || x==3){ 		//2도는 3 이면 생선 & 해산물
 				int y = rnd.nextInt(4)+5;   //5~8  
 				x = y;
 			}else if(x==4){			//4,5이면 음료

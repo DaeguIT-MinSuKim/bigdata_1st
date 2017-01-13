@@ -51,53 +51,64 @@ public class FoodListGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JLabel lblListName = new JLabel("추천식단");
 		contentPane.add(lblListName, BorderLayout.NORTH);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
+
 		table = new JTable();
-		
+
 		table.setModel(reload());
-		
+
 		scrollPane.setViewportView(table);
 	}
-	
-	private DefaultTableModel reload(){
-		DefaultTableModel model = new DefaultTableModel(getRows(), getCols());
+
+	private DefaultTableModel reload() {
+		DefaultTableModel model = new DefaultTableModel(getRows(),
+				new String[] { "번호", "일자", "식사", "항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용" });
 		return model;
 	}
 
 	private String[][] getRows() {
-		MonthMenu monthMenu = new MonthMenu(2100, 950000);
+		MonthMenu monthMenu = new MonthMenu(2100, 950000); /// new
+															/// MonthMenu(2000,
+															/// 760000);
 		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
-		
 
 		String[][] rowDatas = new String[monthMenu.count][];
-		//ArrayList<String[]> temp = new ArrayList<>();
-		//rowDatas[i] = temp.get(i).toArray();
-		
+		// ArrayList<String[]> temp = new ArrayList<>();
+		// rowDatas[i] = temp.get(i).toArray();
+
 		System.out.println("한달리스트 사이즈 : " + list.size());
-		int ttt=-1;
-		for (int i = 0; i < list.size(); i++) {
-			
+		int ttt = -1;
+		for (int i = 0; i < list.size(); i++) { // 30일분..
+
+			// 하루치 가져오기
 			ArrayList<Menu> templistoneday = list.get(i).menuList;
 
-			for(int j=0;j<templistoneday.size();j++){
+			for (int j = 0; j < templistoneday.size(); j++) {
 				ttt++;
-				//rowD.add(templistoneday.get(j).toArray());
-				rowDatas[ttt] = templistoneday.get(j).toArray();
+
+				// "번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질",
+				// "비용"
+				rowDatas[ttt] = new String[] { 
+						(ttt + 1) + "",
+						(i + 1) + "",
+						"",
+						templistoneday.get(j).getGrp() + "",
+						templistoneday.get(j).getItem() + "",
+						templistoneday.get(j).getCal() + "",
+						templistoneday.get(j).getFat() + "",
+						templistoneday.get(j).getCarbo() + "", 
+						templistoneday.get(j).getProtein() + "",
+						templistoneday.get(j).getCost() + "" };
+
 			}
 		}
 		System.out.println(ttt);
-		return rowDatas;	
-		
-	}
-	
+		return rowDatas;
 
-	private String[] getCols() {
-		return new String[]{"항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용", "일자"};
 	}
 }

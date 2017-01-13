@@ -2,11 +2,23 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.bigdata.diet.mappers.CalorieMapper">
-
+	 
 	<select id="selectCalorieByAge" parameterType="int" resultType="Calorie">
 		select minage,maxage,cal_man,h_man,w_man,cal_woman,h_woman,w_woman
 		from calorie where ((minage &lt;= #{age}) and( maxage &gt;= #{age}));
 	</select>
+	
+	 
+	<select id="selectCalorieByAgeNo" parameterType="Member" resultType="Calorie">
+		select m.no, m.name, m.age, m.gender, minage, maxage, case 
+												when m.gender = '여' then cal_woman 
+												when m.gender = '남' then cal_man
+												end cal
+		from calorie inner join member m on m.no = #{no}
+		where #{age} &gt;= minage and #{age} &lt;= maxage;
+	</select>
+
+
 
 
 </mapper>
