@@ -8,4 +8,6 @@ public interface MenuMapper {
 
 	Menu getMenu(int no);
 
+	ArrayList<Menu> getMenuAll();
+
 }

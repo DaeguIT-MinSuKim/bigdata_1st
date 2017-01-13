@@ -32,4 +32,17 @@ public class MenuService {
 			sqlSession.close();
 		}
 	}
+	public ArrayList<Menu> getMenuAll() {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getMenuAll() - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+			ArrayList<Menu> menu = menuMapper.getMenuAll();
+			return menu;
+		}finally{
+			sqlSession.close();
+		}		
+	}
 }

@@ -41,7 +41,7 @@ public class MonthMenu {
 				count -= dayMenutemp.n;
 				//continue;
 			}else{
-				System.out.println("==============성공===================");
+				System.out.println("======" + (dayCount+1) + "====성공===================");
 				System.out.println("메뉴 개수 : "+ monthMenuList.get(dayCount).n);
 				System.out.println("1일 칼로리 합 : " + monthMenuList.get(dayCount).calSum);
 				System.out.println("1일 총예산 합 : " + monthMenuList.get(dayCount).costSum);

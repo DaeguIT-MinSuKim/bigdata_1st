@@ -18,8 +18,11 @@ public class OneDayMenu {
 	ArrayList<Menu> menuList = new ArrayList<Menu>(); //메뉴 리스트
 	
 	public OneDayMenu(int goodCal, int oneDayCost) { //(권장 칼로리, 1일예산, 시도횟수)
+		
+		//menuList = MenuService.getInstance().getMenuAll();
 		while(true){
 			 if(makeOneDay(goodCal, oneDayCost)) break;
+			 //System.out.println("repeat");
 		}
 	}
 
@@ -37,30 +40,40 @@ public class OneDayMenu {
 		menuList.clear();
 		
 		//신규예산 <= 조건( 1일예산-만원 < 랜덤예산 < min(1일예산+만원,3만원) )
-		int newCost = (int)( (Math.random() * (Math.min(oneDayCost+10000, 30000))) + (oneDayCost-10000));
+		//int newCost = (int)( (Math.random() * (Math.min(oneDayCost+10000, 30000))) + (oneDayCost-10000));
+		int newCost = (int)(    (  Math.random() * ( Math.min(oneDayCost+10000, 30000)-(oneDayCost-10000) )  )     +     (oneDayCost-10000)    );
+		
 		Random rnd = new Random();
 		
 		while (true) {			
 			
-			int x = rnd.nextInt(19)+1;
+			int x = rnd.nextInt(15)+1;  //1~15
 			
-			if (x == 1) { //고기
-				int y = rnd.nextInt(4)+1;
+			if (x == 1) { 					// 1 이면 고기
+				int y = rnd.nextInt(4)+1;   //1~4
 				x = y;
-			}else if(x > 1 && x < 4){ //생선 & 해산물
-				int y = rnd.nextInt(8)+5;
+			}else if(x==2 || x==3){ 		//2도는 3 이면 생선 & 해산물
+				int y = rnd.nextInt(4)+5;   //5~8  
+				x = y;
+			}else if(x==4){			//4,5이면 음료
+				int y = rnd.nextInt(4)+9;   //9~12
+				x = y;
+			}else if(x==5 || x==6){         //빵씨리얼
+				int y = rnd.nextInt(4)+21;   //16이면 21~24
 				x = y;
 			}else{ //나머지
 				x = x + 5; 
 			}
 		
+			//System.out.println(x);
+			 
 			Menu newMenu = MenuService.getInstance().getMenu(x); //신menu = 랜덤menu
 			
 			allCostSum += newMenu.getCost();//합산예산 += 신menu.예산
 			allCalSum += newMenu.getCal();//합산칼로리 += 신menu.칼로리
 			
-			//합산예산 < 신규예산 and 합산칼로리 < 권장칼로리 - 100
-			if (allCostSum < newCost && allCalSum < (goodCal - 100)) {
+			//합산예산 < 신규예산 and 합산칼로리 < 권장칼로리 + 100
+			if (allCostSum < newCost && allCalSum < (goodCal + 100)) {
 				menuList.add(newMenu); //메뉴 확정으로 저장
 				calSum = allCalSum;    //메뉴 확정으로 아래 계산
 				costSum = allCostSum;
@@ -69,6 +82,7 @@ public class OneDayMenu {
 				drinkCalSum += newMenu.getGrp().equals("음료") ? newMenu.getCal() : 0;
 				n++;
 			}else{
+				System.out.println(allCostSum + "  "  +   newCost + "  "  + allCalSum + "  "  + (goodCal + 100));
 		/*		System.out.println("===================================");
 				System.out.println(newCost);
 				System.out.println("메뉴 개수 : "+ n);
@@ -81,10 +95,15 @@ public class OneDayMenu {
 			}
 		}
 		
+		/***  본 문제는 예산을 지나치게 많이 책정되어서 최저예산(1일예산-1만원)보다 적은 금액으로도 쉽게 권장칼로리를 넘게 설계되어 있음  **/ 
+		
+		
 		//만약 1일 음료칼로리합이 500cal 넘거나 1일예산-만원 보다 적을 경우 다시 생성
 		if ((drinkCalSum > 500) || ((oneDayCost-10000) > costSum)) {
+			//System.out.println("음료칼로리합산 : " + drinkCalSum);
+			//System.out.println("섭취칼로리 : " + calSum);
+			//System.out.println("--> 메뉴합산예산 : " + costSum + "    1일예산-만원 : " + (oneDayCost-10000) +"<  신규예산 : " + newCost +  " <  1일예산최대  :"+Math.min(oneDayCost+10000, 30000));
 			return false;
-			//makeOneDay(goodCal, oneDayCost); //메소드 재호출
 		}else return true;
 	}
 }
