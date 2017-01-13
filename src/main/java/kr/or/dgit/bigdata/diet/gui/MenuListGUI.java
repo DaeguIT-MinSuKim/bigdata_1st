@@ -30,6 +30,18 @@ public class MenuListGUI extends JFrame {
 	private JButton btnCVS;
 	private JButton btnReturn;
 	private JTextField tfName_1;
+	
+	
+	//
+	private String day;
+	private String time;
+	private String sort;
+	private String menu;
+	private String cal;
+	private String fat;
+	private String carb;
+	private String protein;
+	private String cost;
 
 	/**
 	 * Launch the application.
@@ -74,11 +86,11 @@ public class MenuListGUI extends JFrame {
         // css 적용
         StyleSheet styleSheet = kit.getStyleSheet();
         styleSheet.addRule("body {color:#000; font-family:나눔바른고딕 Light; margin: 4px; height: 400px;}");
-        styleSheet.addRule("table {font-size: 12px; border: 1px solid black; border-collapse: collapse;"
-        				+ "width: 900px; text-align: center;}");
+        styleSheet.addRule("table {font-size: 12px; border: 0px; border-collapse: collapse;"
+        				+ "width: 900px; text-align: center; border-spacing:0px;}");
         
-        styleSheet.addRule("tr {border: 1px solid black;}");
-        styleSheet.addRule("td {border: 1px solid black;}");
+        styleSheet.addRule("tr {border: 1px solid black; border-spacing:0px;}");
+        styleSheet.addRule("td {border: 1px solid black; border-spacing:0px;}");
         
         // html 문장 만들긔
         String htmlString = "<html>\n"
@@ -98,15 +110,15 @@ public class MenuListGUI extends JFrame {
                           + "</tr>\n"
                           
 						  + "<tr>\n"
-						  + "<td>ex)1</td>\n"
-						  + "<td>아침</td>\n"
-						  + "<td>고기</td>\n"
-						  + "<td>돼지갈비</td>\n"
-						  + "<td>395</td>\n"
-						  + "<td>30.17</td>\n"
-						  + "<td>0</td>\n"
-						  + "<td>28.94</td>\n"
-						  + "<td>1,500</td>\n"
+						  + "<td>ex)" + day + "+</td>\n"
+						  + "<td>" + time + "</td>\n"
+						  + "<td>" + sort + "</td>\n"
+						  + "<td>" + menu + "</td>\n"
+						  + "<td>" + cal + "</td>\n"
+						  + "<td>" + fat + "</td>\n"
+						  + "<td>" + carb + "</td>\n"
+						  + "<td>" + protein + "</td>\n"
+						  + "<td>" + cost + "</td>\n"
 						  + "</tr>\n"
                           
 						  + "</table>\n"
