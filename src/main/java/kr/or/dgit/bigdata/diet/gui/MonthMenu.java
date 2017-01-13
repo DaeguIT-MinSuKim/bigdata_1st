@@ -42,12 +42,12 @@ public class MonthMenu {
 				//continue;
 			}else{
 				System.out.println("======" + (dayCount+1) + "====성공===================");
-				System.out.println("메뉴 개수 : "+ monthMenuList.get(dayCount).n);
+				/*System.out.println("메뉴 개수 : "+ monthMenuList.get(dayCount).n);
 				System.out.println("1일 칼로리 합 : " + monthMenuList.get(dayCount).calSum);
 				System.out.println("1일 총예산 합 : " + monthMenuList.get(dayCount).costSum);
 				System.out.println("생선&해산물 개수 : " + monthMenuList.get(dayCount).seafoodCnt);
 				System.out.println("고기 횟수 : " + monthMenuList.get(dayCount).meatCnt);
-				System.out.println("음료 칼로리 합 : " + monthMenuList.get(dayCount).drinkCalSum);
+				System.out.println("음료 칼로리 합 : " + monthMenuList.get(dayCount).drinkCalSum);*/
 			}
 			
 		}
@@ -61,6 +61,7 @@ public class MonthMenu {
 		
 		if (dc != 0) {
 			if (getMonthMenuList.get(dc).meatCnt > 0 && getMonthMenuList.get(dc-1).meatCnt > 0) {
+				System.out.println("=== 실격 : 고기가 연속이라 탈락");
 				return false;
 			}
 		}
@@ -77,7 +78,7 @@ public class MonthMenu {
 		//고기 횟수가 3이 되면
 		if (gogiCnt > 2) {
 			//System.out.println("고기카운트  " + gogiCnt);
-			//System.out.println("=======고기(카운트) 삭제================");
+			System.out.println("=== 실격 : 1주일에 고기가 많아서 탈락");
 			return false;
 			
 		}else return true;
@@ -101,7 +102,7 @@ public class MonthMenu {
 		
 		//생선을 먹은 횟수가 1~5가 아니면 false
 		if(seafoodCnt < 1 || seafoodCnt > 5) {
-			//System.out.println("=======생선(카운트) 삭제================:"+seafoodCnt);
+			System.out.println("=== 실격 : 3일에 해산물이 5회 이상이라 탈락");
 			return false;
 			
 		}else return true;

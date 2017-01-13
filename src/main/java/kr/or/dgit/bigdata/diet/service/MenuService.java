@@ -27,6 +27,7 @@ public class MenuService {
 		try{
 			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
 			Menu menu = menuMapper.getMenu(no);
+			System.out.println(menu+"service 확인");
 			return menu;
 		}finally{
 			sqlSession.close();

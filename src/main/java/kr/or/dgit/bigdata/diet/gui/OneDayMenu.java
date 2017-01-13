@@ -16,10 +16,12 @@ public class OneDayMenu {
 	int drinkCalSum; //음료칼로리합
 	
 	ArrayList<Menu> menuList = new ArrayList<Menu>(); //메뉴 리스트
+	private ArrayList<Menu> tempmenuList;
 	
 	public OneDayMenu(int goodCal, int oneDayCost) { //(권장 칼로리, 1일예산, 시도횟수)
 		
-		//menuList = MenuService.getInstance().getMenuAll();
+		
+		tempmenuList = MenuService.getInstance().getMenuAll();
 		while(true){
 			 if(makeOneDay(goodCal, oneDayCost)) break;
 			 //System.out.println("repeat");
@@ -46,8 +48,8 @@ public class OneDayMenu {
 		Random rnd = new Random();
 		
 		while (true) {			
-			
-			int x = rnd.nextInt(15)+1;  //1~15
+						
+			int x = rnd.nextInt(15)+1;  //1~15 <--- 1~24
 			
 			if (x == 1) { 					// 1 이면 고기
 				int y = rnd.nextInt(4)+1;   //1~4
@@ -58,19 +60,20 @@ public class OneDayMenu {
 			}else if(x==4){			//4,5이면 음료
 				int y = rnd.nextInt(4)+9;   //9~12
 				x = y;
-			}else if(x==5 || x==6){         //빵씨리얼
+			}else if(x==5 || x==6){         //5, 6 이면 빵씨리얼
 				int y = rnd.nextInt(4)+21;   //16이면 21~24
 				x = y;
-			}else{ //나머지
+			}else{ //나머지  채소
 				x = x + 5; 
 			}
 		
-			//System.out.println(x);
-			 
-			Menu newMenu = MenuService.getInstance().getMenu(x); //신menu = 랜덤menu
-			
+					 
+			//Menu newMenu = MenuService.getInstance().getMenu(x); //신menu = 랜덤menu
+			Menu newMenu = tempmenuList.get(x-1);
 			allCostSum += newMenu.getCost();//합산예산 += 신menu.예산
 			allCalSum += newMenu.getCal();//합산칼로리 += 신menu.칼로리
+			
+			//System.out.println(newMenu);
 			
 			//합산예산 < 신규예산 and 합산칼로리 < 권장칼로리 + 100
 			if (allCostSum < newCost && allCalSum < (goodCal + 100)) {
@@ -82,7 +85,7 @@ public class OneDayMenu {
 				drinkCalSum += newMenu.getGrp().equals("음료") ? newMenu.getCal() : 0;
 				n++;
 			}else{
-				System.out.println(allCostSum + "  "  +   newCost + "  "  + allCalSum + "  "  + (goodCal + 100));
+				//System.out.println(allCostSum + "  "  +   newCost + "  "  + allCalSum + "  "  + (goodCal + 100));
 		/*		System.out.println("===================================");
 				System.out.println(newCost);
 				System.out.println("메뉴 개수 : "+ n);
@@ -100,6 +103,8 @@ public class OneDayMenu {
 		
 		//만약 1일 음료칼로리합이 500cal 넘거나 1일예산-만원 보다 적을 경우 다시 생성
 		if ((drinkCalSum > 500) || ((oneDayCost-10000) > costSum)) {
+			if(((oneDayCost-10000) > costSum)) System.out.println("=== 실격 : 최소예산 미달로 탈락");
+			if((drinkCalSum > 500)) System.out.println("=== 실격 : 1일 음료수 칼로리 초과로 탈락");
 			//System.out.println("음료칼로리합산 : " + drinkCalSum);
 			//System.out.println("섭취칼로리 : " + calSum);
 			//System.out.println("--> 메뉴합산예산 : " + costSum + "    1일예산-만원 : " + (oneDayCost-10000) +"<  신규예산 : " + newCost +  " <  1일예산최대  :"+Math.min(oneDayCost+10000, 30000));
