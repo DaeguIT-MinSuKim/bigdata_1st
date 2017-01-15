@@ -365,7 +365,7 @@ public class __MainGUI extends JDialog implements ActionListener {
 		if (e.getSource() == btnMenu) {
 			Member member = memberService.selectMemberByNo(Integer.parseInt(tf_no.getText()));
 			
-			MenuListGUI ml = new MenuListGUI(memberService.selectMemberByNo(2));
+			MenuListGUI ml = new MenuListGUI(member);
 			ml.setVisible(true);
 		}
 		

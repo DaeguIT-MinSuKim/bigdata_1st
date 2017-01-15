@@ -63,6 +63,16 @@ public class Menu {
 	public void setCon(String con) {
 		this.con = con;
 	}
+	
+	
+	public String getMealTime() {
+		return mealTime;
+	}
+
+	public void setMealTime(String mealTime) {
+		this.mealTime = mealTime;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("Menu [no=%s, grp=%s, item=%s, cal=%s, fat=%s, carbo=%s, protein=%s, cost=%s, con=%s]", no,

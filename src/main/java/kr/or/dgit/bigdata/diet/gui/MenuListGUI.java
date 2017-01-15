@@ -20,6 +20,7 @@ import javax.swing.text.html.StyleSheet;
 import kr.or.dgit.bigdata.diet.dto.Calorie;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.CalorieService;
+import kr.or.dgit.bigdata.diet.service.MemberService;
 
 public class MenuListGUI extends JFrame {
 
@@ -132,6 +133,9 @@ public class MenuListGUI extends JFrame {
         Document doc = kit.createDefaultDocument();
         getContentPane().setLayout(null);
         
+        jEditorPane.setDocument(doc);
+        jEditorPane.setText(htmlString);
+        
         JPanel pnlTop = new JPanel();
         pnlTop.setBounds(0, 104, 1384, 31);
         getContentPane().add(pnlTop);
@@ -168,14 +172,14 @@ public class MenuListGUI extends JFrame {
         
         //회원의 나이에 맞는 1일 권장 칼로리 가져오기
         tfCal = new JTextField();
-        
         Calorie cal = CalorieService.getInstance().selectCalorieByAgeNo(member);
-        tfCal.setText(     member.getGender().equals("여") ? cal.getCal_woman()+"" : cal.getCal_man()+""     );
+        tfCal.setText(member.getGender().equals("여자") ? cal.getCalWoman()+"" : cal.getCalMan()+"");
         tfCal.setEnabled(false);
         tfCal.setColumns(10);
         pnlTop.add(tfCal);
-        jEditorPane.setDocument(doc);
-        jEditorPane.setText(htmlString);
+        
+        
+        
         
         //패널에 달긔
         JPanel pnlMiddle = new JPanel();
@@ -215,7 +219,7 @@ public class MenuListGUI extends JFrame {
         tfName_1 = new JTextField();
         tfName_1.setFont(new Font("나눔바른고딕", Font.PLAIN, 20));
         tfName_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        tfName_1.setText("ex)하악");
+        tfName_1.setText(member.getName());
         tfName_1.setBounds(505, 172, 100, 30);
         getContentPane().add(tfName_1);
         tfName_1.setColumns(10);

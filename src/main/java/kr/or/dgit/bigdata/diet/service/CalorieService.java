@@ -18,7 +18,7 @@ public class CalorieService {
 	public static CalorieService getInstance() {
 		return instance;
 	}
-	/*
+	
 	public Calorie selectCalorieByAge(int age){
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectCalorieByAge(age) - start"); 
@@ -32,7 +32,7 @@ public class CalorieService {
 			sqlSession.close();
 		}
 	}
-	*/
+	
 	public Calorie selectCalorieByAgeNo(Member member){
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectCalorieByAgeNo(Member) - start");
