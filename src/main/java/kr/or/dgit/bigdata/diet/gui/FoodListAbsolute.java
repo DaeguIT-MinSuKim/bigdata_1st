@@ -40,8 +40,9 @@ import java.awt.Component;
 public class FoodListAbsolute extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JTable table;
-	private JButton[] btnDays = new JButton[30];
 	private JButton btnMakeFoodList;
+	private JButton btnMonth;
+	private JButton[] btnDays = new JButton[30];
 	private JTextField tfName;
 	private JTextField tfOneDayCal;
 	private JTextField tfOneDayCost;
@@ -53,8 +54,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 	private JButton btnSaveCsv;
 	private MonthMenu monthMenu;
 	private FoodListGUI foodListGui;
-	private JButton btnMonth;
-
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,15 +78,15 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		contentPane.setForeground(Color.BLACK);
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 		
 		JPanel panelTop = new JPanel();
 		panelTop.setBounds(5, 5, 474, 146);
 		panelTop.setBorder(null);
 		panelTop.setBackground(Color.WHITE);
-		contentPane.add(panelTop);
 		panelTop.setLayout(null);
+		contentPane.add(panelTop);
 		
 		JLabel lblNo = new JLabel("회원번호");
 		lblNo.setFont(new Font("굴림", Font.PLAIN, 11));
