@@ -8,18 +8,13 @@ import javax.swing.JPanel;
 
 
 public class PanelBgImage extends JPanel {
-	
-	public PanelBgImage() {
-		
-	}
+	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
+	Image bgImg = bgImgTemp.getImage();
 	
 	@Override
-	protected void paintComponent(Graphics g){
-		ImageIcon tempImg = new ImageIcon("images/bg_membercheck.png");
-		Image bgImg = tempImg.getImage();
-		
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(bgImg, getWidth(), getHeight(), this);
+		g.drawImage(bgImg, 0, 0, 300, 500, this);
+		
 	}
-
 }

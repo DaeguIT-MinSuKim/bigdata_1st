@@ -288,7 +288,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원찾기
 		if(e.getSource() == btnSearch ){
 	
-			new SearchUI().setVisible(true);;
+			new MemberCheckGUI().setVisible(true);
 		}
 		
 //////////식단 짜기
