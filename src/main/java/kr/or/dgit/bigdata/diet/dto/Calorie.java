@@ -4,12 +4,12 @@ public class Calorie {
 
 	private int minage;
 	private int maxage;
-	private int cal_man;
-	private int h_man;
-	private float w_man;
-	private int cal_woman;
-	private int h_woman;
-	private float w_woman;
+	private int calMan;
+	private int hMan;
+	private float wMan;
+	private int calWoman;
+	private int hWoman;
+	private float wWoman;
 		
 	public Calorie() {}
 	
@@ -18,45 +18,45 @@ public class Calorie {
 	
 		this.minage = minage;
 		this.maxage = maxage;
-		this.cal_man = cal_man;
-		this.h_man = h_man;
-		this.w_man = w_man;
-		this.cal_woman = cal_woman;
-		this.h_woman = h_woman;
-		this.w_woman = w_woman;
+		this.calMan = cal_man;
+		this.hMan = h_man;
+		this.wMan = w_man;
+		this.calWoman = cal_woman;
+		this.hWoman = h_woman;
+		this.wWoman = w_woman;
 	}
 	public int getMinage() 		{return minage;	}
 	public int getMaxage() 		{return maxage;	}
-	public int getCal_man()		{return cal_man;	}
-	public int getH_man()  		{return h_man;	}
-	public float getW_man()  		{return w_man;	}
-	public int getCal_woman() 	{return cal_woman;	}
-	public int getH_woman()   	{return h_woman;	}
-	public float getW_woman()   	{return w_woman;	}
+	public int getCal_man()		{return calMan;	}
+	public int getH_man()  		{return hMan;	}
+	public float getW_man()  		{return wMan;	}
+	public int getCal_woman() 	{return calWoman;	}
+	public int getH_woman()   	{return hWoman;	}
+	public float getW_woman()   	{return wWoman;	}
 	public void setMinage(int minage) 	{this.minage = minage;	}
 	public void setMaxage(int maxage) 	{this.maxage = maxage;	}
-	public void setCal_man(int cal_man) {this.cal_man = cal_man;	}
-	public void setH_man(int h_man) 	{this.h_man = h_man;}
-	public void setW_man(int w_man) 	{this.w_man = w_man;	}
-	public void setCal_woman(int cal_woman) {this.cal_woman = cal_woman;	}
-	public void setH_woman(int h_woman) {this.h_woman = h_woman;	}
-	public void setW_woman(int w_woman) {this.w_woman = w_woman;}
+	public void setCal_man(int cal_man) {this.calMan = cal_man;	}
+	public void setH_man(int h_man) 	{this.hMan = h_man;}
+	public void setW_man(int w_man) 	{this.wMan = w_man;	}
+	public void setCal_woman(int cal_woman) {this.calWoman = cal_woman;	}
+	public void setH_woman(int h_woman) {this.hWoman = h_woman;	}
+	public void setW_woman(int w_woman) {this.wWoman = w_woman;}
 	
 	
 	
 	
 	public void setW_man(float w_man) {
-		this.w_man = w_man;
+		this.wMan = w_man;
 	}
 	public void setW_woman(float w_woman) {
-		this.w_woman = w_woman;
+		this.wWoman = w_woman;
 	}
 	
 	@Override
 	public String toString() {
 		return String.format(
 				"Calorie [minage=%s, maxage=%s, cal_man=%s, h_man=%s, w_man=%s, cal_woman=%s, h_woman=%s, w_woman=%s]",
-				minage, maxage, cal_man, h_man, w_man, cal_woman, h_woman, w_woman);
+				minage, maxage, calMan, hMan, wMan, calWoman, hWoman, wWoman);
 	}
 	
 	

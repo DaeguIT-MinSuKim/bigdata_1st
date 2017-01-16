@@ -67,6 +67,12 @@ public class Menu {
 		return String.format("Menu [no=%s, grp=%s, item=%s, cal=%s, fat=%s, carbo=%s, protein=%s, cost=%s, con=%s]", no,
 				grp, item, cal, fat, carbo, protein, cost, con);
 	}
+
+	public String[] toArray() {
+		
+		
+		return new String[]{ no+"",grp, item, cal+"", fat+"", carbo+"", protein+"", cost+"", con};
+	}
 	
 	
 	

@@ -26,11 +26,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.dto.Menu;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
+import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
@@ -287,7 +293,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 //////////식단 짜기
 		if(e.getSource() == btnMakePlan ){
-			System.out.println("menuUI");
+			
+			/*System.out.println("menuUI");
 			JFrame temp =  new JFrame();
 			JEditorPane edPane = new JEditorPane();
 			edPane.setEditable(false);
@@ -295,13 +302,93 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			edPane.setText("<html><p style='font-size: 36pt;'>보미씨 바보</P></html>");			
 			temp.add(edPane);
 			temp.setSize(300, 300);
+			temp.setVisible(true);*/
+			
+			JFrame temp =  new JFrame();			
+			JTable table = new JTable();
+			DefaultTableModel model = new DefaultTableModel(getRows(), 
+					new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
+			table.setModel(model);
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setViewportView(table);
+			temp.add(scrollPane);
+			temp.setSize(800,500);;
 			temp.setVisible(true);
+			
+			
+			
 		}
 	}
+
+	private String[][] getRows() {
+		MonthMenu monthMenu = new MonthMenu(2100, 950000);    ///new MonthMenu(2000, 760000);
+		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
+		
+		String[][] rowDatas = new String[monthMenu.count][];
+		//ArrayList<String[]> temp = new ArrayList<>();
+		//rowDatas[i] = temp.get(i).toArray();
+		
+		System.out.println("한달리스트 사이즈 : " + list.size());
+		int ttt=-1;
+		for (int i = 0; i < list.size(); i++) {     //30일분..
+			
+			//하루치 가져오기
+			ArrayList<Menu> templistoneday = list.get(i).menuList;
+
+			for(int j=0;j<templistoneday.size();j++){
+				ttt++;
+				
+				   //"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
+				rowDatas[ttt] = new String[]{
+						(ttt+1)+"",
+						(i+1)+"",
+						"",
+						templistoneday.get(j).getGrp()+ "",
+						templistoneday.get(j).getItem()+ "",
+						templistoneday.get(j).getCal()+ "",
+						templistoneday.get(j).getFat()+ "",
+						templistoneday.get(j).getCarbo() +"",
+						templistoneday.get(j).getProtein() +"",
+						templistoneday.get(j).getCost() +""};
+				//
+				//rowDatas[ttt] = templistoneday.get(j).toArray();
+					
+			}
+		}
+		System.out.println(ttt);
+		return rowDatas;
+
+	}
+
+
+	
+//////table 생성 ///////////////
+	
+	
+	
+	
+	
 }
 
 
-//////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////그림 패널//////////////
 class bgPanel extends JPanel{
 	ImageIcon bgIcon = new ImageIcon("images/healthy_food (7).jpg");
 	Image bgImg = bgIcon.getImage();
