@@ -216,7 +216,7 @@ public class SearchUI extends JDialog implements ActionListener {
 		label_9.setBounds(227, 371, 16, 15);
 		p_display.add(label_9);
 		
-		setVisible(true);
+		//setVisible(true);
 		
 	// JFRAME 생성시에 member의 전체 racord 갯수를 가져와 화면에 출력
 		memberService = MemberService.getInstance();
