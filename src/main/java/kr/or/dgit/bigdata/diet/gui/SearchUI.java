@@ -51,7 +51,7 @@ public class SearchUI extends JDialog implements ActionListener {
 			public void run() {
 				try {
 					SearchUI frame = new SearchUI();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
