@@ -79,10 +79,6 @@ public class MemberCheckGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		PanelBgImage panel = new PanelBgImage();
-		panel.setBounds(0, 0, 300, 500);
-		contentPane.add(panel);
-		
 		lbl_no = new JLabel("No.");
 		lbl_no.setFont(new Font("굴림", Font.PLAIN, 12));
 		lbl_no.setBounds(31, 196, 20, 15);
