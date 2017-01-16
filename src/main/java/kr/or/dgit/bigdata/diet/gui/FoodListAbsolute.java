@@ -1,44 +1,25 @@
 package kr.or.dgit.bigdata.diet.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.text.Document;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
-
-import org.w3c.dom.css.RGBColor;
-
-import javafx.scene.layout.BorderWidths;
-import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
-import java.awt.Window.Type;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 
+@SuppressWarnings("serial")
 public class FoodListAbsolute extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JTable table;
