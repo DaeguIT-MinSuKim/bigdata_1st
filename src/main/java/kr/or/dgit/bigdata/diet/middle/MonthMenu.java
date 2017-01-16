@@ -1,4 +1,4 @@
-package kr.or.dgit.bigdata.diet.gui;
+package kr.or.dgit.bigdata.diet.middle;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,14 @@ public class MonthMenu {
 	int dayCost; //1일 예산
 	int monthCost; //30일 예산	
 	int dayCount; //마지막 넣은 하루 메뉴의 index(0~29)
-	int count = 0;
+	public int count = 0;
 	
-	ArrayList<OneDayMenu> monthMenuList = new ArrayList<>();
+	public ArrayList<OneDayMenu> monthMenuList = new ArrayList<>();
 
+	
+	
+	
+	
 	public MonthMenu(int dayCal, int monthCost) {
 		this.dayCal = dayCal;
 		this.monthCost = monthCost;
@@ -22,13 +26,14 @@ public class MonthMenu {
 		int monthM = 30;
 		
 		for (int i = 0; i < monthM; i++) {
+			dayCount++; //0~29
+			System.out.println((dayCount+1) + "일째 시도");
 			OneDayMenu dayMenutemp = new OneDayMenu(this.dayCal, dayCost);
 			monthMenuList.add(dayMenutemp); //하루 메뉴 받아오기
 			
 			count += dayMenutemp.n;
 			//System.out.println("행수 : " + count);
-			dayCount++; //0~29
-			System.out.println((dayCount+1) + "일째 시도");
+			
 			//System.out.println(monthMenuList.size());
 			//System.out.println(monthMenuList.get(i).menuList.get(i).toArray());
 			//고기 체크와 생선&해산물 체크 중 하나라도 false라면

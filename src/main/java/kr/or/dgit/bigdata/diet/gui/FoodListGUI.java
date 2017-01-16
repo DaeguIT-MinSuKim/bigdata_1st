@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.dgit.bigdata.diet.dto.Calorie;
 import kr.or.dgit.bigdata.diet.dto.Menu;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
+import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import kr.or.dgit.bigdata.diet.service.MenuService;
 
 public class FoodListGUI extends JFrame {

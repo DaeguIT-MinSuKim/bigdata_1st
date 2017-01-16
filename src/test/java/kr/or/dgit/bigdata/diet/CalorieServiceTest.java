@@ -40,12 +40,7 @@ public class CalorieServiceTest {
 	public void testSelectCalorieByAge(){
 		Calorie cal = calorieService.selectCalorieByAge(25);
 		Assert.assertNotNull(cal);
-		System.out.println(cal.getMinage());
-		System.out.println(cal.getMaxage());
-		System.out.println(cal.getCalWoman());
-		System.out.println(cal.getCalMan());
-		System.out.println(cal.getwMan());
-		System.out.println(cal.getwWoman());
+		System.out.println(cal.getCal_woman());
 	}
 
 }

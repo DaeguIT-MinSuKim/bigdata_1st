@@ -8,7 +8,7 @@
 		from menu where no = #{no};
 	</select>
 
-	<select id="getMenuAll" resultType="menu" >
+	<select id="selectAllMenu" resultType="menu" >
 		select cal, carbo, con, cost, fat, grp, item, no, protein
 		from menu ;
 	</select>

@@ -173,7 +173,7 @@ public class MenuListGUI extends JFrame {
         //회원의 나이에 맞는 1일 권장 칼로리 가져오기
         tfCal = new JTextField();
         Calorie cal = CalorieService.getInstance().selectCalorieByAgeNo(member);
-        tfCal.setText(member.getGender().equals("여자") ? cal.getCalWoman()+"" : cal.getCalMan()+"");
+        tfCal.setText(member.getGender().equals("여자") ? cal.getCal_woman()+"" : cal.getCal_man()+"");
         tfCal.setEnabled(false);
         tfCal.setColumns(10);
         pnlTop.add(tfCal);
