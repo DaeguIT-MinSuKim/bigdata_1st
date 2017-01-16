@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
-public class __MainGUI extends JFrame implements ActionListener {
+public class __MainGUI extends JDialog implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tf_no;
@@ -63,7 +64,7 @@ public class __MainGUI extends JFrame implements ActionListener {
 
 	
 	public __MainGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 487);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,6 +116,7 @@ public class __MainGUI extends JFrame implements ActionListener {
 		p_display.add(label_7);
 		
 		btnMenu = new JButton("다이어트식단");
+		btnMenu.addActionListener(this);
 		btnMenu.setBounds(27, 405, 124, 23);
 		p_display.add(btnMenu);
 		
@@ -263,7 +265,7 @@ public class __MainGUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {  
 
-		//회원 입력 버튼		
+		//회원 등록 버튼		
 		if(e.getSource() == btnOneReg ){
 			
 			tf_no.setEditable(true);
@@ -357,6 +359,14 @@ public class __MainGUI extends JFrame implements ActionListener {
 				tf_budg.setText(temp.getBudget()+"");
 				
 			}			
+		}
+		
+		//다이어트 식단 클릭
+		if (e.getSource() == btnMenu) {
+			Member member = memberService.selectMemberByNo(Integer.parseInt(tf_no.getText()));
+			
+			FoodListAbsolute foodList = new FoodListAbsolute();
+			foodList.setVisible(true);
 		}
 		
 	}

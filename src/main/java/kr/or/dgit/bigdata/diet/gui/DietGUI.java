@@ -67,26 +67,26 @@ public class DietGUI extends JFrame implements ActionListener {
 	public DietGUI() {
 		setTitle("식단생성");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 800);
+		setBounds(0, 0, 600, 800);
 		contentPane = getContentPane();
 		DietBackGroundPanel dbgp = new DietBackGroundPanel();
 		contentPane.add(dbgp, BorderLayout.CENTER);
 		dbgp.setLayout(null);
 		
 		JLabel lblPhone = new JLabel("Phone  |");
-		lblPhone.setFont(new Font("tvN 즐거운이야기 Bold", Font.PLAIN, 36));
+		lblPhone.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		lblPhone.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPhone.setBounds(72, 459, 150, 30);
 		dbgp.add(lblPhone);
 		
 		JLabel lblAddr = new JLabel("Address  |");
-		lblAddr.setFont(new Font("tvN 즐거운이야기 Bold", Font.PLAIN, 36));
+		lblAddr.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		lblAddr.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAddr.setBounds(72, 509, 150, 30);
 		dbgp.add(lblAddr);
 		
 		JLabel lblBudget = new JLabel("Budget  |");
-		lblBudget.setFont(new Font("tvN 즐거운이야기 Bold", Font.PLAIN, 36));
+		lblBudget.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		lblBudget.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBudget.setBounds(72, 563, 150, 30);
 		dbgp.add(lblBudget);
@@ -128,7 +128,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(btnRight);
 		
 		tf_no = new JTextField();
-		tf_no.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		tf_no.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_no.setHorizontalAlignment(SwingConstants.CENTER);
 		tf_no.setEnabled(false);
 		tf_no.setEditable(false);
@@ -137,7 +137,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		tf_no.setColumns(10);
 		
 		tf_name = new JTextField();
-		tf_name.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		tf_name.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_name.setBorder(null);
 		tf_name.setFocusable(false);
 		tf_name.setBackground(Color.WHITE);
@@ -147,7 +147,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_name);
 		
 		tf_gender = new JTextField();
-		tf_gender.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		tf_gender.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_gender.setBorder(null);
 		tf_gender.setFocusable(false);
 		tf_gender.setBackground(Color.WHITE);
@@ -157,7 +157,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_gender);
 		
 		tf_weight = new JTextField();
-		tf_weight.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		tf_weight.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_weight.setBorder(null);
 		tf_weight.setFocusable(false);
 		tf_weight.setBackground(Color.WHITE);
@@ -167,7 +167,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_weight);
 		
 		tf_age = new JTextField();
-		tf_age.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		tf_age.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_age.setBorder(null);
 		tf_age.setFocusable(false);
 		tf_age.setBackground(Color.WHITE);
@@ -177,7 +177,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_age);
 		
 		tf_phone = new JTextField();
-		tf_phone.setFont(new Font("서울남산체 L", Font.PLAIN, 16));
+		tf_phone.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_phone.setBorder(null);
 		tf_phone.setFocusable(false);
 		tf_phone.setBackground(Color.WHITE);
@@ -185,7 +185,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_phone);
 		
 		tf_location = new JTextField();
-		tf_location.setFont(new Font("서울남산체 L", Font.PLAIN, 16));
+		tf_location.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_location.setBorder(null);
 		tf_location.setFocusable(false);
 		tf_location.setBackground(Color.WHITE);
@@ -193,7 +193,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_location);
 		
 		tf_budg = new JTextField();
-		tf_budg.setFont(new Font("서울남산체 L", Font.PLAIN, 16));
+		tf_budg.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		tf_budg.setText("");
 		tf_budg.setBorder(null);
 		tf_budg.setFocusable(false);
@@ -202,20 +202,20 @@ public class DietGUI extends JFrame implements ActionListener {
 		dbgp.add(tf_budg);
 		
 		JLabel lblWeight = new JLabel("KG");
-		lblWeight.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		lblWeight.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblWeight.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWeight.setBounds(284, 386, 20, 20);
 		dbgp.add(lblWeight);
 		
 		JLabel lblAge = new JLabel("세");
-		lblAge.setFont(new Font("서울남산체 B", Font.PLAIN, 14));
+		lblAge.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblAge.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAge.setBounds(350, 386, 20, 20);
 		dbgp.add(lblAge);
 		
 		lbl_number = new JLabel("N");
 		lbl_number.setForeground(Color.BLACK);
-		lbl_number.setFont(new Font("서울남산체 L", Font.PLAIN, 24));
+		lbl_number.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lbl_number.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_number.setBounds(190, 632, 25, 25);
 		dbgp.add(lbl_number);
@@ -238,7 +238,7 @@ public class DietGUI extends JFrame implements ActionListener {
 		lbl_number.setText("0");
 		
 		lblNewLabel = new JLabel("/");
-		lblNewLabel.setFont(new Font("서울남산체 B", Font.PLAIN, 16));
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblNewLabel.setBounds(220, 635, 20, 20);
 		dbgp.add(lblNewLabel);
 		

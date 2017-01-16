@@ -4,7 +4,7 @@
 	<properties resource="application.properties" />
 	<settings>		
 		<setting name="mapUnderscoreToCamelCase" value="true" />		
-	</settings> 
+	</settings>
 	<typeAliases>
 		<package name="kr.or.dgit.bigdata.diet.dto"/>
 	</typeAliases>

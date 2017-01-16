@@ -19,17 +19,31 @@ public class MenuService {
 	public static MenuService getInstance() {
 		return instance;
 	}
-	public List<Menu> selectAllMenu() {
+	public Menu getMenu(int no) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getMenu(int) - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+			Menu menu = menuMapper.getMenu(no);
+			System.out.println(menu+"service 확인");
+			return menu;
+		}finally{
+			sqlSession.close();
+		}
+	}
+	public ArrayList<Menu> selectAllMenu() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectAllMenu() - start"); 
 		}
 		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
 		try{
 			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
-			ArrayList<Menu> menuList = menuMapper.selectAllMenu();
-			return menuList;
+			ArrayList<Menu> menu = menuMapper.selectAllMenu();
+			return menu;
 		}finally{
 			sqlSession.close();
-		}
+		}		
 	}
 }

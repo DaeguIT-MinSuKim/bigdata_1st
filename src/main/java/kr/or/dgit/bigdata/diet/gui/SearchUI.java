@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
-public class SearchUI extends JFrame implements ActionListener {
+public class SearchUI extends JDialog implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tf_no;
@@ -50,7 +51,7 @@ public class SearchUI extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					SearchUI frame = new SearchUI();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +61,8 @@ public class SearchUI extends JFrame implements ActionListener {
 
 	
 	public SearchUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setModal(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 453);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -214,7 +216,7 @@ public class SearchUI extends JFrame implements ActionListener {
 		label_9.setBounds(227, 371, 16, 15);
 		p_display.add(label_9);
 		
-		setVisible(true);
+		//setVisible(true);
 		
 	// JFRAME 생성시에 member의 전체 racord 갯수를 가져와 화면에 출력
 		memberService = MemberService.getInstance();
