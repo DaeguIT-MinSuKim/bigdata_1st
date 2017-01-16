@@ -1,5 +1,7 @@
 package kr.or.dgit.bigdata.diet;
 
+import java.util.ArrayList;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -28,4 +30,10 @@ public class MemberServiceTest {
 		Assert.assertNotNull(member);
 	}
 
+	@Test
+	public void testSelectAllMember(){
+		ArrayList<Member> list = memberService.selectAllMember();
+		
+		Assert.assertNotNull(list);
+	}
 }
