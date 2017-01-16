@@ -241,6 +241,15 @@ public class DietGUI extends JFrame implements ActionListener {
 		lblNewLabel.setFont(new Font("서울남산체 B", Font.PLAIN, 16));
 		lblNewLabel.setBounds(220, 635, 20, 20);
 		dbgp.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("식단만들기");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				(new MenuListGUI()).setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(430, 500, 100, 100);
+		dbgp.add(btnNewButton);
 		/*DietBgPanel dbp = new DietBgPanel();
 		contentPane.add(dbp, BorderLayout.CENTER);
 		dbp.setLayout(null);*/

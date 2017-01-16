@@ -1,6 +1,5 @@
 package kr.or.dgit.bigdata.diet.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.EventQueue;
 
@@ -16,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
 
 public class MenuListGUI extends JFrame {
 
@@ -32,7 +31,7 @@ public class MenuListGUI extends JFrame {
 	private JTextField tfName_1;
 	
 	
-	//
+	//입력될 변수들
 	private String day;
 	private String time;
 	private String sort;
@@ -67,21 +66,9 @@ public class MenuListGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1400, 800);
 		contentPane = getContentPane();
-		
-		
-		
-		 // jeditorpane 만들긔
-        JEditorPane jEditorPane = new JEditorPane();
-        
-        // read-only 만들긔
-        jEditorPane.setEditable(false);
-        
-        // scrollpane 만들어서 jeditorpane 달긔
-        JScrollPane scrollPane = new JScrollPane(jEditorPane);
         
         // html editor kit 추가시킴
         HTMLEditorKit kit = new HTMLEditorKit();
-        jEditorPane.setEditorKit(kit);
         
         // css 적용
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -110,7 +97,7 @@ public class MenuListGUI extends JFrame {
                           + "</tr>\n"
                           
 						  + "<tr>\n"
-						  + "<td>ex)" + day + "+</td>\n"
+						  + "<td>ex)" + day + "</td>\n"
 						  + "<td>" + time + "</td>\n"
 						  + "<td>" + sort + "</td>\n"
 						  + "<td>" + menu + "</td>\n"
@@ -159,17 +146,23 @@ public class MenuListGUI extends JFrame {
         tfCal = new JTextField();
         tfCal.setColumns(10);
         pnlTop.add(tfCal);
-        jEditorPane.setDocument(doc);
-        jEditorPane.setText(htmlString);
         
         //패널에 달긔
         JPanel pnlMiddle = new JPanel();
         pnlMiddle.setBounds(0, 231, 1384, 410);
         contentPane.add(pnlMiddle);
-        pnlMiddle.add(scrollPane,BorderLayout.CENTER);
         
-        JScrollBar scrollBar = new JScrollBar();
-        scrollPane.setRowHeaderView(scrollBar);
+        
+        
+         // jeditorpane 만들긔
+        JEditorPane jEditorPane = new JEditorPane();
+        pnlMiddle.add(jEditorPane);
+        
+        // read-only 만들긔
+        jEditorPane.setEditable(false);
+        jEditorPane.setEditorKit(kit);
+        jEditorPane.setDocument(doc);
+        jEditorPane.setText(htmlString);
         
         JPanel pnlBottom = new JPanel();
         pnlBottom.setBounds(0, 651, 1384, 31);
@@ -209,5 +202,11 @@ public class MenuListGUI extends JFrame {
         lblMenu.setFont(new Font("나눔바른고딕", Font.PLAIN, 20));
         lblMenu.setBounds(617, 172, 150, 30);
         getContentPane().add(lblMenu);
+        
+        //스크롤바 만들긔
+        JScrollPane jsp = new JScrollPane(jEditorPane);
+        jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jsp.setBounds(0, 231, 1384, 410);
+        pnlMiddle.add(jsp);
 	}
 }
