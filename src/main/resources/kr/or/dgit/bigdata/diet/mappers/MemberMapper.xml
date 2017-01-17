@@ -19,7 +19,7 @@
 		 select count(*) from member;
 	</select>
 	
-	<select id="selectAllMember" resultType="member"  >
+	<select id="selectAllMember" resultType="Member"  >
 		 select no,name,gender,weight,age,phone,address,budget  
 		 from member ;
 	</select>

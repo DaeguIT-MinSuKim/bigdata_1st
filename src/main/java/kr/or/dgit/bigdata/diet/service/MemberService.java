@@ -65,7 +65,7 @@ public class MemberService {
 		}		
 	}
 
-	public List<Member> selectAllMember() {
+	public ArrayList<Member> selectAllMember() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectAllMember() - start"); 
 		}
