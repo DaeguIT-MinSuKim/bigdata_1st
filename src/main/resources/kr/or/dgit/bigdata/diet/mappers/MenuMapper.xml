@@ -17,5 +17,9 @@
 		insert into menu(grp, item, cal, fat, carbo, protein, cost, con)
 		values (#{grp}, #{item}, #{cal}, #{fat}, #{carbo}, #{protein}, #{cost}, #{con});
 	</insert>
+	
+	<delete id="deleteMenu" parameterType="int">
+		delete from menu where no = #{no}
+	</delete>
 
 </mapper>

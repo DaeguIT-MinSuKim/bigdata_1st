@@ -23,7 +23,7 @@ public class MenuServiceTest {
 		menuService = null;
 	}
 
-	@Test
+	/*@Test
 	public void testInsertMenuAuto() {
 		Menu menu = new Menu();
 		menu.setGrp("빵&씨리얼");
@@ -36,6 +36,11 @@ public class MenuServiceTest {
 		menu.setCon("100g당");
 		
 		int res = menuService.insertMenuAuto(menu);
+	}*/
+	
+	@Test
+	public void testDeleteMenu(){
+		int deleteMenu = menuService.deleteMenu(26);
 	}
 
 }
