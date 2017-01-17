@@ -64,6 +64,7 @@ public class FoodListGUI extends JFrame {
 		return model;
 	}
 
+	//각각 일자에 대해 뿌리기
 	private String[][] oneDayGetRows(MonthMenu monthMenu, int day) {
 		//한달값 받아오기
 		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
@@ -127,13 +128,18 @@ public class FoodListGUI extends JFrame {
 		return rowDatas;
 	}
 
+	//30일치 한 번에 뿌리기
 	private String[][] monthRows(MonthMenu monthMenu) {
 		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
 
-		String[][] rowDatas = new String[monthMenu.count][];
+		String[][] rowDatas = new String[monthMenu.count+2][];
 		// ArrayList<String[]> temp = new ArrayList<>();
 		// rowDatas[i] = temp.get(i).toArray();
 
+		int monthCost = 0;
+		int avgOneDayCost = 0;
+		
+		
 		System.out.println("한달리스트 사이즈 : " + list.size());
 		int ttt = -1;
 		for (int i = 0; i < list.size(); i++) { // 30일분..
@@ -172,8 +178,12 @@ public class FoodListGUI extends JFrame {
 						templistoneday.get(j).getCarbo() + "",
 						templistoneday.get(j).getProtein() + "", 
 						templistoneday.get(j).getCost() + "" };
+				
+				//월 총경비
+				monthCost += templistoneday.get(j).getCost();
 			}
 		}
+		
 		System.out.println(ttt);
 		return rowDatas;
 	}

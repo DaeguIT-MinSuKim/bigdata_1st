@@ -6,5 +6,4 @@ import kr.or.dgit.bigdata.diet.dto.Member;
 public interface CalorieMapper {
 
 	Calorie selectCalorieByAge(int age);
-	Calorie selectCalorieByAgeNo(Member member);
 }

@@ -28,15 +28,6 @@ public class CalorieServiceTest {
 	}
 
 	@Test
-	public void testSelectCalorieByAgeNo() {
-		Member member = MemberService.getInstance().selectMemberByNo(3);
-		
-		Calorie cal = calorieService.selectCalorieByAgeNo(member);
-		
-		Assert.assertNotNull(cal);
-	}
-	
-	@Test
 	public void testSelectCalorieByAge(){
 		Calorie cal = calorieService.selectCalorieByAge(25);
 		Assert.assertNotNull(cal);

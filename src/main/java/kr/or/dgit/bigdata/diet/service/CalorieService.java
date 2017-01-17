@@ -32,18 +32,4 @@ public class CalorieService {
 			sqlSession.close();
 		}
 	}
-	
-	public Calorie selectCalorieByAgeNo(Member member){
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectCalorieByAgeNo(Member) - start");
-		}
-		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
-		try {
-			CalorieMapper calorieMapper = sqlSession.getMapper(CalorieMapper.class);
-			Calorie calorie = calorieMapper.selectCalorieByAgeNo(member);
-			return calorie;
-		} finally {
-			sqlSession.close();
-		}
-	}
 }
