@@ -10,4 +10,6 @@ public interface MenuMapper {
 
 	ArrayList<Menu> selectAllMenu();
 
+	public int insertMenuAuto(Menu menu);
+
 }
