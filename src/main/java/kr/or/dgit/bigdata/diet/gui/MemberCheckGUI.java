@@ -39,7 +39,7 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private ArrayList<Member> memberList;
 	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
-	private JButton btnMakeList;
+	
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,6 +75,22 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		tf_name.setBorder(null);
 		tf_name.setOpaque(false);
 		
+		//panel label, textfield
+		panelInfo = new PanelMemberInfo(memberList);
+		panelInfo.setBounds(56, 249, 200, 230);
+		contentPane.add(panelInfo);
+		
+		//panel bottom
+		panelNumber = new PanelBottomNumber(memberList);
+		panelNumber.setBounds(0, 449, 300, 30);
+		contentPane.add(panelNumber);
+		panelNumber.lbl_number.setText("0"); 		//member의 첫째 record를 가져와 화면에 출력
+		panelNumber.lbl_sum.setText(sumNumber+"");  //member의 전체 record 갯수를 가져와 화면에 출력
+		
+		PanelTopButton panelButton = new PanelTopButton();
+		panelButton.setBounds(0, 145, 300, 30);
+		contentPane.add(panelButton);
+		
 		//	panel 배경화면 이미지
 		PanelBgImage panelBg = new PanelBgImage();
 		panelBg.setBounds(0, 0, 300, 500);
@@ -103,32 +119,12 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		memberService = MemberService.getInstance();
 		memberList = (ArrayList<Member>) memberService.selectAllMember();
 		
-		//panel label, textfield
-		panelInfo = new PanelMemberInfo(memberList);
-		panelInfo.setBounds(56, 249, 200, 230);
-		panelBg.add(panelInfo);
-		
-		//panel bottom
-		panelNumber = new PanelBottomNumber(memberList);
-		panelNumber.setBounds(0, 449, 300, 30);
-		panelBg.add(panelNumber);
-		
 		//MemberService객체 얻어오기
 		memberService = MemberService.getInstance();
 		
 		//JFRAME 생성시
 		sumNumber = memberService.selectMemberSum();
-		panelNumber.lbl_number.setText("0"); 		//member의 첫째 record를 가져와 화면에 출력
-		panelNumber.lbl_sum.setText(sumNumber+"");  //member의 전체 record 갯수를 가져와 화면에 출력
 		
-		btnMakeList = new JButton("다이어트 식단 생성 버튼");
-		btnMakeList.setForeground(Color.WHITE);
-		btnMakeList.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
-		btnMakeList.setBounds(12, 71, 65, 97);
-		panelBg.add(btnMakeList);
-		btnMakeList.setBackground(new Color(44,103,156));
-		btnMakeList.setFocusPainted(false);
-		btnMakeList.setBorder(new LineBorder(new Color(102, 162, 212)));
 		//모든 member객체 가져오기
 		memberList = memberService.selectAllMember();
 		
