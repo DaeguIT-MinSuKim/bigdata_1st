@@ -61,7 +61,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FoodListAbsolute frame = new FoodListAbsolute();
+					FoodListAbsolute frame = new FoodListAbsolute(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +70,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		});
 	}
 	
-	public FoodListAbsolute() {
+	public FoodListAbsolute(MemberCheckGUI memberCheckGUI) {
 		setAutoRequestFocus(false);
 		setBackground(Color.WHITE);
 		setTitle("추천식단");

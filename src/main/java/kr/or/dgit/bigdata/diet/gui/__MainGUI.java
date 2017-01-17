@@ -365,7 +365,7 @@ public class __MainGUI extends JDialog implements ActionListener {
 		if (e.getSource() == btnMenu) {
 			Member member = memberService.selectMemberByNo(Integer.parseInt(tf_no.getText()));
 			
-			FoodListAbsolute foodList = new FoodListAbsolute();
+			//FoodListAbsolute foodList = new FoodListAbsolute();
 			foodList.setVisible(true);
 		}
 		

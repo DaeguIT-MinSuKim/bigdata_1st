@@ -87,7 +87,8 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		panelNumber.lbl_number.setText("0"); 		//member의 첫째 record를 가져와 화면에 출력
 		panelNumber.lbl_sum.setText(sumNumber+"");  //member의 전체 record 갯수를 가져와 화면에 출력
 		
-		PanelTopButton panelButton = new PanelTopButton();
+		//	panel button
+		PanelTopButton panelButton = new PanelTopButton(this);
 		panelButton.setBounds(0, 145, 300, 30);
 		contentPane.add(panelButton);
 		
