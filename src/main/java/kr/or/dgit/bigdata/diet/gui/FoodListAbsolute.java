@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -45,7 +46,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
 public class FoodListAbsolute extends JFrame implements ActionListener{
-	private JPanel contentPane;
+	public static JPanel contentPane;
 	private JTable table;
 	private JButton btnMakeFoodList;
 	private JButton btnMonth;
@@ -57,12 +58,10 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 	private JTextField tfGender;
 	private JTextField tfAge;
 	private JTextField tfNo;
-	private JButton btnBack;
 	private JButton btnSaveCsv;
 	private MonthMenu monthMenu;
-	private FoodListGUI foodListGui;
+	int no; //회원 번호
 	
-	private MemberCheckGUI memberCheckGUI;
 	private Member member;
 	
 	//MonthMenu에 보낼 필드 선언
@@ -71,10 +70,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 	private FoodListDialog foodListDialog;
 	
 	public FoodListAbsolute(MemberCheckGUI memberCheckGUI) {
-		this.memberCheckGUI = memberCheckGUI;
-		
 		//멤버 객체 받아오기
-		int no = memberCheckGUI.noForFoodList; //회원 번호
+		this.no = memberCheckGUI.noForFoodList; //회원 번호
 		member = MemberService.getInstance().selectMemberByNo(no);
 		
 		//회원의 나이애 따른 칼로리 받아와서 MonthMenu에 던질 수 있도록 함.
@@ -221,12 +218,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		
 		
 		btnSaveCsv = new JButton("CSV저장");
-		btnSaveCsv.setBounds(0, 251, 150, 25);
+		btnSaveCsv.setBounds(0, 278, 150, 25);
 		panelSum.add(btnSaveCsv);
-		
-		btnBack = new JButton("돌아가기");
-		btnBack.setBounds(0, 278, 150, 25);
-		panelSum.add(btnBack);
 		
 		JPanel panelBtn = new JPanel();
 		panelBtn.setBackground(Color.PINK);
@@ -275,17 +268,20 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		//식단 생성 버튼
 		if (e.getSource() == btnMakeFoodList) {
 			//식단이 아직 생성되어있지 않을 때 호출하도록
-			if (monthMenu == null) {
-				monthMenu = new MonthMenu(dayCal, monthCost);
-				foodListDialog= new FoodListDialog(monthMenu, -1);
-			}else{
+			if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
 				return;
+			}else{
+				JOptionPane.showMessageDialog(null, "식단을 생성 중입니다");
+				monthMenu = new MonthMenu(dayCal, monthCost);
+				MemberCheckGUI.tempMonthMenu.put(no, monthMenu);
 			}
 		}
 		
 		//1일 ~ 30일 일자 버튼
 		for (int i = 0; i < btnDays.length; i++) {
 			if (e.getSource() == btnDays[i]) {
+				monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
+				
 				//1일~30일 버튼을 클릭했는데 식단이 없을 때
 				if (monthMenu == null) {
 					JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
@@ -299,6 +295,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		
 		//30일치 한꺼번에 보기
 		if (e.getSource() == btnMonth) {
+			monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
+			
 			if (monthMenu == null) {
 				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 				return;

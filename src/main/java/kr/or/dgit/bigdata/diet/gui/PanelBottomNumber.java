@@ -17,10 +17,6 @@ public class PanelBottomNumber extends JPanel {
 	JLabel lbl_sum;
 	JLabel lbl_number;
 	
-	
-	/**
-	 * Create the panel.
-	 */
 	public PanelBottomNumber(ArrayList<Member> memberList) {
 		setOpaque(false);
 		setLayout(null);
@@ -31,7 +27,7 @@ public class PanelBottomNumber extends JPanel {
 		add(lbl_sum);
 		
 		lbl_number = new JLabel();
-		lbl_number.setBounds(129, 0, 20, 21);
+		lbl_number.setBounds(124, 0, 20, 21);
 		lbl_number.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		add(lbl_number);
 		lbl_number.setForeground(new Color(90,153,204));

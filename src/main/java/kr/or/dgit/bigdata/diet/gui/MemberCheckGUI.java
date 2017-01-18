@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -39,6 +41,7 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private ArrayList<Member> memberList;
 	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
+	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>();
 	
 	int noForFoodList;
 	

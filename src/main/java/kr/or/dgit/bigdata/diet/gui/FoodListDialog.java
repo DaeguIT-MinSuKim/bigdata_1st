@@ -18,6 +18,7 @@ import javax.swing.table.TableColumnModel;
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
+import java.awt.Font;
 
 public class FoodListDialog extends JDialog {
 
@@ -46,6 +47,7 @@ public class FoodListDialog extends JDialog {
 		contentPanel.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblDayNum = new JLabel();
+		lblDayNum.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		if (day == -1) {
 			lblDayNum.setText("한달 식단");
 		}else{
