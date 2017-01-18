@@ -52,8 +52,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 	private JButton[] btnDays = new JButton[30];
 	private JTextField tfName;
 	private JTextField tfOneDayCal;
-	private JTextField tfOneDayCost;
-	private JTextField tfMonthCost;
+	public static JTextField tfOneDayCost;
+	public static JTextField tfMonthCost;
 	private JTextField tfGender;
 	private JTextField tfAge;
 	private JTextField tfNo;
@@ -78,7 +78,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		
 		//회원의 나이애 따른 칼로리 받아와서 MonthMenu에 던질 수 있도록 함.
 		Calorie calorie = CalorieService.getInstance().selectCalorieByAge(member.getAge());
-		dayCal = member.getGender().equals("여자") ? calorie.getCal_woman() : calorie.getCal_man();
+		dayCal = member.getGender().equals("여") ? calorie.getCal_woman() : calorie.getCal_man();
 		monthCost =  member.getBudget();
 		
 		setAutoRequestFocus(false);
@@ -199,7 +199,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		tfOneDayCost = new JTextField();
 		tfOneDayCost.setEditable(false);
 		tfOneDayCost.setHorizontalAlignment(SwingConstants.RIGHT);
-		tfOneDayCost.setText("30000");
+		tfOneDayCost.setText("");
 		tfOneDayCost.setBounds(51, 102, 57, 21);
 		panelSum.add(tfOneDayCost);
 		tfOneDayCost.setColumns(10);
@@ -213,7 +213,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		tfMonthCost = new JTextField();
 		tfMonthCost.setEditable(false);
 		tfMonthCost.setHorizontalAlignment(SwingConstants.RIGHT);
-		tfMonthCost.setText("950000");
+		tfMonthCost.setText("");
 		tfMonthCost.setBounds(51, 176, 57, 21);
 		panelSum.add(tfMonthCost);
 		tfMonthCost.setColumns(10);
@@ -276,6 +276,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 			//식단이 아직 생성되어있지 않을 때 호출하도록
 			if (monthMenu == null) {
 				monthMenu = new MonthMenu(dayCal, monthCost);
+				foodListGui = new FoodListGUI(monthMenu, -1);
 			}else{
 				return;
 			}
@@ -301,8 +302,10 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 				return;
 			}else{
-				foodListGui = new FoodListGUI(monthMenu, -1);
-				foodListGui.setVisible(true);
+//				foodListGui = new FoodListGUI(monthMenu, -1);
+//				foodListGui.setVisible(true);
+				FoodListDialog foodListDialog= new FoodListDialog(monthMenu, -1);
+				foodListDialog.setVisible(true);
 			}			
 		}
 	}

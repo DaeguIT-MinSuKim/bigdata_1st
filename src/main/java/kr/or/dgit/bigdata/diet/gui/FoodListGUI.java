@@ -27,6 +27,7 @@ public class FoodListGUI extends JFrame {
 	private int height = 121;
 	private float weight = 24.6f;
 	private int day;
+	int avgOneDayCost; //1일 평균 소비금액
 	
 	public FoodListGUI(MonthMenu monthMenu, int day) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,18 +71,25 @@ public class FoodListGUI extends JFrame {
 		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
 
 		String[][] rowDatas = new String[monthMenu.count][];
+		
+		int oneDayCost = 0; //하루 총 경비
+		int oneDayCal = 0; //하루 총 칼로리
+		int oneDayFat = 0; //하루 총 지방
+		int oneDayCarbo = 0; //하루 총 탄수화물 
+		int oneDayProtein = 0; //하루 총 단백질
 
 		System.out.println("한달리스트 사이즈 : " + list.size());
 		
 		int ttt = -1;
 		
-		for (int i = 0; i < day; i++) { // 30일분..
+		for (int i = 0; i < day; i++) {
 
 			// 하루치 가져오기
 			ArrayList<Menu> templistoneday = list.get(i).menuList;
 			
-			rowDatas = new String[templistoneday.size()][];
+			rowDatas = new String[templistoneday.size()+2][];
 			
+			//i가 0부터 시작하기 때문에
 			if (i == day-1) {
 				for (int j = 0; j < templistoneday.size(); j++) {
 					int quo = templistoneday.size() / 3; // (하루치 메뉴 개수 / 아침,점심,저녁)
@@ -117,12 +125,31 @@ public class FoodListGUI extends JFrame {
 							templistoneday.get(j).getFat() + "", 
 							templistoneday.get(j).getCarbo() + "",
 							templistoneday.get(j).getProtein() + "", 
-							templistoneday.get(j).getCost() + "" };
+							templistoneday.get(j).getCost() + "" 
+					};
 
+					oneDayCost += templistoneday.get(j).getCost();
+					oneDayCal += templistoneday.get(j).getCal();
+					oneDayFat += templistoneday.get(j).getFat();
+					oneDayCarbo += templistoneday.get(j).getCarbo();
+					oneDayProtein += templistoneday.get(j).getProtein();
 				}
-			}else if(i > day){
+			}else if(i > day+2){
 				break;
 			}
+			
+			rowDatas[templistoneday.size()+1] = new String[]{
+					"", 
+					"", 
+					"합계",
+					"", 
+					"",
+					oneDayCal+"", 
+					oneDayFat+"",
+					oneDayCarbo+"", 
+					oneDayProtein+"",
+					oneDayCost+"", 
+			};
 		}
 		System.out.println(ttt);
 		return rowDatas;
@@ -136,9 +163,11 @@ public class FoodListGUI extends JFrame {
 		// ArrayList<String[]> temp = new ArrayList<>();
 		// rowDatas[i] = temp.get(i).toArray();
 
-		int monthCost = 0;
-		int avgOneDayCost = 0;
-		
+		int monthCost = 0; //월 총 경비
+		int monthCal = 0; //월 칼로리
+		int monthFat = 0; //월 지방
+		int monthCarbo = 0; //월 탄수화물 
+		int monthProtein = 0; //월 단백질
 		
 		System.out.println("한달리스트 사이즈 : " + list.size());
 		int ttt = -1;
@@ -181,8 +210,33 @@ public class FoodListGUI extends JFrame {
 				
 				//월 총경비
 				monthCost += templistoneday.get(j).getCost();
+				//월 칼로리
+				monthCal += templistoneday.get(j).getCal();
+				//월 지방
+				monthFat += templistoneday.get(j).getFat();
+				//월 탄수화물
+				monthCarbo += templistoneday.get(j).getCarbo();
+				//월 지방
+				monthProtein += templistoneday.get(j).getProtein();
 			}
+			rowDatas[monthMenu.count+1] = new String[]{
+					"", 
+					"", 
+					"합계",
+					"", 
+					"",
+					monthCal+"", 
+					monthFat+"",
+					monthCarbo+"", 
+					monthProtein+"",
+					monthCost+"", 
+			};
 		}
+		
+		//1일 평균 소비금액
+		avgOneDayCost = Math.min((monthCost / 30),  30000);
+		FoodListAbsolute.tfOneDayCost.setText(avgOneDayCost+"");
+		FoodListAbsolute.tfMonthCost.setText(monthCost+"");
 		
 		System.out.println(ttt);
 		return rowDatas;
