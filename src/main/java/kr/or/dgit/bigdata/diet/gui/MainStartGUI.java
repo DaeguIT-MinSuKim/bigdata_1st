@@ -210,7 +210,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		lblSearch.setBounds(410, 310, 120, 20);
 		panel.add(lblSearch);
 		
-		JLabel lblDiet = new JLabel("식단생성");
+		JLabel lblDiet = new JLabel("식단추가");
 		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
 		lblDiet.setBounds(535, 310, 120, 20);
@@ -306,14 +306,18 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			
 			JFrame temp =  new JFrame();			
 			JTable table = new JTable();
-			DefaultTableModel model = new DefaultTableModel(getRows(), 
-					new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
+			DefaultTableModel model 
+			    = new DefaultTableModel(getRows(),	new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
 			table.setModel(model);
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setViewportView(table);
 			temp.add(scrollPane);
 			temp.setSize(800,500);;
 			temp.setVisible(true);
+			
+			
+/////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////
+			
 			
 			
 			
