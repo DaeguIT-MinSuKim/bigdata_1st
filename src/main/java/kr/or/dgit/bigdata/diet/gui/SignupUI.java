@@ -198,12 +198,13 @@ public class SignupUI extends JDialog {
 				char t = e.getKeyChar();
 				if (! ( (Character.isDigit(t))
 						||(t == KeyEvent.VK_BACK_SPACE) 
-						||(t == KeyEvent.VK_DELETE) ) ) {
+						||(t == KeyEvent.VK_DELETE)
+						||(t == KeyEvent.VK_MINUS)) ) {
 					getToolkit().beep();
 					e.consume();
 				}
 				//최대 15자까지 받음 			
-				if(!Pattern.matches("^[0-9]{1,15}",tf_phone.getText()+t)){
+				if(!Pattern.matches("^[0-9-]{1,15}",tf_phone.getText()+t)){
 					e.consume();
 					getToolkit().beep();
 				}

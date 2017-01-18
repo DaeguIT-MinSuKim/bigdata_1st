@@ -36,4 +36,20 @@ public class MemberServiceTest {
 		
 		Assert.assertNotNull(list);
 	}
+	
+	@Test
+	public void testInsertMember(){
+		Member member = new Member();
+		member.setAddress("대구");
+		member.setAge(25);
+		member.setBudget(990000);
+		member.setGender("여");
+		member.setName("강보영");
+		member.setPhone("010-2678-4160");
+		member.setWeight(48);
+		
+		int res = memberService.insertMember(member);
+		
+		Assert.assertEquals(res, 1);
+	}
 }
