@@ -55,12 +55,12 @@ public class PanelTopButton extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		//식단 생성 버튼
 		if (e.getSource() == btnMakeList) {
-			/*foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
+			foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
 			foodListAbsolute.setVisible(true);
 			new MemberCheckGUI().setEnabled(false);
-			*/
-			FoodListDialog foodListDialog = new FoodListDialog();
-			foodListDialog.setVisible(true);
+			
+			//FoodListDialog foodListDialog = new FoodListDialog();
+			//foodListDialog.setVisible(true);
 		}
 		
 		//회원 등록 버튼

@@ -297,8 +297,13 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		
 		//30일치 한꺼번에 보기
 		if (e.getSource() == btnMonth) {
-			foodListGui = new FoodListGUI(monthMenu, -1);
-			foodListGui.setVisible(true);
+			if (monthMenu == null) {
+				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
+				return;
+			}else{
+				foodListGui = new FoodListGUI(monthMenu, -1);
+				foodListGui.setVisible(true);
+			}			
 		}
 	}
 }
