@@ -19,10 +19,6 @@ public class PanelTopButton extends JPanel implements ActionListener {
 	private MemberCheckGUI memberCheckGUI;
 	private FoodListAbsolute foodListAbsolute;
 
-	//private JButton btnMakeList;
-	/**
-	 * Create the panel.
-	 */
 	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
 		
@@ -57,10 +53,6 @@ public class PanelTopButton extends JPanel implements ActionListener {
 		if (e.getSource() == btnMakeList) {
 			foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
 			foodListAbsolute.setVisible(true);
-			new MemberCheckGUI().setEnabled(false);
-			
-			//FoodListDialog foodListDialog = new FoodListDialog();
-			//foodListDialog.setVisible(true);
 		}
 		
 		//회원 등록 버튼
