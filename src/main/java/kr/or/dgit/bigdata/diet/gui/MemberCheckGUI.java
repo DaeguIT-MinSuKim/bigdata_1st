@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -54,7 +56,9 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//크기조정불가
 		setResizable(false);
+		
 		
 		JLabel lblNo = new JLabel("No.");
 		lblNo.setBounds(35, 198, 20, 17);

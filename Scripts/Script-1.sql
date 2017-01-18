@@ -70,7 +70,5 @@ insert into member(name,gender,weight,age,phone,address,budget)
 delete from member where no = 1;		
 
 select count(*) from member;
-select no,name,gender,weight,age,phone,address,budget from member ;
-		 			 
-		 			 
-		 			 
+
+select no,name,gender,weight,age,phone,address,budget from member ; 

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,12 +14,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import java.awt.Font;
+import java.awt.FlowLayout;
 
 public class FoodListDialog extends JDialog {
 
@@ -43,11 +46,13 @@ public class FoodListDialog extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setVgap(20);
 		panel.setBackground(Color.WHITE);
 		contentPanel.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblDayNum = new JLabel();
-		lblDayNum.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		lblDayNum.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		if (day == -1) {
 			lblDayNum.setText("한달 식단");
 		}else{
@@ -62,10 +67,22 @@ public class FoodListDialog extends JDialog {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		scrollPane.getViewport().setBackground(Color.white);
+		//스크롤페인 꾸미기
+		scrollPane.getViewport().setBackground(Color.WHITE);
 		scrollPane.getViewport().setBorder(null);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		
 		listTable(this.monthMenu, this.day);
+		
+		table.setGridColor(new Color(200,200,200));
+		
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setBackground(Color.PINK);
+		
+//		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+//		dtcr.setBackground(Color.GRAY);
+//		TableColumnModel tcm = table.getColumnModel();
+//		tcm.getColumn(0).setCellRenderer(dtcr);
 	}
 
 	private void listTable(MonthMenu monthMenu, int day) {
@@ -85,9 +102,9 @@ public class FoodListDialog extends JDialog {
 		
 		table.setModel(model);
 		
-		tableSetWidth(120,240,200);
-		tableCellAlignment(SwingConstants.CENTER, 0,1,2,3,4);
-		tableCellAlignment(SwingConstants.RIGHT, 5,6,7,8,9);
+		tableSetWidth(120,240,200); //셀 너비 메소드
+		tableCellAlignment(SwingConstants.CENTER, 0,1,2,3,4); //정렬메소드
+		tableCellAlignment(SwingConstants.RIGHT, 5,6,7,8,9); //정렬메소드
 	}
 	//셀 정렬
 	private void tableCellAlignment(int align, int ...idx) {
