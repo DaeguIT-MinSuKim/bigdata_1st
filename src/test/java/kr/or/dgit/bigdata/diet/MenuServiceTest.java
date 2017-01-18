@@ -2,10 +2,14 @@ package kr.or.dgit.bigdata.diet;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.service.MenuService;
 
@@ -38,9 +42,21 @@ public class MenuServiceTest {
 		int res = menuService.insertMenuAuto(menu);
 	}*/
 	
-	@Test
+	/*@Test
 	public void testDeleteMenu(){
 		int deleteMenu = menuService.deleteMenu(26);
+	}*/
+	
+	@Test
+	public void testSelectAllMember(){
+		ArrayList<Menu> menuList = menuService.selectAllMenu();
+		
+		Assert.assertNotNull(menuList);
+		
+		for(int i =0 ; i< menuList.size() ; i++){
+			System.out.println(menuList.get(i));
+		}
+		
 	}
 
 }
