@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,6 +36,7 @@ import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
+import kr.or.dgit.bigdata.diet.util.PrnMenu;
 
 
 public class MainStartGUI extends JFrame implements ActionListener {
@@ -47,6 +46,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 	private JButton btnSignupGroup;
 	private JButton btnSearch;
 	private JButton btnMakePlan;
+	private JButton btnprn;
 	private static MemberService memberService;		//db연결
 	private ArrayList<Member> memberList;			//회원 명부
 
@@ -216,6 +216,11 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		lblDiet.setBounds(535, 310, 120, 20);
 		panel.add(lblDiet);
 		
+		btnprn = new JButton("출력");
+		btnprn.addActionListener(this);
+		btnprn.setBounds(614, 374, 97, 23);
+		panel.add(btnprn);
+		
 		setResizable(false);
 		setSize(800, 600);
 		setVisible(true);
@@ -311,17 +316,18 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			table.setModel(model);
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setViewportView(table);
-			temp.add(scrollPane);
+			temp.getContentPane().add(scrollPane);
 			temp.setSize(800,500);;
 			temp.setVisible(true);
-			
-			
-/////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////
-			
-			
+		}
+		
+/////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
+		if(e.getSource() == btnprn ){
+			PrnMenu test = new PrnMenu(getRows());
 			
 			
 		}
+		
 	}
 
 	private String[][] getRows() {
@@ -332,7 +338,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		//ArrayList<String[]> temp = new ArrayList<>();
 		//rowDatas[i] = temp.get(i).toArray();
 		
-		System.out.println("한달리스트 사이즈 : " + list.size());
+		//System.out.println("한달리스트 사이즈 : " + list.size());
 		int ttt=-1;
 		for (int i = 0; i < list.size(); i++) {     //30일분..
 			
@@ -379,11 +385,10 @@ public class MainStartGUI extends JFrame implements ActionListener {
 					
 			}
 		}
-		System.out.println(ttt);
+		//System.out.println(ttt);
 		return rowDatas;
 
 	}
-	
 }
 
 

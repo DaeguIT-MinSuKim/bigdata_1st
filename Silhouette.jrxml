@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-01-18T14:35:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Silhouette" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e9bb1a27-f975-4aa4-98f9-75524c5daafa">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="time" class="java.lang.String"/>
+	<field name="grp" class="java.lang.String"/>
+	<field name="day" class="java.lang.String"/>
+	<field name="menu" class="java.lang.String"/>
+	<field name="cal" class="java.lang.String"/>
+	<field name="ing1" class="java.lang.String"/>
+	<field name="ing2" class="java.lang.String"/>
+	<field name="ing3" class="java.lang.String"/>
+	<field name="cost" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/40)]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<group name="day">
+		<groupExpression><![CDATA[$F{day}]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<textField>
+					<reportElement x="52" y="19" width="20" height="18" uuid="95a950de-9f8c-4a79-8dd3-865d02781efb"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{day}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="72" y="19" width="18" height="18" uuid="020d9bce-fbbf-4320-abac-ed997bfe8c94"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="HY중고딕" size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[일]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="98" y="21" width="52" height="14" uuid="0da51b73-549a-40a3-a77b-a77020f6e6f0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[식사시간]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="172" y="21" width="36" height="14" uuid="81319cb7-c6e6-45c8-9107-757976187e7e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[항목]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="236" y="21" width="36" height="14" uuid="975196c4-bd0b-456e-8dfb-603736ca62fd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[메뉴]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="21" width="36" height="14" uuid="094b777f-6a2d-41cd-83b4-27c69ff7c0ad"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[칼로리]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="349" y="21" width="36" height="14" uuid="246fa919-51f3-4354-b162-9deeee0121ff"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[지방]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="397" y="21" width="46" height="14" uuid="31ce5867-bc6e-46e5-9835-3495d3cfdf0f"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[탄수화물]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="454" y="21" width="46" height="14" uuid="0fdf9151-1fec-405c-bde1-485de5649225"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[단백질]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="510" y="21" width="46" height="14" uuid="48b7f40d-1a7a-4309-89c4-349b031e1dcb"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[비용]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band height="794" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="689" width="48" height="105" forecolor="#666666" backcolor="#02FA17" uuid="58048a65-569d-454e-b6dd-f3bb46c94ee3"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField isBlankWhenNull="true">
+					<reportElement style="Column header" mode="Opaque" x="0" y="1" width="48" height="73" forecolor="#000000" backcolor="#0AFF50" uuid="0f40ce36-78f2-49e5-adf5-8855d6516e74"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font size="40" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="-1" y="76" width="49" height="20" forecolor="#000000" uuid="e06a687c-0f3f-4451-a45e-f88c505ba589"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+						<font size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement mode="Transparent" x="11" y="70" width="27" height="1" uuid="ab96a4b0-8a0d-4ae2-8695-16868926ec2b"/>
+				</line>
+			</frame>
+			<staticText>
+				<reportElement style="SubTitle" mode="Opaque" x="-19" y="579" width="21" height="109" backcolor="#1FF246" uuid="9c6600a7-f421-4de5-8eff-a4829b4c07ff"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#08FC20"/>
+					<leftPen lineWidth="1.0" lineColor="#08FC20"/>
+					<bottomPen lineWidth="1.0" lineColor="#08FC20"/>
+					<rightPen lineWidth="1.0" lineColor="#08FC20"/>
+				</box>
+				<textElement rotation="Left">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGE]]></text>
+			</staticText>
+		</band>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="555" height="115" uuid="524767a9-e7e5-4041-9b08-5a7210b38e22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="HY헤드라인M" size="48" isBold="true"/>
+				</textElement>
+				<text><![CDATA[이달의 추천 식단]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="272" y="0" width="283" height="20" forecolor="#000000" uuid="f8570c2f-4404-4725-885a-4eb3c26abb4a"/>
+				<textElement textAlignment="Right">
+					<font fontName="HY신명조" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="87" y="93" width="380" height="4" uuid="55912639-101c-42ae-ba63-2a2c3d0831b8"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="345" y="130" width="52" height="21" uuid="0b467b2c-4ca2-4057-83e4-c6c2518de7a6"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Cal/Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="98" y="130" width="40" height="21" uuid="2d8f1293-7802-4277-9ead-855673ea430c"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="200" y="130" width="50" height="21" uuid="40da70d4-e45b-4893-a3a6-1468b6a83d08"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[NAME.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="130" width="46" height="20" uuid="3e051877-55e3-4ae7-9e95-b5982ae8d455"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[001]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="131" width="50" height="20" uuid="14a9674b-121c-4ecf-905f-5a5cf84ed777"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NANA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="130" width="110" height="20" uuid="19a5f475-0601-47b4-8582-c3989f6ba9e2"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[500]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="12" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="458" height="7" backcolor="#666666" uuid="eb0fefed-b830-492b-a0c9-ec23411537a7"/>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="-1" width="458" height="1" uuid="2b97af27-2a1e-491f-a0f4-b2549a3510ee"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<frame>
+				<reportElement x="97" y="0" width="458" height="14" uuid="5d75be3e-ea39-4b96-baf8-b49497315044">
+					<property name="ShowOutOfBoundContent" value="true"/>
+				</reportElement>
+				<textField>
+					<reportElement x="6" y="3" width="30" height="10" uuid="a3ca10a0-19f7-4873-81d3-33ca61aa4153"/>
+					<textElement verticalAlignment="Middle" rotation="None">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="75" y="2" width="38" height="10" uuid="a0176181-f55b-4a0b-9af3-e5e899d6db1a"/>
+					<textElement verticalAlignment="Middle" rotation="None">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grp}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="140" y="1" width="34" height="12" uuid="b6bf095f-4589-44ac-b716-bd893d0f8fa4"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{menu}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="203" y="2" width="36" height="10" uuid="80ba6120-b29f-414d-8516-af1ebe9901f2"/>
+					<textElement textAlignment="Center" verticalAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="253" y="2" width="36" height="10" uuid="5c72c2c5-274a-4994-933e-0bef5fd956f7"/>
+					<textElement textAlignment="Center" verticalAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ing1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="306" y="2" width="36" height="10" uuid="82ff6ad5-aa46-45e0-b926-da1a9dff505e"/>
+					<textElement textAlignment="Center" verticalAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ing2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="363" y="2" width="36" height="10" uuid="0ea96884-a18d-48d4-94d8-484aa3f3fa1c"/>
+					<textElement textAlignment="Center" verticalAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ing3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="419" y="2" width="36" height="10" uuid="124f5447-7864-41dc-ab4e-8e34b345b342"/>
+					<textElement textAlignment="Center" verticalAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<frame>
+				<reportElement style="Column header" positionType="FixRelativeToBottom" mode="Opaque" x="310" y="3" width="244" height="30" forecolor="#DE14DE" backcolor="#CCCCCC" uuid="8dc6af22-fec6-467d-8eaf-f215f6a6684e"/>
+				<staticText>
+					<reportElement style="Column header" x="10" y="3" width="224" height="25" forecolor="#000000" uuid="fce324aa-31f5-453a-a957-28bc6f740c75"/>
+					<textElement>
+						<font size="19" isBold="false"/>
+					</textElement>
+					<text><![CDATA[made by TEAM : J Y B]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
