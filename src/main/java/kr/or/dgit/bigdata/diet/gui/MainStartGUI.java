@@ -356,7 +356,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 				 * 아침 2개, 점심 3개, 저녁 2개 
 				 * 아침 = 1, 2
 				 * 점심 = 2, 3, 4 
-				 * 저녁 = 5, 6
+				 * 저녁 = 5, 6 
 				 */
 				if (j < quo) {
 					str = "아침";
