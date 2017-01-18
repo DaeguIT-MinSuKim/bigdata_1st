@@ -36,7 +36,7 @@ public class OutputMenuList extends JFrame {
 	 */
 	public OutputMenuList() {
 		setTitle("식단정보");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = getContentPane();
 		
 		//배경패널 추가

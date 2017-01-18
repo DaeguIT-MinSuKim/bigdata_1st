@@ -299,26 +299,9 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////식단 짜기
 		if(e.getSource() == btnMakePlan ){
 			
-			/*System.out.println("menuUI");
-			JFrame temp =  new JFrame();
-			JEditorPane edPane = new JEditorPane();
-			edPane.setEditable(false);
-			edPane.setContentType("text/html");
-			edPane.setText("<html><p style='font-size: 36pt;'>보미씨 바보</P></html>");			
-			temp.add(edPane);
-			temp.setSize(300, 300);
-			temp.setVisible(true);*/
+			MenuManagerGUI mmgui = new MenuManagerGUI();
+			mmgui.setVisible(true);
 			
-			JFrame temp =  new JFrame();			
-			JTable table = new JTable();
-			DefaultTableModel model 
-			    = new DefaultTableModel(getRows(),	new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
-			table.setModel(model);
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setViewportView(table);
-			temp.getContentPane().add(scrollPane);
-			temp.setSize(800,500);;
-			temp.setVisible(true);
 		}
 		
 /////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
