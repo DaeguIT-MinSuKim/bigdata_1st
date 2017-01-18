@@ -12,5 +12,14 @@
 		select cal, carbo, con, cost, fat, grp, item, no, protein
 		from menu ;
 	</select>
+	
+	<insert id="insertMenuAuto" parameterType="menu" useGeneratedKeys="true" keyProperty="no">
+		insert into menu(grp, item, cal, fat, carbo, protein, cost, con)
+		values (#{grp}, #{item}, #{cal}, #{fat}, #{carbo}, #{protein}, #{cost}, #{con});
+	</insert>
+	
+	<delete id="deleteMenu" parameterType="int">
+		delete from menu where no = #{no}
+	</delete>
 
 </mapper>

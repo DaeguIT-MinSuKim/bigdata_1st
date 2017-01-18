@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.dto.Menu;
+import kr.or.dgit.bigdata.diet.mappers.MemberMapper;
 import kr.or.dgit.bigdata.diet.mappers.MenuMapper;
 import kr.or.dgit.bigdata.diet.util.MyBatisSqlSessionFactory;
 
@@ -45,5 +47,39 @@ public class MenuService {
 		}finally{
 			sqlSession.close();
 		}		
+	}
+	
+	public int insertMenuAuto(Menu menu){
+		logger.debug("insertMenuAuto(menu) - start");
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try {
+			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+			int res = menuMapper.insertMenuAuto(menu);
+			sqlSession.commit();
+			return res;
+		}catch(Exception e){
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw new RuntimeException(e.getCause());
+		}finally{
+			sqlSession.close();
+		}
+	}
+	
+	public int deleteMenu(int no){
+		logger.debug("deleteMenu(no) - start");
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try {
+			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+			int res = menuMapper.deleteMenu(no);
+			sqlSession.commit();
+			return res;
+		}catch(Exception e){
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw new RuntimeException(e.getCause());
+		}finally{
+			sqlSession.close();
+		}
 	}
 }
