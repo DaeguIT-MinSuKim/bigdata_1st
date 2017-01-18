@@ -363,33 +363,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		return rowDatas;
 
 	}
-
-
-	
-//////table 생성 ///////////////
-	
-	
-	
-	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ////////그림 패널//////////////
