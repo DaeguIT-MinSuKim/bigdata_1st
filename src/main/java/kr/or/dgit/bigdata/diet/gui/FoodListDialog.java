@@ -46,11 +46,13 @@ public class FoodListDialog extends JDialog {
 		contentPanel.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblDayNum = new JLabel();
-		lblDayNum.setText(day+"");
-		panel.add(lblDayNum);
+		if (day == -1) {
+			lblDayNum.setText("한달 식단");
+		}else{
+			lblDayNum.setText(day+"일자 식단");
+		}
 		
-		JLabel lblJustLabel = new JLabel("일");
-		panel.add(lblJustLabel);
+		panel.add(lblDayNum);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
