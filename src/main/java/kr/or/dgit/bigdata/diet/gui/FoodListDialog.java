@@ -34,7 +34,7 @@ public class FoodListDialog extends JDialog {
 		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setBounds(100, 100, 650, 300);
+		setBounds(100, 100, 650, 350);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,11 +45,12 @@ public class FoodListDialog extends JDialog {
 		panel.setBackground(Color.WHITE);
 		contentPanel.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("1");
-		panel.add(lblNewLabel);
+		JLabel lblDayNum = new JLabel();
+		lblDayNum.setText(day+"");
+		panel.add(lblDayNum);
 		
-		JLabel lblNewLabel_1 = new JLabel("일");
-		panel.add(lblNewLabel_1);
+		JLabel lblJustLabel = new JLabel("일");
+		panel.add(lblJustLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPanel.add(scrollPane, BorderLayout.CENTER);

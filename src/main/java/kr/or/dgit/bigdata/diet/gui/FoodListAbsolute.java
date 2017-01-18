@@ -68,6 +68,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 	//MonthMenu에 보낼 필드 선언
 	int dayCal;
 	int monthCost;
+	private FoodListDialog foodListDialog;
 	
 	public FoodListAbsolute(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
@@ -276,7 +277,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 			//식단이 아직 생성되어있지 않을 때 호출하도록
 			if (monthMenu == null) {
 				monthMenu = new MonthMenu(dayCal, monthCost);
-				foodListGui = new FoodListGUI(monthMenu, -1);
+				foodListDialog= new FoodListDialog(monthMenu, -1);
 			}else{
 				return;
 			}
@@ -290,8 +291,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 					return;
 				}else{
-					foodListGui = new FoodListGUI(monthMenu, (i+1));
-					foodListGui.setVisible(true);
+					foodListDialog = new FoodListDialog(monthMenu, (i+1));
+					foodListDialog.setVisible(true);
 				}
 			}
 		}
@@ -302,9 +303,7 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 				return;
 			}else{
-//				foodListGui = new FoodListGUI(monthMenu, -1);
-//				foodListGui.setVisible(true);
-				FoodListDialog foodListDialog= new FoodListDialog(monthMenu, -1);
+				foodListDialog= new FoodListDialog(monthMenu, -1);
 				foodListDialog.setVisible(true);
 			}			
 		}
