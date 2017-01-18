@@ -49,25 +49,6 @@ public class SignupUI extends JDialog {
 	private JRadioButton rdbtnFemale;
 	private JComboBox cmbHabitat;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignupUI frame = new SignupUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SignupUI() {
 		setModal(true);
 		setResizable(false);
@@ -80,49 +61,49 @@ public class SignupUI extends JDialog {
 
 		JLabel lblSignUp = new JLabel("SIGN UP | 회원등록");
 		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSignUp.setFont(new Font("10X10 Bold", Font.PLAIN, 30));
+		lblSignUp.setFont(new Font("맑은 고딕", Font.PLAIN, 25));
 		lblSignUp.setBounds(210, 62, 262, 71);
 		signPanel.add(lblSignUp);
 
 		JLabel label_1 = new JLabel("이름");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_1.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_1.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_1.setBounds(154, 217, 76, 21);
 		signPanel.add(label_1);
 
 		JLabel label_2 = new JLabel("성별");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_2.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_2.setBounds(154, 257, 76, 21);
 		signPanel.add(label_2);
 
 		JLabel label_3 = new JLabel("몸무게");
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_3.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_3.setBounds(154, 298, 76, 21);
 		signPanel.add(label_3);
 
 		JLabel label_4 = new JLabel("나이");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_4.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_4.setBounds(154, 339, 76, 21);
 		signPanel.add(label_4);
 
 		JLabel label_5 = new JLabel("휴대전화");
 		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_5.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_5.setBounds(154, 379, 76, 21);
 		signPanel.add(label_5);
 
 		JLabel label_6 = new JLabel("거주지");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_6.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_6.setBounds(154, 419, 76, 21);
 		signPanel.add(label_6);
 
 		JLabel label_7 = new JLabel("월 예산");
 		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setFont(new Font("서울남산체 M", Font.PLAIN, 20));
+		label_7.setFont(new Font("맑은 고딕", Font.PLAIN, 16));
 		label_7.setBounds(154, 456, 76, 21);
 		signPanel.add(label_7);
 
@@ -403,7 +384,6 @@ public class SignupUI extends JDialog {
 
 		// setUndecorated(true); //상태줄 없애기
 		setLocationRelativeTo(null); // 중앙 위치토록 함수 호출
-		setVisible(true);
 	} // constructor end
 
 	//값 유효성 검사 함수

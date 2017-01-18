@@ -11,10 +11,6 @@ public class MonthMenu {
 	
 	public ArrayList<OneDayMenu> monthMenuList = new ArrayList<>();
 
-	
-	
-	
-	
 	public MonthMenu(int dayCal, int monthCost) {
 		this.dayCal = dayCal;
 		this.monthCost = monthCost;
