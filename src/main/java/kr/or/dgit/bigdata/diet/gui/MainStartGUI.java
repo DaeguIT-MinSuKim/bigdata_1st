@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,6 +36,7 @@ import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
+import kr.or.dgit.bigdata.diet.util.PrnMenu;
 
 
 public class MainStartGUI extends JFrame implements ActionListener {
@@ -47,6 +46,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 	private JButton btnSignupGroup;
 	private JButton btnSearch;
 	private JButton btnMakePlan;
+	private JButton btnprn;
 	private static MemberService memberService;		//db연결
 	private ArrayList<Member> memberList;			//회원 명부
 
@@ -210,11 +210,16 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		lblSearch.setBounds(410, 310, 120, 20);
 		panel.add(lblSearch);
 		
-		JLabel lblDiet = new JLabel("식단생성");
+		JLabel lblDiet = new JLabel("식단추가");
 		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
 		lblDiet.setBounds(535, 310, 120, 20);
 		panel.add(lblDiet);
+		
+		btnprn = new JButton("출력");
+		btnprn.addActionListener(this);
+		btnprn.setBounds(614, 374, 97, 23);
+		panel.add(btnprn);
 		
 		setResizable(false);
 		setSize(800, 600);
@@ -306,18 +311,23 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			
 			JFrame temp =  new JFrame();			
 			JTable table = new JTable();
-			DefaultTableModel model = new DefaultTableModel(getRows(), 
-					new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
+			DefaultTableModel model 
+			    = new DefaultTableModel(getRows(),	new String[]{"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"});
 			table.setModel(model);
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setViewportView(table);
-			temp.add(scrollPane);
+			temp.getContentPane().add(scrollPane);
 			temp.setSize(800,500);;
 			temp.setVisible(true);
-			
+		}
+		
+/////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
+		if(e.getSource() == btnprn ){
+			PrnMenu test = new PrnMenu(getRows());
 			
 			
 		}
+		
 	}
 
 	private String[][] getRows() {
@@ -328,7 +338,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		//ArrayList<String[]> temp = new ArrayList<>();
 		//rowDatas[i] = temp.get(i).toArray();
 		
-		System.out.println("한달리스트 사이즈 : " + list.size());
+		//System.out.println("한달리스트 사이즈 : " + list.size());
 		int ttt=-1;
 		for (int i = 0; i < list.size(); i++) {     //30일분..
 			
@@ -336,13 +346,33 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			ArrayList<Menu> templistoneday = list.get(i).menuList;
 
 			for(int j=0;j<templistoneday.size();j++){
+				int quo = templistoneday.size() / 3; // (하루치 메뉴 개수 / 아침,점심,저녁)
+				int rem = templistoneday.size() % 3; // (하루치 메뉴 개수 / 아침,점심,저녁)의
+														// 나머지 개수
+				String str = ""; // 아침 점심 저녁을 저장할 변수
+
+				/*
+				 * 6만약 메뉴 개수가 7개일 때 몫 = 2, 나머지 =1 
+				 * 아침 2개, 점심 3개, 저녁 2개 
+				 * 아침 = 1, 2
+				 * 점심 = 2, 3, 4 
+				 * 저녁 = 5, 6
+				 */
+				if (j < quo) {
+					str = "아침";
+				} else if (j < (quo + quo + rem)) {
+					str = "점심";
+				} else if (j < (quo + quo + quo + rem)) {
+					str = "저녁";
+				}
+
 				ttt++;
 				
 				   //"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
 				rowDatas[ttt] = new String[]{
 						(ttt+1)+"",
 						(i+1)+"",
-						"",
+						str,
 						templistoneday.get(j).getGrp()+ "",
 						templistoneday.get(j).getItem()+ "",
 						templistoneday.get(j).getCal()+ "",
@@ -355,37 +385,11 @@ public class MainStartGUI extends JFrame implements ActionListener {
 					
 			}
 		}
-		System.out.println(ttt);
+		//System.out.println(ttt);
 		return rowDatas;
 
 	}
-
-
-	
-//////table 생성 ///////////////
-	
-	
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ////////그림 패널//////////////
