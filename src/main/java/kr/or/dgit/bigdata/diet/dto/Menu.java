@@ -6,16 +6,17 @@ public class Menu {
 	private String grp;
 	private String item;
 	private int cal;
-	private int fat;
-	private int carbo;
-	private int protein;
+	private float fat;
+	private float carbo;
+	private float protein;
 	private int cost;
 	private String con;
 	private String mealTime;
 	
 	public Menu() {	}
-	
-	public Menu(int no, String grp, String item, int cal, int fat, int carbo, int protein, int cost, String con, String mealTime) {
+
+
+	public Menu(int no, String grp, String item, int cal, float fat, float carbo, float protein, int cost, String con, String mealTime) {
 		this.no = no;
 		this.grp = grp;
 		this.item = item;
@@ -27,13 +28,14 @@ public class Menu {
 		this.con = con;
 		this.mealTime = mealTime;
 	}
+	
 	public int getNo() {return no;	}
 	public String getGrp() 	{return grp;	}
 	public String getItem() {return item;	}
 	public int getCal() 	{return cal;	}
-	public int getFat() 	{return fat;	}
-	public int getCarbo() 	{return carbo;	}
-	public int getProtein() {return protein;	}
+	public float getFat() 	{return fat;	}
+	public float getCarbo() 	{return carbo;	}
+	public float getProtein() {return protein;	}
 	public int getCost() 	{return cost;	}
 	public String getCon() 	{return con;	}
 	public void setNo(int no) {
@@ -48,13 +50,13 @@ public class Menu {
 	public void setCal(int cal) {
 		this.cal = cal;
 	}
-	public void setFat(int fat) {
+	public void setFat(float fat) {
 		this.fat = fat;
 	}
-	public void setCarbo(int carbo) {
+	public void setCarbo(float carbo) {
 		this.carbo = carbo;
 	}
-	public void setProtein(int protein) {
+	public void setProtein(float protein) {
 		this.protein = protein;
 	}
 	public void setCost(int cost) {

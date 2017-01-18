@@ -216,7 +216,7 @@ public class SignupUI extends JDialog {
 				//백스페이스 및 숫자만 받음				
 				char t = e.getKeyChar();
 				if (! ( (Character.isDigit(t))
-						||(t == KeyEvent.VK_BACK_SPACE) 
+						||(t == KeyEvent.VK_BACK_SPACE)
 						||(t == KeyEvent.VK_DELETE) ) ) {
 					getToolkit().beep();
 					e.consume();
