@@ -2,9 +2,11 @@ package kr.or.dgit.bigdata.diet.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -78,11 +81,46 @@ public class FoodListDialog extends JDialog {
 		
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.setBackground(Color.PINK);
+		tableHeader.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		
+		//		각각 셀에 색깔 줄 수 있도록 함
 //		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 //		dtcr.setBackground(Color.GRAY);
 //		TableColumnModel tcm = table.getColumnModel();
 //		tcm.getColumn(0).setCellRenderer(dtcr);
+		
+		//		스크롤바 width를 아예없앰(눈에 안보임)
+		//scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,10));
+		//		스크롤바 width사이즈를 13으로 설정
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
+		
+		//		스크롤바의 ▲ ▼ 없앰
+		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbDarkShadowColor = Color.PINK;
+			}
+
+			@Override
+			protected JButton createDecreaseButton(int orientation) {
+				return createZeroButton();
+			}
+
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
+				return createZeroButton();
+			}
+			
+			private JButton createZeroButton(){
+				JButton button = new JButton();
+				button.setPreferredSize(new Dimension(0, 0));
+				button.setMinimumSize(new Dimension(0, 0));
+				button.setMaximumSize(new Dimension(0, 0));
+				return button;
+			}
+			
+		});
 	}
 
 	private void listTable(MonthMenu monthMenu, int day) {
