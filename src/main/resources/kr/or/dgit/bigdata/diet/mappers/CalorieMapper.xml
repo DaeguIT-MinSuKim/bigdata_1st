@@ -7,12 +7,4 @@
 		select minage,maxage,cal_man,h_man,w_man,cal_woman,h_woman,w_woman
 		from calorie where ((minage &lt;= #{age}) and( maxage &gt;= #{age}));
 	</select>
-	
-	 
-	<select id="selectCalorieByAgeNo" parameterType="Member" resultType="Calorie">
-		select minage,maxage,cal_man,h_man,w_man,cal_woman,h_woman,w_woman
-		from calorie inner join member m on m.no = #{no}
-		where #{age} &gt;= minage and #{age} &lt;= maxage;
-	</select>
-
 </mapper>

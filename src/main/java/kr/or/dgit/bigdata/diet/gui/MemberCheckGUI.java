@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -27,8 +29,8 @@ import javax.swing.border.LineBorder;
 
 public class MemberCheckGUI extends JFrame implements ActionListener{
 
-	private JPanel contentPane;
-	private JTextField tf_no;
+	JPanel contentPane;
+	JTextField tf_no;
 	private JTextField tf_name;
 	private JButton btnLeft;
 	private JButton btnRight;
@@ -39,15 +41,20 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private ArrayList<Member> memberList;
 	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
+	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>();
+	
+	int noForFoodList;
 	
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 316, 538);
+		setBounds(100, 100, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		setResizable(false);
 		
 		JLabel lblNo = new JLabel("No.");
 		lblNo.setBounds(35, 198, 20, 17);
@@ -87,7 +94,8 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		panelNumber.lbl_number.setText("0"); 		//member의 첫째 record를 가져와 화면에 출력
 		panelNumber.lbl_sum.setText(sumNumber+"");  //member의 전체 record 갯수를 가져와 화면에 출력
 		
-		PanelTopButton panelButton = new PanelTopButton();
+		//	panel button
+		PanelTopButton panelButton = new PanelTopButton(this);
 		panelButton.setBounds(0, 145, 300, 30);
 		contentPane.add(panelButton);
 		
@@ -124,6 +132,7 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		
 		//JFRAME 생성시
 		sumNumber = memberService.selectMemberSum();
+		panelNumber.lbl_sum.setText(sumNumber+"");
 		
 		//모든 member객체 가져오기
 		memberList = memberService.selectAllMember();
@@ -135,6 +144,10 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 			panelNumber.lbl_number.setText("1"); //member의 첫째 record를 가져와 화면에 출력
 			
 			DecimalFormat df = new DecimalFormat("000");
+			
+			//FoodListAbsolute에 보내기 위한 변수.
+			//tf_no가 ###형식이어서
+			noForFoodList = 1;
 			
 			tf_no.setText( df.format(memberList.get(0).getNo()) );
 			tf_name.setText(memberList.get(0).getName());
@@ -169,6 +182,10 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		
 		panelNumber.lbl_number.setText((memberIndex+1)+"");
 		Member temp = memberList.get(memberIndex);
+		
+		//FoodListAbsolute에 보내기 위한 변수.
+		//tf_no가 ###형식이어서
+		noForFoodList = temp.getNo(); 
 		
 		DecimalFormat df = new DecimalFormat("000");
 		

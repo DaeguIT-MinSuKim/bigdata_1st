@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -25,12 +26,17 @@ import javax.swing.text.html.StyleSheet;
 import org.w3c.dom.css.RGBColor;
 
 import javafx.scene.layout.BorderWidths;
+import kr.or.dgit.bigdata.diet.dto.Calorie;
+import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
+import kr.or.dgit.bigdata.diet.service.CalorieService;
+import kr.or.dgit.bigdata.diet.service.MemberService;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -40,41 +46,43 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
 public class FoodListAbsolute extends JFrame implements ActionListener{
-	private JPanel contentPane;
+	public static JPanel contentPane;
 	private JTable table;
 	private JButton btnMakeFoodList;
 	private JButton btnMonth;
 	private JButton[] btnDays = new JButton[30];
 	private JTextField tfName;
 	private JTextField tfOneDayCal;
-	private JTextField tfOneDayCost;
-	private JTextField tfMonthCost;
+	public static JTextField tfOneDayCost;
+	public static JTextField tfMonthCost;
 	private JTextField tfGender;
 	private JTextField tfAge;
 	private JTextField tfNo;
-	private JButton btnBack;
 	private JButton btnSaveCsv;
 	private MonthMenu monthMenu;
-	private FoodListGUI foodListGui;
+	int no; //회원 번호
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FoodListAbsolute frame = new FoodListAbsolute();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private Member member;
 	
-	public FoodListAbsolute() {
+	//MonthMenu에 보낼 필드 선언
+	int dayCal;
+	int monthCost;
+	private FoodListDialog foodListDialog;
+	
+	public FoodListAbsolute(MemberCheckGUI memberCheckGUI) {
+		//멤버 객체 받아오기
+		this.no = memberCheckGUI.noForFoodList; //회원 번호
+		member = MemberService.getInstance().selectMemberByNo(no);
+		
+		//회원의 나이애 따른 칼로리 받아와서 MonthMenu에 던질 수 있도록 함.
+		Calorie calorie = CalorieService.getInstance().selectCalorieByAge(member.getAge());
+		dayCal = member.getGender().equals("여") ? calorie.getCal_woman() : calorie.getCal_man();
+		monthCost =  member.getBudget();
+		
 		setAutoRequestFocus(false);
 		setBackground(Color.WHITE);
 		setTitle("추천식단");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.BLACK);
@@ -96,8 +104,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		panelTop.add(lblNo);
 		
 		tfNo = new JTextField();
+		tfNo.setText(memberCheckGUI.tf_no.getText());
 		tfNo.setFont(new Font("굴림", Font.PLAIN, 11));
-		tfNo.setText("001");
 		tfNo.setHorizontalAlignment(SwingConstants.CENTER);
 		tfNo.setColumns(10);
 		tfNo.setBounds(249, 5, 50, 21);
@@ -109,8 +117,8 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		panelTop.add(lblAge);
 		
 		tfAge = new JTextField();
+		tfAge.setText(member.getAge()+"");
 		tfAge.setFont(new Font("굴림", Font.PLAIN, 11));
-		tfAge.setText("22");
 		tfAge.setHorizontalAlignment(SwingConstants.CENTER);
 		tfAge.setColumns(10);
 		tfAge.setBounds(337, 5, 50, 21);
@@ -122,16 +130,16 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		panelTop.add(lblGender);
 		
 		tfGender = new JTextField();
+		tfGender.setText(member.getGender());
 		tfGender.setFont(new Font("굴림", Font.PLAIN, 11));
 		tfGender.setHorizontalAlignment(SwingConstants.CENTER);
-		tfGender.setText("여");
 		tfGender.setBounds(424, 5, 50, 21);
 		panelTop.add(tfGender);
 		tfGender.setColumns(10);
 		
 		tfName = new JTextField();
+		tfName.setText(member.getName());
 		tfName.setHorizontalAlignment(SwingConstants.CENTER);
-		tfName.setText("강보미");
 		tfName.setFont(new Font("맑은 고딕", Font.BOLD, 22));
 		tfName.setBounds(114, 55, 89, 26);
 		panelTop.add(tfName);
@@ -171,10 +179,11 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		lblOneDayCal.setBounds(0, 0, 85, 33);
 		panelSum.add(lblOneDayCal);
 		
+		//1일 평균 칼로리
 		tfOneDayCal = new JTextField();
 		tfOneDayCal.setEditable(false);
 		tfOneDayCal.setHorizontalAlignment(SwingConstants.RIGHT);
-		tfOneDayCal.setText("2100");
+		tfOneDayCal.setText(dayCal+"");
 		tfOneDayCal.setBounds(51, 28, 57, 21);
 		panelSum.add(tfOneDayCal);
 		tfOneDayCal.setColumns(10);
@@ -184,10 +193,11 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		lblOneDayCost.setBounds(0, 71, 108, 33);
 		panelSum.add(lblOneDayCost);
 		
+		//1일 평균 소비금액
 		tfOneDayCost = new JTextField();
 		tfOneDayCost.setEditable(false);
 		tfOneDayCost.setHorizontalAlignment(SwingConstants.RIGHT);
-		tfOneDayCost.setText("30000");
+		tfOneDayCost.setText("");
 		tfOneDayCost.setBounds(51, 102, 57, 21);
 		panelSum.add(tfOneDayCost);
 		tfOneDayCost.setColumns(10);
@@ -197,22 +207,19 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 		lblMonthCost.setBounds(0, 145, 57, 33);
 		panelSum.add(lblMonthCost);
 		
+		//월 총경비
 		tfMonthCost = new JTextField();
 		tfMonthCost.setEditable(false);
 		tfMonthCost.setHorizontalAlignment(SwingConstants.RIGHT);
-		tfMonthCost.setText("950000");
+		tfMonthCost.setText("");
 		tfMonthCost.setBounds(51, 176, 57, 21);
 		panelSum.add(tfMonthCost);
 		tfMonthCost.setColumns(10);
 		
 		
 		btnSaveCsv = new JButton("CSV저장");
-		btnSaveCsv.setBounds(0, 251, 150, 25);
+		btnSaveCsv.setBounds(0, 278, 150, 25);
 		panelSum.add(btnSaveCsv);
-		
-		btnBack = new JButton("돌아가기");
-		btnBack.setBounds(0, 278, 150, 25);
-		panelSum.add(btnBack);
 		
 		JPanel panelBtn = new JPanel();
 		panelBtn.setBackground(Color.PINK);
@@ -255,31 +262,48 @@ public class FoodListAbsolute extends JFrame implements ActionListener{
 				return button;
 			}
 		});*/
-		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//식단 생성 버튼
 		if (e.getSource() == btnMakeFoodList) {
-			if (monthMenu == null) {
-				monthMenu= new MonthMenu(2100, 950000);
-			}else{
+			//식단이 아직 생성되어있지 않을 때 호출하도록
+			if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
 				return;
+			}else{
+				JOptionPane.showMessageDialog(null, "식단을 생성 중입니다");
+				monthMenu = new MonthMenu(dayCal, monthCost);
+				MemberCheckGUI.tempMonthMenu.put(no, monthMenu);
 			}
 		}
+		
+		//1일 ~ 30일 일자 버튼
 		for (int i = 0; i < btnDays.length; i++) {
 			if (e.getSource() == btnDays[i]) {
+				monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
+				
+				//1일~30일 버튼을 클릭했는데 식단이 없을 때
 				if (monthMenu == null) {
 					JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 					return;
 				}else{
-					foodListGui = new FoodListGUI(monthMenu, (i+1));
-					foodListGui.setVisible(true);
+					foodListDialog = new FoodListDialog(monthMenu, (i+1));
+					foodListDialog.setVisible(true);
 				}
 			}
 		}
+		
+		//30일치 한꺼번에 보기
 		if (e.getSource() == btnMonth) {
-			foodListGui = new FoodListGUI(monthMenu, -1);
-			foodListGui.setVisible(true);
+			monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
+			
+			if (monthMenu == null) {
+				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
+				return;
+			}else{
+				foodListDialog= new FoodListDialog(monthMenu, -1);
+				foodListDialog.setVisible(true);
+			}			
 		}
 	}
 }

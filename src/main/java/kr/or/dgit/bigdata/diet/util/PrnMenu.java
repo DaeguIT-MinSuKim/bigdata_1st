@@ -96,8 +96,7 @@ public class PrnMenu extends JFrame {
 		} catch (Exception e) {
 			// TODO: handle exception
 			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-		
+		}	
 		
 	}
 
