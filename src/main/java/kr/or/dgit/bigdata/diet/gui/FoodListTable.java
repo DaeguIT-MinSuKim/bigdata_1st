@@ -27,7 +27,7 @@ import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
 import java.awt.Font;
 import java.awt.FlowLayout;
 
-public class FoodListDialog extends JDialog {
+public class FoodListTable extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -36,7 +36,7 @@ public class FoodListDialog extends JDialog {
 	int avgOneDayCost; //1일 평균 소비금액
 	int monthCost; //월 총 경비
 
-	public FoodListDialog(MonthMenu monthMenu, int day) {
+	public FoodListTable(MonthMenu monthMenu, int day) {
 		this.monthMenu = monthMenu;
 		this.day = day;
 		

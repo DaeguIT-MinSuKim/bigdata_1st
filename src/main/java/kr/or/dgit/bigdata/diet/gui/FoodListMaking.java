@@ -27,7 +27,7 @@ import kr.or.dgit.bigdata.diet.service.CalorieService;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 import kr.or.dgit.bigdata.diet.util.PrnMenu;
 
-public class FoodListMakingDialog extends JDialog implements ActionListener {
+public class FoodListMaking extends JDialog implements ActionListener {
 
 	private BgImageForFoodMakingDialog bgImagePanel = new BgImageForFoodMakingDialog();
 	private JButton[] btnDays = new JButton[30];
@@ -44,14 +44,15 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 	int dayCal;
 	int monthCost;
 	
-	private FoodListDialog foodListDialog;
+	private FoodListTable foodListTable;
+	private FoodListMaking foodListMaking;
 	private JLabel lblName;
 	private JLabel lblNo;
 	private JLabel lblAge;
 	private JLabel lblGender;
 	private JLabel lblOneDayCal;
 	
-	public FoodListMakingDialog(MemberCheckGUI memberCheckGUI) {
+	public FoodListMaking(MemberCheckGUI memberCheckGUI) {
 		//멤버 객체 받아오기
 		this.no = memberCheckGUI.noForFoodList; //회원번호
 		member = MemberService.getInstance().selectMemberByNo(this.no);
@@ -172,20 +173,20 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 		if (e.getSource() == btnCreate) {
 			//식단이 아직 생성되어있지 않을 때 호출하도록
 			if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
-				monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
 				JOptionPane.showMessageDialog(null, "식단이 존재합니다.");
 				return;
 			}else{
 				JOptionPane.showMessageDialog(null, "식단을 생성합니다");
 				
 				monthMenu = new MonthMenu(dayCal, monthCost);
-				foodListDialog = new FoodListDialog(monthMenu, -1);
+				foodListTable = new FoodListTable(monthMenu, -1);
 				
 				MemberCheckGUI.tempMonthMenu.put(no, monthMenu);
-				MemberCheckGUI.tempFoodList.put(no, foodListDialog);
+				MemberCheckGUI.tempFoodList.put(no, foodListTable);
+				MemberCheckGUI.tempMakingFoodList.put(no, this);
 				
-				lblOneDayCost.setText(foodListDialog.avgOneDayCost+"");
-				lblMonthCost.setText(foodListDialog.monthCost+"");
+				lblOneDayCost.setText(foodListTable.avgOneDayCost+"");
+				lblMonthCost.setText(foodListTable.monthCost+"");
 			}
 			
 		}
@@ -194,15 +195,16 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 		for (int i = 0; i < btnDays.length; i++) {
 			if (e.getSource() == btnDays[i]) {
 				monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
-				foodListDialog = MemberCheckGUI.tempFoodList.get(no);
+				foodListTable = MemberCheckGUI.tempFoodList.get(no);
+				foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
 				
 				//1일~30일 버튼을 클릭했는데 식단이 없을 때
 				if (monthMenu == null) {
 					JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
 					return;
 				}else{
-					foodListDialog = new FoodListDialog(monthMenu, (i+1));
-					foodListDialog.setVisible(true);
+					foodListTable = new FoodListTable(monthMenu, (i+1));
+					foodListTable.setVisible(true);
 				}
 			}
 		}
@@ -210,7 +212,8 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 		//식단 출력버튼
 		if (e.getSource() == btnPrint) {
 			monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
-			foodListDialog = MemberCheckGUI.tempFoodList.get(no);
+			foodListTable = MemberCheckGUI.tempFoodList.get(no);
+			foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
 			
 			//클릭했는데 식단이 없을 때
 			if (monthMenu == null) {
@@ -221,13 +224,16 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 				int memberNo = no;
 				String name = lblName.getText();
 				int cal = dayCal;
-				PrnMenu test = new PrnMenu(foodListDialog.monthRows(monthMenu),no+"",name,cal+"");
+				PrnMenu test = new PrnMenu(foodListTable.monthRows(monthMenu),no+"",name,cal+"");
 			}
 		}
 		
 		//CSV저장 버튼
 		if (e.getSource() == btnSave) {
 			monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
+			foodListTable = MemberCheckGUI.tempFoodList.get(no);
+			foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
+			
 			//클릭했는데 식단이 없을 때
 			if (monthMenu == null) {
 				JOptionPane.showMessageDialog(null, "식단 생성을 먼저 진행해주세요.");
@@ -248,14 +254,15 @@ public class FoodListMakingDialog extends JDialog implements ActionListener {
 		monthCost = member.getBudget();
 		
 		monthMenu = MemberCheckGUI.tempMonthMenu.get(no);
-		foodListDialog = MemberCheckGUI.tempFoodList.get(no);
+		foodListTable = MemberCheckGUI.tempFoodList.get(no);
+		foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
 		lblNo.setText(no+"");
 		lblAge.setText(member.getAge()+"");
 		lblGender.setText(member.getGender());
 		lblName.setText(member.getName());
 		lblOneDayCal.setText(dayCal+"");
-		lblOneDayCost.setText(foodListDialog.avgOneDayCost+"");
-		lblMonthCost.setText(foodListDialog.monthCost+"");
+		lblOneDayCost.setText(foodListTable.avgOneDayCost+"");
+		lblMonthCost.setText(foodListTable.monthCost+"");
 		
 		setVisible(true);
 	}

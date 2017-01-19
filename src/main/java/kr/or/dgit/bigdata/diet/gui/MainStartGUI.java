@@ -46,7 +46,6 @@ public class MainStartGUI extends JFrame implements ActionListener {
 	private JButton btnSignupGroup;
 	private JButton btnSearch;
 	private JButton btnMakePlan;
-	private JButton btnprn;
 	private static MemberService memberService;		//db연결
 	private ArrayList<Member> memberList;			//회원 명부
 
@@ -216,11 +215,6 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		lblDiet.setBounds(535, 310, 120, 20);
 		panel.add(lblDiet);
 		
-		btnprn = new JButton("출력");
-		btnprn.addActionListener(this);
-		btnprn.setBounds(614, 374, 97, 23);
-		panel.add(btnprn);
-		
 		setResizable(false);
 		setSize(800, 600);
 		setVisible(true);
@@ -249,7 +243,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원등록
 		if(e.getSource() == btnSignup ){
 			
-			new SignupUI();
+			new SignupUI().setVisible(true);
 		}
 		
 //////////그룹 등록
@@ -305,72 +299,11 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		}
 		
 /////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
-		if(e.getSource() == btnprn ){
+		/*if(e.getSource() == btnprn ){
 			//PrnMenu test = new PrnMenu(getRows());
 			
 			
-		}
-		
-	}
-
-	private String[][] getRows() {
-		MonthMenu monthMenu = new MonthMenu(2100, 950000);    ///new MonthMenu(2000, 760000);
-		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
-		
-		String[][] rowDatas = new String[monthMenu.count][];
-		//ArrayList<String[]> temp = new ArrayList<>();
-		//rowDatas[i] = temp.get(i).toArray();
-		
-		//System.out.println("한달리스트 사이즈 : " + list.size());
-		int ttt=-1;
-		for (int i = 0; i < list.size(); i++) {     //30일분..
-			
-			//하루치 가져오기
-			ArrayList<Menu> templistoneday = list.get(i).menuList;
-
-			for(int j=0;j<templistoneday.size();j++){
-				int quo = templistoneday.size() / 3; // (하루치 메뉴 개수 / 아침,점심,저녁)
-				int rem = templistoneday.size() % 3; // (하루치 메뉴 개수 / 아침,점심,저녁)의
-														// 나머지 개수
-				String str = ""; // 아침 점심 저녁을 저장할 변수
-
-				/*
-				 * 6만약 메뉴 개수가 7개일 때 몫 = 2, 나머지 =1 
-				 * 아침 2개, 점심 3개, 저녁 2개 
-				 * 아침 = 1, 2
-				 * 점심 = 2, 3, 4 
-				 * 저녁 = 5, 6 
-				 */
-				if (j < quo) {
-					str = "아침";
-				} else if (j < (quo + quo + rem)) {
-					str = "점심";
-				} else if (j < (quo + quo + quo + rem)) {
-					str = "저녁";
-				}
-
-				ttt++;
-				
-				   //"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
-				rowDatas[ttt] = new String[]{
-						(ttt+1)+"",
-						(i+1)+"",
-						str,
-						templistoneday.get(j).getGrp()+ "",
-						templistoneday.get(j).getItem()+ "",
-						templistoneday.get(j).getCal()+ "",
-						templistoneday.get(j).getFat()+ "",
-						templistoneday.get(j).getCarbo() +"",
-						templistoneday.get(j).getProtein() +"",
-						templistoneday.get(j).getCost() +""};
-				//
-				//rowDatas[ttt] = templistoneday.get(j).toArray();
-					
-			}
-		}
-		//System.out.println(ttt);
-		return rowDatas;
-
+		}*/
 	}
 }
 

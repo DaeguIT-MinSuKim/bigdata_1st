@@ -44,13 +44,14 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
 	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>(); //회원번호와 식단정보 저장
-	static HashMap<Integer, FoodListDialog> tempFoodList = new HashMap<>(); //회원번호와 식단정보에 따른 테이블 정보 
+	static HashMap<Integer, FoodListTable> tempFoodList = new HashMap<>(); //회원번호와 식단정보에 따른 테이블 정보 
+	static HashMap<Integer, FoodListMaking> tempMakingFoodList = new HashMap<>(); //회원번호와 추천식단 프레임 정보
 	
 	int noForFoodList;
 	
 
 	public MemberCheckGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
@@ -203,9 +204,5 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		panelInfo.tf_phone.setText(temp.getPhone());
 		panelInfo.tf_location.setText(temp.getAddress());
 		panelInfo.tf_budget.setText(temp.getBudget()+"");
-	}
-	
-	public static void main(String[] args) {
-		new MemberCheckGUI().setVisible(true);
 	}
 }

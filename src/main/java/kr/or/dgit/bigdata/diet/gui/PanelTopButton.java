@@ -20,7 +20,7 @@ public class PanelTopButton extends JPanel implements ActionListener {
 	private JButton btnMakeList;
 	private JButton btnCreateMember;
 	private MemberCheckGUI memberCheckGUI;
-	private FoodListMakingDialog foodListMakingDialog;
+	private FoodListMaking foodListMaking;
 	
 	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
@@ -61,10 +61,11 @@ public class PanelTopButton extends JPanel implements ActionListener {
 			if (MemberCheckGUI.tempMonthMenu.containsKey(no) == false) {
 				JOptionPane.showMessageDialog(null, "식단을 생성해주세요.");
 				
-				foodListMakingDialog = new FoodListMakingDialog(memberCheckGUI);
-				foodListMakingDialog.setVisible(true);
+				foodListMaking = new FoodListMaking(memberCheckGUI);
+				foodListMaking.setVisible(true);
 			}else{
-				foodListMakingDialog.setMember(no); //저장된 회원의 정보 가져옴
+				foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
+				foodListMaking.setMember(no); //저장된 회원의 정보 가져옴
 			}
 			
 		}
