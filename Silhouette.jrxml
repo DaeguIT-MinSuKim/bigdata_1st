@@ -19,6 +19,9 @@
 	<field name="ing2" class="java.lang.String"/>
 	<field name="ing3" class="java.lang.String"/>
 	<field name="cost" class="java.lang.String"/>
+	<field name="number" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="daycal" class="java.lang.String"/>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/40)]]></groupExpression>
 		<groupHeader>
@@ -189,21 +192,21 @@
 				<textElement>
 					<font size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA[001]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="254" y="131" width="50" height="20" uuid="14a9674b-121c-4ecf-905f-5a5cf84ed777"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA["NANA"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="400" y="130" width="110" height="20" uuid="19a5f475-0601-47b4-8582-c3989f6ba9e2"/>
 				<textElement>
 					<font size="13"/>
 				</textElement>
-				<textFieldExpression><![CDATA[500]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{daycal}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement mode="Opaque" x="81" y="96" width="390" height="3" backcolor="#666666" uuid="9b71363b-cf88-404d-b942-12ef691684ea"/>

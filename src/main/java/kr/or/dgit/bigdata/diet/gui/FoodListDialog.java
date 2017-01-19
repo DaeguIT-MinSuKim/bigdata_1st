@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -33,6 +34,7 @@ public class FoodListDialog extends JDialog {
 	private MonthMenu monthMenu;
 	private int day;
 	int avgOneDayCost; //1일 평균 소비금액
+	int monthCost; //월 총 경비
 
 	public FoodListDialog(MonthMenu monthMenu, int day) {
 		this.monthMenu = monthMenu;
@@ -75,9 +77,11 @@ public class FoodListDialog extends JDialog {
 		scrollPane.getViewport().setBorder(null);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		
+		//테이블 불러옴
 		listTable(this.monthMenu, this.day);
 		
-		table.setGridColor(new Color(200,200,200));
+		table.setGridColor(new Color(200,200,200)); //테이블 라인 색
+		table.setOpaque(false);
 		
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.setBackground(Color.PINK);
@@ -261,10 +265,10 @@ public class FoodListDialog extends JDialog {
 	}
 
 	//한달치 테이블
-	private String[][] monthRows(MonthMenu monthMenu) {
+	public String[][] monthRows(MonthMenu monthMenu) {
 		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
 
-		String[][] rowDatas = new String[monthMenu.count+2][];
+		String[][] rowDatas = new String[monthMenu.count][];
 		// ArrayList<String[]> temp = new ArrayList<>();
 		// rowDatas[i] = temp.get(i).toArray();
 
@@ -302,7 +306,8 @@ public class FoodListDialog extends JDialog {
 				ttt++;
 
 				// "번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
-				rowDatas[ttt] = new String[] { (ttt + 1) + "", 
+				rowDatas[ttt] = new String[] { 
+						(ttt + 1) + "", 
 						(i + 1) + "", 
 						str, 
 						templistoneday.get(j).getGrp() + "",
@@ -324,24 +329,11 @@ public class FoodListDialog extends JDialog {
 				//월 지방
 				monthProtein += templistoneday.get(j).getProtein();
 			}
-			rowDatas[monthMenu.count+1] = new String[]{
-					"", 
-					"", 
-					"합계",
-					"", 
-					"",
-					monthCal+"", 
-					monthFat+"",
-					monthCarbo+"", 
-					monthProtein+"",
-					monthCost+"", 
-			};
 		}
 		
 		//1일 평균 소비금액
-		avgOneDayCost = Math.min((monthCost / 30),  30000);
-		FoodListAbsolute.tfOneDayCost.setText(avgOneDayCost+"");
-		FoodListAbsolute.tfMonthCost.setText(monthCost+"");
+		this.avgOneDayCost = Math.min((monthCost / 30),  30000);
+		this.monthCost = monthCost;
 		
 		System.out.println(ttt);
 		return rowDatas;

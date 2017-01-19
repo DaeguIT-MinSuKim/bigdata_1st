@@ -306,7 +306,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 /////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
 		if(e.getSource() == btnprn ){
-			PrnMenu test = new PrnMenu(getRows());
+			//PrnMenu test = new PrnMenu(getRows());
 			
 			
 		}

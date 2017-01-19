@@ -7,25 +7,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import com.mysql.fabric.xmlrpc.base.Member;
 
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
+
 public class PanelTopButton extends JPanel implements ActionListener {
 	private JButton btnMakeList;
 	private JButton btnCreateMember;
 	private MemberCheckGUI memberCheckGUI;
-	private FoodListAbsolute foodListAbsolute;
-
+	private FoodListMakingDialog foodListMakingDialog;
+	
 	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
 		
 		setOpaque(false);
 		setLayout(null);
 		
-		btnMakeList = new JButton("식단생성");
+		btnMakeList = new JButton("식단보기");
 		btnMakeList.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		btnMakeList.setBounds(28, 4, 72, 23);
 		btnMakeList.setForeground(Color.WHITE);
@@ -49,10 +52,21 @@ public class PanelTopButton extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//식단 생성 버튼
+		//식단 보기 버튼
 		if (e.getSource() == btnMakeList) {
-			foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
-			foodListAbsolute.setVisible(true);
+			//foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
+			//foodListAbsolute .setVisible(true);
+			int no = memberCheckGUI.noForFoodList;
+			
+			if (MemberCheckGUI.tempMonthMenu.containsKey(no) == false) {
+				JOptionPane.showMessageDialog(null, "식단을 생성해주세요.");
+				
+				foodListMakingDialog = new FoodListMakingDialog(memberCheckGUI);
+				foodListMakingDialog.setVisible(true);
+			}else{
+				foodListMakingDialog.setMember(no); //저장된 회원의 정보 가져옴
+			}
+			
 		}
 		
 		//회원 등록 버튼
