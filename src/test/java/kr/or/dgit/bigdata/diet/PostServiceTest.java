@@ -39,4 +39,12 @@ public class PostServiceTest {
 		
 		Assert.assertNotNull(list);
 	}
+	
+	@Test
+	public void testSearchSidoSigungu(){
+		Post post = new Post("강원도", "임곡로");
+		List<Post> list = postService.getInstance().searchSidoSigungu(post);
+		
+		Assert.assertNotNull(list);
+	}
 }

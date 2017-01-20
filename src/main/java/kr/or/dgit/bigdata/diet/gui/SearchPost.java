@@ -1,32 +1,36 @@
 package kr.or.dgit.bigdata.diet.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Dialog.ModalityType;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.bigdata.diet.dto.Post;
 import kr.or.dgit.bigdata.diet.service.PostService;
-
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JTable;
 
 public class SearchPost extends JDialog {
 
@@ -36,9 +40,11 @@ public class SearchPost extends JDialog {
 	private JComboBox cmbSido;
 
 	public SearchPost() {
+		getContentPane().setBackground(Color.WHITE);
 		setTitle("주소 검색");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(new BorderLayout());
+		panelTop.setBackground(Color.WHITE);
 		panelTop.setLayout(new FlowLayout());
 		panelTop.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(panelTop, BorderLayout.NORTH);
@@ -75,12 +81,59 @@ public class SearchPost extends JDialog {
 			}
 		});
 		panelTop.add(btnSearch);
+		
+		//		버튼꾸미기
+		btnSearch.setBackground(Color.PINK);
 
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		
+		//		스크롤페인꾸미기
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.getViewport().setBorder(null);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		
+		//		스크롤바 width사이즈를 13으로 설정
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
+		
+		//		스크롤바의 ▲ ▼ 없앰
+		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
 
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbDarkShadowColor = Color.PINK;
+			}
+
+			@Override
+			protected JButton createDecreaseButton(int orientation) {
+				return createZeroButton();
+			}
+
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
+				return createZeroButton();
+			}
+			
+			private JButton createZeroButton(){
+				JButton button = new JButton();
+				button.setPreferredSize(new Dimension(0, 0));
+				button.setMinimumSize(new Dimension(0, 0));
+				button.setMaximumSize(new Dimension(0, 0));
+				return button;
+			}
+			
+		});
+		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		//		table꾸미기
+		table.setGridColor(new Color(200,200,200)); //그리드 라인
+		table.setOpaque(false);
+		
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setBackground(Color.PINK);
+		tableHeader.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 	}
 	
 	private void reload(){
@@ -102,7 +155,8 @@ public class SearchPost extends JDialog {
 					
 					if (res == 0) {
 						setVisible(false);
-						SignupUI.tf_location.setText(model.getValueAt(table.getSelectedRow(), 1)+""); //선택된 주소 전달
+						List<Post> list = PostService.getInstance().searchSidoSigungu(getPost());
+						SignupUI.tf_location.setText(list.get(0).getSido()+" "+list.get(0).getSigungu()); //선택된 주소 전달
 					}
 				}
 				

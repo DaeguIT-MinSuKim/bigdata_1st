@@ -49,4 +49,19 @@ public class PostService{
 			sqlSession.close();
 		}
 	}
+	
+	public List<Post> searchSidoSigungu(Post post){
+		if (logger.isDebugEnabled()) {
+			logger.debug("searchSidoSigungu(Post) - start");
+		}
+		
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		
+		try {
+			PostMapper postMapper = sqlSession.getMapper(PostMapper.class);
+			return postMapper.searchSidoSigungu(post);
+		} finally {
+			sqlSession.close();
+		}
+	}
 }

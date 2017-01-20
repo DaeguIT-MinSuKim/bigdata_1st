@@ -9,10 +9,18 @@ import java.awt.Image;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -65,7 +73,10 @@ public class FoodListMaking extends JDialog implements ActionListener {
 		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setBounds(100, 100, 916, 736);
+		//크기조정불가
+		setResizable(false);
+		
+		setBounds(865, 220, 900, 720);
 		getContentPane().setLayout(new BorderLayout());
 		bgImagePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(bgImagePanel, BorderLayout.CENTER);
@@ -93,6 +104,7 @@ public class FoodListMaking extends JDialog implements ActionListener {
 		lblName.setText(member.getName());
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblName.setFont(new Font("HY견고딕", Font.PLAIN, 36));
+		lblName.setForeground(Color.BLACK);
 		lblName.setBounds(206, 148, 172, 52);
 		bgImagePanel.add(lblName);
 		
@@ -240,6 +252,26 @@ public class FoodListMaking extends JDialog implements ActionListener {
 				return;
 			}else{
 				//실행될 코드
+				File fileName = null;
+				BufferedWriter out=null;
+				JFileChooser chooser = new JFileChooser();				
+				int returnVal = chooser.showSaveDialog(null);
+							
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+						String s;
+						fileName = chooser.getSelectedFile();
+					}
+					try {
+						out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "euc-kr"));
+						String[][] temp = foodListTable.monthRows(monthMenu);
+						for (String[] strings : temp) {
+							out.write(strings[0]+","+strings[1]+","+strings[2]+","+strings[3]+","+strings[4]+"" + ","+strings[5]+","+strings[6]+","+strings[7]+","+strings[8]+","+strings[9]); 
+							out.newLine();
+						}
+						out.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}			
 			}
 		}
 	}

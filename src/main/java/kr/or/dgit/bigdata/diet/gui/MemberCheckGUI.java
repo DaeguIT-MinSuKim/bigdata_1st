@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -26,12 +27,13 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
-public class MemberCheckGUI extends JFrame implements ActionListener{
+public class MemberCheckGUI extends JDialog implements ActionListener{
 
-	JPanel contentPane;
+	private JPanel contentPane;
 	JTextField tf_no;
 	private JTextField tf_name;
 	private JButton btnLeft;
@@ -41,26 +43,28 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private int sumNumber; //회원 총 수
 	private int memberIndex = 0;
 	private ArrayList<Member> memberList;
-	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
+	PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
 	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>(); //회원번호와 식단정보 저장
 	static HashMap<Integer, FoodListTable> tempFoodList = new HashMap<>(); //회원번호와 식단정보에 따른 테이블 정보 
 	static HashMap<Integer, FoodListMaking> tempMakingFoodList = new HashMap<>(); //회원번호와 추천식단 프레임 정보
 	
-	int noForFoodList;
+	int noForFoodList; //식단 테이블에 던져주기 위한 번호
 	
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 300, 526);
+		setBounds(560, 220, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		//크기조정불가
 		setResizable(false);
 		
+		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		JLabel lblNo = new JLabel("No.");
 		lblNo.setBounds(35, 198, 20, 17);

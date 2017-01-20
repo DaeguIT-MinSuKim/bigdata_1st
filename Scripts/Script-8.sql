@@ -115,10 +115,13 @@ explain select * from post where doro = '임곡로';
 
 select * from post where sido = '경기도';
 select * from post where doro like '임곡%';
-select distinct sigungu from post where doro = '신상대향길';
+select distinct sido, sigungu from post where doro = '신상대향길';
 
 -- 시도 불러오기 쿼리
 select distinct sido from post;
 
 -- 시도와 도로명을 선택하고 검색하면 걔네만 보이게
 select zipcode, sido, sigungu, doro, building1, building2 from post where sido='강원도' and doro='임곡로' order by building1, building2;
+
+
+insert into 

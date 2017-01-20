@@ -14,8 +14,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PanelBottomNumber extends JPanel {
-	JLabel lbl_sum;
-	JLabel lbl_number;
+	static JLabel lbl_sum;
+	static JLabel lbl_number;
 	
 	public PanelBottomNumber(ArrayList<Member> memberList) {
 		setOpaque(false);

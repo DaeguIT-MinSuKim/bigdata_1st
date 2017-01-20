@@ -203,13 +203,13 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		lblGroupSignup.setBounds(280, 310, 120, 20);
 		panel.add(lblGroupSignup);
 		
-		JLabel lblSearch = new JLabel("회원검색");
+		JLabel lblSearch = new JLabel("식단생성");
 		lblSearch.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSearch.setFont(new Font("10X10", Font.PLAIN, 20));
 		lblSearch.setBounds(410, 310, 120, 20);
 		panel.add(lblSearch);
 		
-		JLabel lblDiet = new JLabel("식단추가");
+		JLabel lblDiet = new JLabel("메뉴추가");
 		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
 		lblDiet.setBounds(535, 310, 120, 20);
@@ -286,8 +286,8 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 //////////회원찾기
 		if(e.getSource() == btnSearch ){
-	
-			new MemberCheckGUI().setVisible(true);
+			MemberCheckGUI memberCheckGUI = new MemberCheckGUI();
+			memberCheckGUI.setVisible(true);
 		}
 		
 //////////식단 짜기

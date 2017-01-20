@@ -7,6 +7,8 @@ import java.util.Random;
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.service.MenuService;
 
+ 
+
 public class OneDayMenu {
    int n;            //메뉴개수
    int calSum;        //1일칼로리합
@@ -110,8 +112,8 @@ public class OneDayMenu {
          //음료 다른 메뉴보다 1/2로 맞춤..
          Random rnd = new Random(); 
          
-         int r = gogiNumSum/4 + fishNumSum/2 + drinkNumSum/2 + fluitNumSum + vegiNumSum + breadNumSum/2;
-         //System.out.println(" r 값   ::::::::::::::"+ r );
+         int r = (int)(gogiNumSum/4) + (int)(fishNumSum/2) + (int)(drinkNumSum/2) + fluitNumSum + vegiNumSum + (int)(breadNumSum/2);
+         
          int z = rnd.nextInt(r)+1;
          if ( z <= gogiNumSum/4 ) {                      //고기
             int y = rnd.nextInt(gogiNumSum);            //0~3
@@ -161,8 +163,13 @@ public class OneDayMenu {
                 
          //Menu newMenu = MenuService.getInstance().getMenu(x); //신menu = 랜덤menu
          //Menu newMenu = DBmenuList.get(x-1);
-         
-         Menu newMenu = DBmenuList.get(z-1);
+
+         Menu newMenu=null;
+         for (Menu menu : DBmenuList) {
+			if(menu.getNo() == z){
+				newMenu = menu;
+			}
+		}
          
          allCostSum += newMenu.getCost();//합산예산 += 신menu.예산
          allCalSum += newMenu.getCal();//합산칼로리 += 신menu.칼로리

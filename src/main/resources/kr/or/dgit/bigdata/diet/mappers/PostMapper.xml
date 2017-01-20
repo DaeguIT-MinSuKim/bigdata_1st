@@ -14,4 +14,7 @@
 		where sido=#{sido} and doro=#{doro} order by building1, building2
 	</select>
  	
+ 	<select id="searchSidoSigungu" parameterType="Post" resultType="Post">
+ 		select distinct sido, sigungu from post where sido = #{sido} and doro = #{doro}
+ 	</select>
 </mapper>

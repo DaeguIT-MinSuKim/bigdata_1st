@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
@@ -43,11 +44,11 @@ public class SignupUI extends JDialog {
 	private JTextField tf_age;
 	private JTextField tf_phone;
 	private JTextField tf_budg;
-	private String[] habitat = {"서울", "대전", "대구", "부산", "울산", "세종", "제주", "광주", "순천", "포항", "제천", "양산", "김해"};
 	private static MemberService memberService; // db 서비스 인스턴스
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	static JTextField tf_location;
+	MemberCheckGUI memberCheckGUI;
 
 	public SignupUI() {
 		setModal(true);
@@ -340,8 +341,13 @@ public class SignupUI extends JDialog {
 					
 					int rs = memberService.insertMember(mem);
 					// 
-					if (rs != 0)
+					if (rs != 0) {
 						JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
+						if (memberCheckGUI != null) {
+							memberCheckGUI.panelNumber.revalidate();
+							memberCheckGUI.panelNumber.repaint();
+						}
+					}
 					else{JOptionPane.showMessageDialog(null, "입력오류가 발생했습니다.(데이터베이스 오류)");}
 
 					tf_no.setText("");
@@ -376,6 +382,7 @@ public class SignupUI extends JDialog {
 		tf_location.setColumns(10);
 		
 		JButton btnLocation = new JButton("검색");
+		btnLocation.setBackground(Color.WHITE);
 		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SearchPost searchPost = new SearchPost();
