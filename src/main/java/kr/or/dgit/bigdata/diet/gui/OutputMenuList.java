@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class OutputMenuList extends JFrame {
 	private static MenuService menuService;
@@ -38,6 +39,7 @@ public class OutputMenuList extends JFrame {
 			public void run() {
 				try {
 					OutputMenuList frame = new OutputMenuList();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,9 +73,6 @@ public class OutputMenuList extends JFrame {
 		pnlForTable.add(scrollPane, BorderLayout.CENTER);
 		
 		//메뉴리스트 생성
-	
-			
-		
 		menuService = MenuService.getInstance();
 		menuList = menuService.selectAllMenu();
 		
@@ -93,6 +92,7 @@ public class OutputMenuList extends JFrame {
 			menu[i] = menuList.get(i).getItem(); 
 		}
 		jcb = new JComboBox();
+		jcb.setBackground(new Color(255, 255, 255));
 		for(int i=0;i<menuList.size(); i++){
 			jcb.addItem(menu[i]);
 		}
@@ -100,8 +100,18 @@ public class OutputMenuList extends JFrame {
 		jcb.setBounds(500, 590, 120, 20);
 		panel.add(jcb);
 		
+		//이미지아이콘
+		ImageIcon iconAdd = new ImageIcon("pictogram/small_add_list.png");
+		ImageIcon iconTrash = new ImageIcon("pictogram/small_trash.png");
+		
 		//메뉴 삭제 버튼
-		JButton btnMenuDel = new JButton("삭제");
+		JButton btnMenuDel = new JButton("");
+		btnMenuDel.setIcon(iconTrash);
+		btnMenuDel.setOpaque(false);
+		btnMenuDel.setBorder(null);
+		btnMenuDel.setBorderPainted(false);
+		btnMenuDel.setContentAreaFilled(false);
+		btnMenuDel.setFocusable(false);
 		
 		//삭제 이벤트
 		btnMenuDel.addActionListener(new ActionListener() {
@@ -117,7 +127,7 @@ public class OutputMenuList extends JFrame {
 					
 					
 					menuService.deleteMenu(menu);
-					JOptionPane.showMessageDialog(null,"야호");
+					JOptionPane.showMessageDialog(null,jcb.getSelectedItem()+"를 삭제하였습니다.");
 					
 					
 					//메뉴리스트 Refresh
@@ -140,7 +150,7 @@ public class OutputMenuList extends JFrame {
 				
 			}
 		});
-		btnMenuDel.setBounds(632, 589, 100, 20);
+		btnMenuDel.setBounds(632, 565, 50, 50);
 		panel.add(btnMenuDel);
 		
 		
