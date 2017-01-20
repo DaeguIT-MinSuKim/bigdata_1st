@@ -47,7 +47,7 @@ public class SignupUI extends JDialog {
 	private static MemberService memberService; // db 서비스 인스턴스
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
-	private JComboBox cmbHabitat;
+	static JTextField tf_location;
 
 	public SignupUI() {
 		setModal(true);
@@ -325,8 +325,8 @@ public class SignupUI extends JDialog {
 					if (rdbtnMale.isSelected()==true){gender ="남";}
 					if (rdbtnFemale.isSelected()==true){gender ="여";}
 					
-					//콤보박스 값 가져오기
-					String location = (String)cmbHabitat.getSelectedItem();
+					//주소 값 가져오기
+					String location = tf_location.getText();
 					
 					Member mem 
 					  = new Member(1  , 
@@ -369,13 +369,24 @@ public class SignupUI extends JDialog {
 		signPanel.add(rdbtnMale);
 		signPanel.add(rdbtnFemale);
 		
-		cmbHabitat = new JComboBox();
-		for (String s : habitat) {
-			cmbHabitat.addItem(s);
-		}
-		cmbHabitat.setBounds(263, 421, 135, 21);
-		cmbHabitat.setBackground(Color.white);
-		signPanel.add(cmbHabitat);
+		tf_location = new JTextField();
+		tf_location.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_location.setBounds(263, 421, 76, 21);
+		signPanel.add(tf_location);
+		tf_location.setColumns(10);
+		
+		JButton btnLocation = new JButton("검색");
+		btnLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SearchPost searchPost = new SearchPost();
+				searchPost.setVisible(true);
+			}
+		});
+		btnLocation.setBounds(344, 420, 54, 23);
+		btnLocation.setBorder(null);
+		signPanel.add(btnLocation);
+		
+		
 		setSize(500, 700);
 
 		// 마우스 이벤트 처리 클래스
@@ -506,5 +517,4 @@ class MouseEventListener2 implements MouseInputListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 	}
-
 }
