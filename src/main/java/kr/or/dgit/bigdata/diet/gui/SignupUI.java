@@ -48,7 +48,6 @@ public class SignupUI extends JDialog {
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	static JTextField tf_location;
-	MemberCheckGUI memberCheckGUI;
 
 	public SignupUI() {
 		setModal(true);
@@ -340,13 +339,9 @@ public class SignupUI extends JDialog {
 							  Integer.parseInt(tf_budg.getText()));
 					
 					int rs = memberService.insertMember(mem);
-					// 
+					
 					if (rs != 0) {
 						JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
-						if (memberCheckGUI != null) {
-							memberCheckGUI.panelNumber.revalidate();
-							memberCheckGUI.panelNumber.repaint();
-						}
 					}
 					else{JOptionPane.showMessageDialog(null, "입력오류가 발생했습니다.(데이터베이스 오류)");}
 

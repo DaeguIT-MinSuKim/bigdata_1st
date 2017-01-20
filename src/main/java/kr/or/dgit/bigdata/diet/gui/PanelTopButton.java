@@ -72,8 +72,7 @@ public class PanelTopButton extends JPanel implements ActionListener {
 		
 		//회원 등록 버튼
 		if (e.getSource() == btnCreateMember) {
-			SignupUI signupUI = new SignupUI(); 
-			signupUI.memberCheckGUI = this.memberCheckGUI;
+			SignupUI signupUI = new SignupUI();
 			signupUI.setVisible(true);
 		}
 	}
