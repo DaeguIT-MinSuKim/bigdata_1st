@@ -12,6 +12,6 @@ public interface MenuMapper {
 
 	public int insertMenuAuto(Menu menu);
 	
-	public int deleteMenu(int no);
+	public int deleteMenu(Menu menu);
 
 }

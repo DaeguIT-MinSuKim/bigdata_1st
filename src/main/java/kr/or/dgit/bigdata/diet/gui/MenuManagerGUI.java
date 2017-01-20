@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 
 public class MenuManagerGUI extends JFrame {
 	private static MenuService menuService;
@@ -56,7 +57,7 @@ public class MenuManagerGUI extends JFrame {
 	 */
 	public MenuManagerGUI() {
 		setTitle("식단관리");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = getContentPane();
 		
 		//배경패널 추가
