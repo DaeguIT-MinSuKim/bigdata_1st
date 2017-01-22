@@ -47,7 +47,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 	private PanelMemberInfo panelInfo; //panel label, texfield
 	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>(); //회원번호와 식단정보 저장
 	static HashMap<Integer, FoodListTable> tempFoodList = new HashMap<>(); //회원번호와 식단정보에 따른 테이블 정보 
-	static HashMap<Integer, FoodListMaking> tempMakingFoodList = new HashMap<>(); //회원번호와 추천식단 프레임 정보
+	static HashMap<Integer, FoodListMakingGUI> tempMakingFoodList = new HashMap<>(); //회원번호와 추천식단 프레임 정보
 	
 	int noForFoodList; //식단 테이블에 던져주기 위한 번호
 	
@@ -110,7 +110,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		contentPane.add(panelButton);
 		
 		//	panel 배경화면 이미지
-		PanelForMemberCheck panelBg = new PanelForMemberCheck();
+		MemberCheckGUIPanel panelBg = new MemberCheckGUIPanel();
 		panelBg.setBounds(0, 0, 300, 500);
 		contentPane.add(panelBg);
 		panelBg.setLayout(null);

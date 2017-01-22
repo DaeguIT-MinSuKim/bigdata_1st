@@ -49,7 +49,7 @@ public class SignUpAndUpdateGUI extends JDialog {
 		contentPane.add(panelInput);
 		
 		//배경이미지
-		PanelForSignUp panelBgImg = new PanelForSignUp();
+		SignUpAndUpdateGUIPanel panelBgImg = new SignUpAndUpdateGUIPanel();
 		panelBgImg.setBounds(0, 0, 300, 500);
 		contentPane.add(panelBgImg);
 		panelBgImg.setLayout(null);

@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
-public class PanelForSignUp extends JPanel {
+public class SignUpAndUpdateGUIPanel extends JPanel {
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_signup.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -161,12 +161,15 @@ class PanelButton extends JPanel implements ActionListener {
 		
 		//돌아가기
 		if (e.getSource() == btnCancel) {
-			if (this.memberCheckGUI != null) {
-				System.out.println("뭐여");
+			if (btnSign.getText().equals("회원수정")) {
 				signUpAndUpdateGUI.dispose();
-				new MemberCheckGUI().setVisible(true);
 			}else{
-				signUpAndUpdateGUI.dispose();
+				if (this.memberCheckGUI != null) {
+					signUpAndUpdateGUI.dispose();
+					new MemberCheckGUI().setVisible(true);
+				}else{
+					signUpAndUpdateGUI.dispose();
+				}
 			}
 		}
 	}

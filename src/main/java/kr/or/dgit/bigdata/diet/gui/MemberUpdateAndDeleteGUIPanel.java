@@ -35,7 +35,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class PanelForMemberUpdate extends JPanel implements ActionListener{
+public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListener{
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_memberupdate.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -55,7 +55,7 @@ public class PanelForMemberUpdate extends JPanel implements ActionListener{
 	private JCheckBox checkBox = new JCheckBox("보미");
 	private JPanel panelTable;
 	
-	public PanelForMemberUpdate() {
+	public MemberUpdateAndDeleteGUIPanel() {
 		setLayout(null);
 		
 		//멤버 모두 불러오기

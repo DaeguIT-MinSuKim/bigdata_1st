@@ -35,7 +35,7 @@ import kr.or.dgit.bigdata.diet.service.CalorieService;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 import kr.or.dgit.bigdata.diet.util.PrnMenu;
 
-public class FoodListMaking extends JDialog implements ActionListener {
+public class FoodListMakingGUI extends JDialog implements ActionListener {
 
 	private BgImageForFoodMakingDialog bgImagePanel = new BgImageForFoodMakingDialog();
 	private JButton[] btnDays = new JButton[30];
@@ -53,14 +53,14 @@ public class FoodListMaking extends JDialog implements ActionListener {
 	int monthCost;
 	
 	private FoodListTable foodListTable;
-	private FoodListMaking foodListMaking;
+	private FoodListMakingGUI foodListMaking;
 	private JLabel lblName;
 	private JLabel lblNo;
 	private JLabel lblAge;
 	private JLabel lblGender;
 	private JLabel lblOneDayCal;
 	
-	public FoodListMaking(MemberCheckGUI memberCheckGUI) {
+	public FoodListMakingGUI(MemberCheckGUI memberCheckGUI) {
 		//멤버 객체 받아오기
 		this.no = memberCheckGUI.noForFoodList; //회원번호
 		member = MemberService.getInstance().selectMemberByNo(this.no);

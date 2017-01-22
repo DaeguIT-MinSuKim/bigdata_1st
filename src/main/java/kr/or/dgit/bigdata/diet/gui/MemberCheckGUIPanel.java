@@ -23,7 +23,7 @@ import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
-public class PanelForMemberCheck extends JPanel {
+public class MemberCheckGUIPanel extends JPanel {
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -156,33 +156,53 @@ class PanelTopButton extends JPanel implements ActionListener{
 	private JButton btnMakeList;
 	private JButton btnCreateMember;
 	private MemberCheckGUI memberCheckGUI;
-	private FoodListMaking foodListMaking;
+	private FoodListMakingGUI foodListMaking;
+	private JButton btnUpdateMember;
 	
 	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
 		
 		setOpaque(false);
 		setLayout(null);
+		/*
+		btnSign.setBounds(28, 4, 72, 23);
+		btnClear.setBounds(114, 4, 72, 23);
+		btnCancel.setBounds(200, 4, 72, 23);*/
 		
 		btnMakeList = new JButton("식단보기");
-		btnMakeList.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnMakeList.setBounds(28, 4, 72, 23);
-		btnMakeList.setForeground(Color.WHITE);
-		btnMakeList.setBackground(new Color(44,103,156));
-		btnMakeList.setFocusPainted(false);
-		btnMakeList.setBorder(new LineBorder(new Color(102, 162, 212)));
-		add(btnMakeList);
-		
+		btnUpdateMember = new JButton("회원수정");
 		btnCreateMember = new JButton("회원등록");
-		btnCreateMember.setForeground(Color.WHITE);
+		
+		btnMakeList.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btnUpdateMember.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		btnCreateMember.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnCreateMember.setFocusPainted(false);
-		btnCreateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnCreateMember.setBackground(new Color(44, 103, 156));
+		
+		btnMakeList.setBounds(28, 4, 72, 23);
+		btnUpdateMember.setBounds(114, 4, 72, 23);
 		btnCreateMember.setBounds(200, 4, 72, 23);
+		
+		btnMakeList.setForeground(Color.WHITE);
+		btnUpdateMember.setForeground(Color.WHITE);
+		btnCreateMember.setForeground(Color.WHITE);
+		
+		btnMakeList.setBackground(new Color(44,103,156));
+		btnUpdateMember.setBackground(new Color(44, 103, 156));
+		btnCreateMember.setBackground(new Color(44, 103, 156));
+		
+		btnMakeList.setFocusPainted(false);
+		btnUpdateMember.setFocusPainted(false);
+		btnCreateMember.setFocusPainted(false);
+		
+		btnMakeList.setBorder(new LineBorder(new Color(102, 162, 212)));
+		btnUpdateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
+		btnCreateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
+		
+		add(btnMakeList);
+		add(btnUpdateMember);
 		add(btnCreateMember);
 		
 		btnMakeList.addActionListener(this);
+		btnUpdateMember.addActionListener(this);
 		btnCreateMember.addActionListener(this);
 	}
 
@@ -195,7 +215,7 @@ class PanelTopButton extends JPanel implements ActionListener{
 			if (MemberCheckGUI.tempMonthMenu.containsKey(no) == false) {
 				JOptionPane.showMessageDialog(null, "식단을 생성해주세요.");
 				
-				foodListMaking = new FoodListMaking(memberCheckGUI);
+				foodListMaking = new FoodListMakingGUI(memberCheckGUI);
 				foodListMaking.setVisible(true);
 			}else{
 				foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
@@ -209,6 +229,12 @@ class PanelTopButton extends JPanel implements ActionListener{
 			memberCheckGUI.dispose();
 			SignUpAndUpdateGUI signupUI = new SignUpAndUpdateGUI(memberCheckGUI);
 			signupUI.setVisible(true);
+		}
+		
+		if (e.getSource() == btnUpdateMember) {
+			memberCheckGUI.dispose();
+			MemberUpdateAndDeleteGUI memberUpdate = new MemberUpdateAndDeleteGUI();
+			memberUpdate.setVisible(true);
 		}
 	}
 }

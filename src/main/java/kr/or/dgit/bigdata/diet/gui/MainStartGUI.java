@@ -74,56 +74,56 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		panel.setLayout(null);
 		
 		//이미지 아이콘
-		ImageIcon originSignUp = new ImageIcon("pictogram/signup.png");
+		ImageIcon originSignUp = new ImageIcon("pictogram/icon_userinput.png");
 		Image originSignUpImg = originSignUp.getImage();
-		Image changeSignUpImg = originSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSignUpImg = originSignUpImg.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeSignUp = new ImageIcon(changeSignUpImg);
-		ImageIcon originSignUp2 = new ImageIcon("pictogram/signup2.png");
+		ImageIcon originSignUp2 = new ImageIcon("pictogram/icon_userinput3.png");
 		Image originSignUpImg2 = originSignUp2.getImage();
-		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
 		ImageIcon changeSignUp2 = new ImageIcon(changeSignUpImg2);
-		ImageIcon originSignUp3 = new ImageIcon("pictogram/signup3.png");
+		ImageIcon originSignUp3 = new ImageIcon("pictogram/icon_userinput2.png");
 		Image originSignUpImg3 = originSignUp3.getImage();
-		Image changeSignUpImg3 = originSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSignUpImg3 = originSignUpImg3.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeSignUp3 = new ImageIcon(changeSignUpImg3);
 		
-		ImageIcon originGroupSignUp = new ImageIcon("pictogram/group.png");
+		ImageIcon originGroupSignUp = new ImageIcon("pictogram/icon_alluserinput.png");
 		Image originGroupSignUpImg = originGroupSignUp.getImage();
-		Image changeGroupSignUpImg = originGroupSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeGroupSignUpImg = originGroupSignUpImg.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeGroupSignUp = new ImageIcon(changeGroupSignUpImg);
-		ImageIcon originGroupSignUp2 = new ImageIcon("pictogram/group2.png");
+		ImageIcon originGroupSignUp2 = new ImageIcon("pictogram/icon_alluserinput3.png");
 		Image originGroupSignUpImg2 = originGroupSignUp2.getImage();
-		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
 		ImageIcon changeGroupSignUp2 = new ImageIcon(changeGroupSignUpImg2);
-		ImageIcon originGroupSignUp3 = new ImageIcon("pictogram/group3.png");
+		ImageIcon originGroupSignUp3 = new ImageIcon("pictogram/icon_alluserinput2.png");
 		Image originGroupSignUpImg3 = originGroupSignUp3.getImage();
-		Image changeGroupSignUpImg3 = originGroupSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeGroupSignUpImg3 = originGroupSignUpImg3.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeGroupSignUp3 = new ImageIcon(changeGroupSignUpImg3);
 		
-		ImageIcon originSearch = new ImageIcon("pictogram/search.png");
+		ImageIcon originSearch = new ImageIcon("pictogram/icon_listcreate.png");
 		Image originSearchImg = originSearch.getImage();
-		Image changeSearchImg = originSearchImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSearchImg = originSearchImg.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeSearch = new ImageIcon(changeSearchImg);
-		ImageIcon originSearch2 = new ImageIcon("pictogram/search2.png");
+		ImageIcon originSearch2 = new ImageIcon("pictogram/icon_listcreate3.png");
 		Image originSearchImg2 = originSearch2.getImage();
-		Image changeSearchImg2 = originSearchImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+		Image changeSearchImg2 = originSearchImg2.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
 		ImageIcon changeSearch2 = new ImageIcon(changeSearchImg2);
-		ImageIcon originSearch3 = new ImageIcon("pictogram/search3.png");
+		ImageIcon originSearch3 = new ImageIcon("pictogram/icon_listcreate2.png");
 		Image originSearchImg3 = originSearch3.getImage();
-		Image changeSearchImg3 = originSearchImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeSearchImg3 = originSearchImg3.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeSearch3 = new ImageIcon(changeSearchImg3);
 		
-		ImageIcon originDiet = new ImageIcon("pictogram/diet.png");
+		ImageIcon originDiet = new ImageIcon("pictogram/icon_menuadd.png");
 		Image originDietImg = originDiet.getImage();
-		Image changeDietImg = originDietImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeDietImg = originDietImg.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeDiet = new ImageIcon(changeDietImg);		
-		ImageIcon originDiet2 = new ImageIcon("pictogram/diet2.png");
+		ImageIcon originDiet2 = new ImageIcon("pictogram/icon_menuadd3.png");
 		Image originDietImg2 = originDiet2.getImage();
-		Image changeDietImg2 = originDietImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+		Image changeDietImg2 = originDietImg2.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
 		ImageIcon changeDiet2 = new ImageIcon(changeDietImg2);
-		ImageIcon originDiet3 = new ImageIcon("pictogram/diet3.png");
+		ImageIcon originDiet3 = new ImageIcon("pictogram/icon_menuadd2.png");
 		Image originDietImg3 = originDiet3.getImage();
-		Image changeDietImg3 = originDietImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image changeDietImg3 = originDietImg3.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		ImageIcon changeDiet3 = new ImageIcon(changeDietImg3);
 		
 		
@@ -188,26 +188,26 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 		JLabel lblSignup = new JLabel("회원등록");
 		lblSignup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSignup.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSignup.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lblSignup.setBounds(150, 310, 120, 20);
 		panel.add(lblSignup);
 		
 		JLabel lblGroupSignup = new JLabel("단체회원등록");
 		lblGroupSignup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGroupSignup.setFont(new Font("10X10", Font.PLAIN, 20));
-		lblGroupSignup.setBounds(280, 310, 120, 20);
+		lblGroupSignup.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		lblGroupSignup.setBounds(281, 310, 120, 20);
 		panel.add(lblGroupSignup);
 		
 		JLabel lblSearch = new JLabel("식단생성");
 		lblSearch.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSearch.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lblSearch.setBounds(410, 310, 120, 20);
 		panel.add(lblSearch);
 		
 		JLabel lblDiet = new JLabel("메뉴추가");
 		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
-		lblDiet.setBounds(535, 310, 120, 20);
+		lblDiet.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		lblDiet.setBounds(542, 310, 120, 20);
 		panel.add(lblDiet);
 		
 		setResizable(false);

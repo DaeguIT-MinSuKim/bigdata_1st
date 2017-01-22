@@ -38,10 +38,10 @@ public class SearchPost extends JDialog {
 	private JTextField tfDoro;
 	private JTable table;
 	private JComboBox cmbSido;
-	PanelInput panelTextField;
+	PanelInput panelInput;
 
 	public SearchPost(PanelInput panelTextField) {
-		this.panelTextField = panelTextField;
+		this.panelInput = panelTextField;
 		
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("주소 검색");
@@ -159,7 +159,7 @@ public class SearchPost extends JDialog {
 					if (res == 0) {
 						setVisible(false);
 						List<Post> list = PostService.getInstance().searchSidoSigungu(getPost());
-						panelTextField.tf_location.setText(list.get(0).getSido()+" "+list.get(0).getSigungu()); //선택된 주소 전달
+						panelInput.tf_location.setText(list.get(0).getSido()+" "+list.get(0).getSigungu()); //선택된 주소 전달
 					}
 				}
 				
