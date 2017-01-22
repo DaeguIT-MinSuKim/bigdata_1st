@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -46,13 +47,9 @@ public class MainStartGUI extends JFrame implements ActionListener {
 	private JButton btnSignupGroup;
 	private JButton btnSearch;
 	private JButton btnMakePlan;
-	private static MemberService memberService;		//db연결
+	private MemberService memberService;		//db연결
 	private ArrayList<Member> memberList;			//회원 명부
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -66,9 +63,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public MainStartGUI() {
 		setTitle("다이어트식단프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -243,7 +238,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원등록
 		if(e.getSource() == btnSignup ){
 			
-			new SignupUI().setVisible(true);
+			new SignUpGUI().setVisible(true);
 		}
 		
 //////////그룹 등록
@@ -286,8 +281,20 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		
 //////////회원찾기
 		if(e.getSource() == btnSearch ){
-			MemberCheckGUI memberCheckGUI = new MemberCheckGUI();
-			memberCheckGUI.setVisible(true);
+			//MemberService객체 얻어오기
+			memberService = MemberService.getInstance();
+			
+			//모든 member객체 가져오기
+			memberList = memberService.selectAllMember();
+			
+			//등록된 회원이 없으면 창 띄우지 못하게 함
+			if (memberList.size() == 0) {
+				JOptionPane.showMessageDialog(null,"등록된 회원이 없습니다.");
+				return;
+			}else{
+				new MemberCheckGUI().setVisible(true);
+			}
+			
 		}
 		
 //////////식단 짜기

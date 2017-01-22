@@ -5,6 +5,6 @@
 	 
 	<select id="selectCalorieByAge" parameterType="int" resultType="Calorie">
 		select minage,maxage,cal_man,h_man,w_man,cal_woman,h_woman,w_woman
-		from calorie where ((minage &lt;= #{age}) and( maxage &gt;= #{age}));
+		from calorie where minage &lt;= #{age} and maxage &gt;= #{age}
 	</select>
 </mapper>

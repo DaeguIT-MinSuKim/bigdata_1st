@@ -2,6 +2,7 @@ package kr.or.dgit.bigdata.diet.util;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,7 +25,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 
-public class PrnMenu extends JFrame {
+public class PrnMenu extends JDialog {
 
 	private JPanel contentPane;
 	private String[][] table;
@@ -53,7 +55,9 @@ public class PrnMenu extends JFrame {
 		revalidate();
 		repaint();
 		setSize(900, 800);
-		setVisible(true);
+		
+		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
+		setModalityType(ModalityType.APPLICATION_MODAL);
 	}
 	private void ShowReport(){
 		try {

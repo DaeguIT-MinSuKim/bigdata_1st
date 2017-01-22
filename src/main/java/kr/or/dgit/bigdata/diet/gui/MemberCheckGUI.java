@@ -54,7 +54,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(560, 220, 306, 526);
+		setBounds(100, 100, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
@@ -94,7 +94,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		
 		//panel label, textfield
 		panelInfo = new PanelMemberInfo(memberList);
-		panelInfo.setBounds(56, 249, 200, 230);
+		panelInfo.setBounds(44, 252, 225, 227);
 		contentPane.add(panelInfo);
 		
 		//panel bottom
@@ -134,18 +134,14 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		panelBg.add(btnRight);
 		btnRight.addActionListener(this);
 		
-		memberService = MemberService.getInstance();
-		memberList = (ArrayList<Member>) memberService.selectAllMember();
-		
 		//MemberService객체 얻어오기
 		memberService = MemberService.getInstance();
+		//모든 member객체 가져오기
+		memberList = memberService.selectAllMember();
 		
 		//JFRAME 생성시
 		sumNumber = memberService.selectMemberSum();
 		panelNumber.lbl_sum.setText(sumNumber+"");
-		
-		//모든 member객체 가져오기
-		memberList = memberService.selectAllMember();
 		
 		//데이터가 있으면 1로 시작
 		if(memberList.size() != 0) {
@@ -155,9 +151,9 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 			
 			DecimalFormat df = new DecimalFormat("000");
 			
-			//FoodListAbsolute에 보내기 위한 변수.
+			//FoodListMaking에 보내기 위한 변수.
 			//tf_no가 ###형식이어서
-			noForFoodList = 1;
+			noForFoodList = memberList.get(0).getNo();
 			
 			tf_no.setText( df.format(memberList.get(0).getNo()) );
 			tf_name.setText(memberList.get(0).getName());
@@ -193,7 +189,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		panelNumber.lbl_number.setText((memberIndex+1)+"");
 		Member temp = memberList.get(memberIndex);
 		
-		//FoodListAbsolute에 보내기 위한 변수.
+		//FoodListMaking에 보내기 위한 변수.
 		//tf_no가 ###형식이어서
 		noForFoodList = temp.getNo(); 
 		

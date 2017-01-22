@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -19,9 +20,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
 public class PanelForMemberCheck extends JPanel {
+	public PanelForMemberCheck() {
+	}
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -33,6 +37,7 @@ public class PanelForMemberCheck extends JPanel {
 	}
 }
 
+//회원 수 보여주는 패널
 class PanelBottomNumber extends JPanel{
 	JLabel lbl_sum;
 	JLabel lbl_number;
@@ -61,6 +66,7 @@ class PanelBottomNumber extends JPanel{
 
 }
 
+//회원 정보 보여주는 패널
 class PanelMemberInfo extends JPanel{
 	JTextField tf_gender;
 	JTextField tf_weight;
@@ -68,65 +74,24 @@ class PanelMemberInfo extends JPanel{
 	JTextField tf_phone;
 	JTextField tf_location;
 	JTextField tf_budget;
+	private MemberService memberService;
 
 	public PanelMemberInfo(ArrayList<Member> memberList) {
 		setLayout(null);
 		setOpaque(false);
 		
 		JLabel lbl_kg = new JLabel("kg");
-		lbl_kg.setBounds(165, 44, 29, 14);
+		lbl_kg.setBounds(170, 44, 29, 14);
 		add(lbl_kg);
 		lbl_kg.setFont(new Font("굴림", Font.PLAIN, 11));
 		
 		JLabel lbl_won = new JLabel("원");
-		lbl_won.setBounds(165, 175, 29, 14);
+		lbl_won.setBounds(170, 175, 29, 14);
 		add(lbl_won);
 		lbl_won.setFont(new Font("굴림", Font.PLAIN, 11));
 		
-		JPanel panelLabel = new JPanel();
-		panelLabel.setBounds(0, 0, 73, 200);
-		add(panelLabel);
-		panelLabel.setLayout(new GridLayout(0, 1, 0, 0));
-		panelLabel.setOpaque(false);
-		
-		JLabel lbl_gender = new JLabel("성별");
-		lbl_gender.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_gender.setForeground(Color.DARK_GRAY);
-		lbl_gender.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_gender);
-		
-		JLabel lbl_weight = new JLabel("몸무게");
-		lbl_weight.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_weight.setForeground(Color.DARK_GRAY);
-		lbl_weight.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_weight);
-		
-		JLabel lbl_age = new JLabel("나이");
-		lbl_age.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_age.setForeground(Color.DARK_GRAY);
-		lbl_age.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_age);
-		
-		JLabel lbl_phone = new JLabel("휴대전화");
-		lbl_phone.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_phone.setForeground(Color.DARK_GRAY);
-		lbl_phone.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_phone);
-		
-		JLabel lbl_location = new JLabel("거주지");
-		lbl_location.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_location.setForeground(Color.DARK_GRAY);
-		lbl_location.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_location);
-		
-		JLabel lbl_budget = new JLabel("월예산");
-		lbl_budget.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_budget.setForeground(Color.DARK_GRAY);
-		lbl_budget.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		panelLabel.add(lbl_budget);
-		
 		JPanel panelText = new JPanel();
-		panelText.setBounds(80, 0, 91, 200);
+		panelText.setBounds(80, 0, 115, 200);
 		add(panelText);
 		panelText.setLayout(new GridLayout(0, 1, 0, 0));
 		panelText.setOpaque(false);
@@ -184,12 +149,11 @@ class PanelMemberInfo extends JPanel{
 		tf_budget.setColumns(10);
 		tf_budget.setBorder(null);
 		panelText.add(tf_budget);
-		
-
 	}
 
 }
 
+//버튼 패널
 class PanelTopButton extends JPanel implements ActionListener{
 	private JButton btnMakeList;
 	private JButton btnCreateMember;
@@ -228,8 +192,6 @@ class PanelTopButton extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//식단 보기 버튼
 		if (e.getSource() == btnMakeList) {
-			//foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
-			//foodListAbsolute .setVisible(true);
 			int no = memberCheckGUI.noForFoodList;
 			
 			if (MemberCheckGUI.tempMonthMenu.containsKey(no) == false) {
@@ -246,7 +208,8 @@ class PanelTopButton extends JPanel implements ActionListener{
 		
 		//회원 등록 버튼
 		if (e.getSource() == btnCreateMember) {
-			SignupUI signupUI = new SignupUI();
+			memberCheckGUI.dispose();
+			SignUpGUI signupUI = new SignUpGUI(memberCheckGUI);
 			signupUI.setVisible(true);
 		}
 	}

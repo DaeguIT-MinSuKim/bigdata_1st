@@ -66,7 +66,8 @@ public class FoodListMaking extends JDialog implements ActionListener {
 		member = MemberService.getInstance().selectMemberByNo(this.no);
 		
 		//회원의 나이에 따른 칼로리를 받아와서 MonthMenu에 던질 수 있도록 함
-		Calorie calorie = CalorieService.getInstance().selectCalorieByAge(member.getAge());
+		CalorieService calorieService = CalorieService.getInstance();
+		Calorie calorie = calorieService.selectCalorieByAge(member.getAge());
 		dayCal = member.getGender().equals("여") ? calorie.getCal_woman() : calorie.getCal_man();
 		monthCost = member.getBudget();
 		
@@ -236,7 +237,8 @@ public class FoodListMaking extends JDialog implements ActionListener {
 				int memberNo = no;
 				String name = lblName.getText();
 				int cal = dayCal;
-				PrnMenu test = new PrnMenu(foodListTable.monthRows(monthMenu),no+"",name,cal+"");
+				PrnMenu prnMenu = new PrnMenu(foodListTable.monthRows(monthMenu),no+"",name,cal+"");
+				prnMenu.setVisible(true);
 			}
 		}
 		
