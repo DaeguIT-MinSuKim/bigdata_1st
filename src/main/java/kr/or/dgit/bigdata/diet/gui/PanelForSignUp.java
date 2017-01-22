@@ -26,8 +26,6 @@ import kr.or.dgit.bigdata.diet.dto.Member;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 public class PanelForSignUp extends JPanel {
-	public PanelForSignUp() {
-	}
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_signup.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -41,15 +39,15 @@ public class PanelForSignUp extends JPanel {
 
 class PanelButton extends JPanel implements ActionListener {
 
-	private JButton btnSign;
-	private JButton btnClear;
-	private JButton btnCancel;
+	JButton btnSign;
+	JButton btnClear;
+	JButton btnCancel;
 	private MemberService memberService;
-	private static SignUpGUI signUpGUI;
+	private static SignUpAndUpdateGUI signUpAndUpdateGUI;
 	private static MemberCheckGUI memberCheckGUI;
 	
-	public PanelButton(SignUpGUI signUpGUI) {
-		this.signUpGUI = signUpGUI;
+	public PanelButton(SignUpAndUpdateGUI signUpGUI) {
+		this.signUpAndUpdateGUI = signUpGUI;
 		
 		setLayout(null);
 		setOpaque(false);
@@ -92,14 +90,9 @@ class PanelButton extends JPanel implements ActionListener {
 
 	}
 
-	public PanelButton(MemberCheckGUI memberCheckGUI, SignUpGUI signUpGUI) {
+	public PanelButton(MemberCheckGUI memberCheckGUI, SignUpAndUpdateGUI signUpGUI) {
 		this(signUpGUI);
 		this.memberCheckGUI = memberCheckGUI;
-		if (this.memberCheckGUI == null) {
-			System.out.println("널");
-		}else{
-			System.out.println("not null");
-		}
 	}
 
 	@Override
@@ -115,30 +108,39 @@ class PanelButton extends JPanel implements ActionListener {
 				//라디오버튼 값 가져오기
 				String gender ="";
 				
-				if (signUpGUI.panelInput.rdbtnMale.isSelected() == true) gender ="남";
-				if (signUpGUI.panelInput.rdbtnFemale.isSelected() == true) gender ="여";
+				if (signUpAndUpdateGUI.panelInput.rdbtnMale.isSelected() == true) gender ="남";
+				if (signUpAndUpdateGUI.panelInput.rdbtnFemale.isSelected() == true) gender ="여";
 				
 				//주소 값 가져오기
-				String location = signUpGUI.panelInput.tf_location.getText();
+				String location = signUpAndUpdateGUI.panelInput.tf_location.getText();
 				
 				Member member = new Member(
 						1,
-						signUpGUI.panelInput.tf_name.getText(),
+						signUpAndUpdateGUI.panelInput.tf_name.getText(),
 						gender,
-						Integer.parseInt(signUpGUI.panelInput.tf_weight.getText()),
-						Integer.parseInt(signUpGUI.panelInput.tf_age.getText()),
-						signUpGUI.panelInput.tf_phone.getText(),
+						Integer.parseInt(signUpAndUpdateGUI.panelInput.tf_weight.getText()),
+						Integer.parseInt(signUpAndUpdateGUI.panelInput.tf_age.getText()),
+						signUpAndUpdateGUI.panelInput.tf_phone.getText(),
 						location,
-						Integer.parseInt(signUpGUI.panelInput.tf_budget.getText()));
+						Integer.parseInt(signUpAndUpdateGUI.panelInput.tf_budget.getText()));
 				
-				int rs = memberService.insertMember(member);
+				int rs = 0;
+				
+				if (btnSign.getText().equals("회원수정")) {
+					member.setNo(Integer.parseInt((signUpAndUpdateGUI.panelInput.tf_no.getText())));
+					rs = memberService.updateMember(member);
+					JOptionPane.showMessageDialog(null, "정상적으로 수정되었습니다.");
+					return;
+				}else{
+					rs = memberService.insertMember(member);
+				}
 				
 				if (rs != 0) {
 					JOptionPane.showMessageDialog(null, "정상적으로 가입되었습니다.");
-					signUpGUI.panelInput.tf_no.setText(signUpGUI.panelInput.getNo()); //회원번호 초기화
+					signUpAndUpdateGUI.panelInput.tf_no.setText(signUpAndUpdateGUI.panelInput.getNo()); //회원번호 초기화
 					
 					if (memberCheckGUI != null) {
-						signUpGUI.dispose();
+						signUpAndUpdateGUI.dispose();
 						new MemberCheckGUI().setVisible(true);
 					}
 				}
@@ -161,41 +163,41 @@ class PanelButton extends JPanel implements ActionListener {
 		if (e.getSource() == btnCancel) {
 			if (this.memberCheckGUI != null) {
 				System.out.println("뭐여");
-				signUpGUI.dispose();
+				signUpAndUpdateGUI.dispose();
 				new MemberCheckGUI().setVisible(true);
 			}else{
-				signUpGUI.dispose();
+				signUpAndUpdateGUI.dispose();
 			}
 		}
 	}
 
 	//초기화 메소드
 	private void allTextFieldClear() {
-		signUpGUI.panelInput.tf_name.setText("");
-		signUpGUI.panelInput.tf_weight.setText("");
-		signUpGUI.panelInput.tf_age.setText("");
-		signUpGUI.panelInput.tf_phone.setText("");
-		signUpGUI.panelInput.tf_location.setText("");
-		signUpGUI.panelInput.tf_budget.setText("");
+		signUpAndUpdateGUI.panelInput.tf_name.setText("");
+		signUpAndUpdateGUI.panelInput.tf_weight.setText("");
+		signUpAndUpdateGUI.panelInput.tf_age.setText("");
+		signUpAndUpdateGUI.panelInput.tf_phone.setText("");
+		signUpAndUpdateGUI.panelInput.tf_location.setText("");
+		signUpAndUpdateGUI.panelInput.tf_budget.setText("");
 	}
 
 	//값 유효성 검사
 	private boolean validCheck() {
 		try {
 			
-			isEmptyCheck(signUpGUI.panelInput.tf_name);
-			isEmptyCheck(signUpGUI.panelInput.tf_weight);
-			isEmptyCheck(signUpGUI.panelInput.tf_age);
-			isEmptyCheck(signUpGUI.panelInput.tf_phone);
-			isEmptyCheck(signUpGUI.panelInput.tf_budget);
-			isValidCheck("[가-힣]{1,4}", signUpGUI.panelInput.tf_name,  "이름을 4글자 이하, 한글로 작성해주세요.");
-			isValidCheck("^[1-9][0-9]", signUpGUI.panelInput.tf_weight, "몸무게는 10~99kg이하로 작성해주세요.");
-			isValidCheck("^[1-9][0-9]", signUpGUI.panelInput.tf_age, "나이는 10~99세 이하로 작성해주세요.");
-			isValidCheck("^0[1-9]{1}[0-9]{1}-[0-9]{4}-[0-9]{4}$", signUpGUI.panelInput.tf_phone, "휴대전화 번호는 010-0000-0000형식으로 입력해주세요.");
-			isValidCheck("", signUpGUI.panelInput.tf_budget, "월 예산은 0~100만원 사이로 입력해주세요.");
+			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_name);
+			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_weight);
+			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_age);
+			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_phone);
+			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_budget);
+			isValidCheck("[가-힣]{1,4}", signUpAndUpdateGUI.panelInput.tf_name,  "이름을 4글자 이하, 한글로 작성해주세요.");
+			isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_weight, "몸무게는 10~99kg이하로 작성해주세요.");
+			isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_age, "나이는 10~99세 이하로 작성해주세요.");
+			isValidCheck("^0[1-9]{1}[0-9]{1}-[0-9]{4}-[0-9]{4}$", signUpAndUpdateGUI.panelInput.tf_phone, "휴대전화 번호는 010-0000-0000형식으로 입력해주세요.");
+			isValidCheck("", signUpAndUpdateGUI.panelInput.tf_budget, "월 예산은 0~100만원 사이로 입력해주세요.");
 			
-			if (signUpGUI.panelInput.rdbtnMale.isSelected()==false 
-					&& signUpGUI.panelInput.rdbtnFemale.isSelected()==false){
+			if (signUpAndUpdateGUI.panelInput.rdbtnMale.isSelected()==false 
+					&& signUpAndUpdateGUI.panelInput.rdbtnFemale.isSelected()==false){
 				JOptionPane.showMessageDialog(null, "성별을 선택해주세요.");
 				return false;
 			}
@@ -219,7 +221,7 @@ class PanelButton extends JPanel implements ActionListener {
 	
 	// 정규표현 검사
 	private void isValidCheck(String pattern, JTextField text, String msg) throws Exception {
-		if (text == signUpGUI.panelInput.tf_budget) {
+		if (text == signUpAndUpdateGUI.panelInput.tf_budget) {
 			if (Integer.parseInt(text.getText().trim()) > 1000000 
 					|| Integer.parseInt(text.getText().trim()) < 0) {
 				text.setText("");
@@ -265,7 +267,7 @@ class PanelInput extends JPanel{
 		tf_budget = new JTextField();
 		
 		tf_no.setEditable(false);
-		//tf_location.setEditable(false);
+		tf_location.setEditable(false);
 		
 		tf_no.setBackground(Color.WHITE);
 		tf_location.setBackground(Color.WHITE);

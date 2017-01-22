@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -31,8 +33,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-public class PanelForMemberUpdate extends JPanel {
+public class PanelForMemberUpdate extends JPanel implements ActionListener{
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_memberupdate.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -47,7 +50,7 @@ public class PanelForMemberUpdate extends JPanel {
 	private JButton btnUpdate;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private ArrayList<Member> memberList;
+
 	private MemberService memberService;
 	private JCheckBox checkBox = new JCheckBox("보미");
 	private JPanel panelTable;
@@ -57,7 +60,7 @@ public class PanelForMemberUpdate extends JPanel {
 		
 		//멤버 모두 불러오기
 		memberService = MemberService.getInstance();
-		memberList = memberService.selectAllMember();
+		
 		
 		//button
 		btnDelete = new JButton("삭제");
@@ -84,6 +87,9 @@ public class PanelForMemberUpdate extends JPanel {
 		add(btnDelete);
 		add(btnUpdate);
 		
+		btnDelete.addActionListener(this);
+		btnUpdate.addActionListener(this);
+		
 		panelTable = new JPanel();
 		panelTable.setBounds(40, 123, 518, 240);
 		panelTable.setLayout(new BorderLayout(0, 0));
@@ -104,26 +110,75 @@ public class PanelForMemberUpdate extends JPanel {
 		tableModel();
 	}
 	
+	//테이블 메소드
 	private void tableModel() {
-		String[] colNames = new String[] {"번호", "이름", "성별", "몸무게", "나이", "휴대전화", "여부"};
+		
+		
+		String[] colNames = new String[] {"회원 번호", "이름", "성별", "몸무게", "나이", "휴대전화"};
 		
 		DefaultTableModel model = new DefaultTableModel(getRows(), colNames);
 		table.setModel(model);
+		
+		table.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
+			}
+			
+		});
+		
 	}
 	
 	//행 데이터 메소드
 	private Object[][] getRows() {
+		ArrayList<Member> memberList = memberService.selectAllMember();
+		
 		Object[][] rowDatas = new String[memberList.size()][];
+		
 		for (int i = 0; i < memberList.size(); i++) {
-			rowDatas[i] = new String[]{
-					memberList.get(i).getNo()+"",
-					memberList.get(i).getName(),
-					memberList.get(i).getGender(),
-					memberList.get(i).getWeight()+"",
-					memberList.get(i).getAge()+"",
-					memberList.get(i).getPhone(),
-			};
+			rowDatas[i] = memberList.get(i).toArray();
 		}
 		return rowDatas;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//회원 삭제
+		if (e.getSource() == btnDelete) {
+			//선택된 회원이 없으면 return;
+			if (table.isRowSelected(table.getSelectedRow()) == false) {
+				JOptionPane.showMessageDialog(null, "회원을 선택해주세요.");
+				return;
+			}
+			
+			String no = table.getValueAt(table.getSelectedRow(), 0)+"";
+			String name = table.getValueAt(table.getSelectedRow(), 1)+"";
+			
+			int res = JOptionPane.showConfirmDialog(null, no + " 번 " + name + " 회원을 삭제하시겠습니까?");
+			
+			//확인을 누르면 삭제
+			if (res == 0) {
+				memberService.deleteMember(Integer.parseInt(no));
+				JOptionPane.showMessageDialog(null, name + "회원이 삭제되었습니다.");
+				tableModel(); //테이블 다시 load
+			}
+		}
+		
+		if (e.getSource() == btnUpdate) {
+			//선택된 회원이 없으면 return;
+			if (table.isRowSelected(table.getSelectedRow()) == false) {
+				JOptionPane.showMessageDialog(null, "회원을 선택해주세요.");
+				return;
+			}
+			
+			String no = table.getValueAt(table.getSelectedRow(), 0)+"";
+			
+			Member member = memberService.selectMemberByNo(Integer.parseInt(no));
+			
+			new SignUpAndUpdateGUI(member).setVisible(true);
+			
+			tableModel(); //테이블 다시 load
+		}
 	}
 }

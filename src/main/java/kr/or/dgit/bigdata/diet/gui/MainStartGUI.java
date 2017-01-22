@@ -238,7 +238,7 @@ public class MainStartGUI extends JFrame implements ActionListener {
 //////////회원등록
 		if(e.getSource() == btnSignup ){
 			
-			new SignUpGUI().setVisible(true);
+			new SignUpAndUpdateGUI().setVisible(true);
 		}
 		
 //////////그룹 등록

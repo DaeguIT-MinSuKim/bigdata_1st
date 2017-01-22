@@ -26,5 +26,10 @@
 		delete from member where no = #{no}
  	</delete>
 
+	<update id="updateMember" parameterType="Member">
+		update member set name=#{name}, weight=#{weight}, age=#{age},
+		phone=#{phone}, address=#{address}, budget=#{budget}
+		where no=#{no};
+	</update>
 
 </mapper>

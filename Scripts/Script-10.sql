@@ -129,3 +129,7 @@ select * from member;
 select * from calorie;
 
 delete from member where no = 12 or no = 12;
+
+update member
+set name='임선희', weight='57', age='28', phone='010-1212-1212', address = '서울특별시 성동구', budget = '950000'
+where no = 17;

@@ -36,7 +36,7 @@ public class MemberServiceTest {
 		
 		Assert.assertNotNull(list);
 	}
-	
+	/*
 	@Test
 	public void testInsertMember(){
 		Member member = new Member();
@@ -49,6 +49,13 @@ public class MemberServiceTest {
 		member.setWeight(48);
 		
 		int res = memberService.insertMember(member);
+		
+		Assert.assertEquals(res, 1);
+	}
+	*/
+	@Test
+	public void testDeleteMember(){
+		int res = memberService.deleteMember(14);
 		
 		Assert.assertEquals(res, 1);
 	}

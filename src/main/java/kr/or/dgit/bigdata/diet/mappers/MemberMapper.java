@@ -9,4 +9,6 @@ public interface MemberMapper {
 	Member selectMemberByNo(int no);		//특정 넘버의 멤버 가져오기
 	int selectMemberSum();				//모든 멤버 명수 가져오기
 	ArrayList<Member> selectAllMember(); //모든 멤버 가져오기
+	int deleteMember(int no); //멤버 삭제
+	int updateMember(Member member); //멤버 수정
 }
