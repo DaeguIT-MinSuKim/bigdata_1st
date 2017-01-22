@@ -97,6 +97,7 @@ public class PanelTextField extends JPanel {
 		tf_phone.setName("tf_phone");
 		tf_budget.setName("tf_budget");
 		
+		//textfield 키 이벤트 발생 부분
 		tf_name.addKeyListener(runKeyListener(tf_name));
 		tf_weight.addKeyListener(runKeyListener(tf_weight));
 		tf_age.addKeyListener(runKeyListener(tf_age));
