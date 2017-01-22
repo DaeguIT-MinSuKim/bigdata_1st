@@ -54,7 +54,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(560, 220, 300, 526);
+		setBounds(560, 220, 306, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
@@ -110,7 +110,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		contentPane.add(panelButton);
 		
 		//	panel 배경화면 이미지
-		PanelBgImage panelBg = new PanelBgImage();
+		PanelForMemberCheck panelBg = new PanelForMemberCheck();
 		panelBg.setBounds(0, 0, 300, 500);
 		contentPane.add(panelBg);
 		panelBg.setLayout(null);

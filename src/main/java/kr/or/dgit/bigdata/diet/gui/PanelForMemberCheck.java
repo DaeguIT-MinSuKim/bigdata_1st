@@ -1,22 +1,67 @@
 package kr.or.dgit.bigdata.diet.gui;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-
-import kr.or.dgit.bigdata.diet.dto.Member;
-import kr.or.dgit.bigdata.diet.service.MemberService;
-
-import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.text.DecimalFormat;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class PanelMemberInfo extends JPanel {
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import kr.or.dgit.bigdata.diet.dto.Member;
+
+
+public class PanelForMemberCheck extends JPanel {
+	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
+	Image bgImg = bgImgTemp.getImage();
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(bgImg, 0, 0, 300, 500, this);
+		
+	}
+}
+
+class PanelBottomNumber extends JPanel{
+	JLabel lbl_sum;
+	JLabel lbl_number;
+	
+	public PanelBottomNumber(ArrayList<Member> memberList) {
+		setOpaque(false);
+		setLayout(null);
+		
+		lbl_sum = new JLabel();
+		lbl_sum.setBounds(154, 5, 17, 15);
+		lbl_sum.setFont(new Font("굴림", Font.PLAIN, 12));
+		add(lbl_sum);
+		
+		lbl_number = new JLabel();
+		lbl_number.setBounds(124, 0, 20, 21);
+		lbl_number.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		add(lbl_number);
+		lbl_number.setForeground(new Color(90,153,204));
+		
+		
+		JLabel lblSeparator = new JLabel("/");
+		lblSeparator.setBounds(143, 5, 6, 15);
+		lblSeparator.setFont(new Font("굴림", Font.PLAIN, 12));
+		add(lblSeparator);
+	}
+
+}
+
+class PanelMemberInfo extends JPanel{
 	JTextField tf_gender;
 	JTextField tf_weight;
 	JTextField tf_age;
@@ -24,9 +69,6 @@ public class PanelMemberInfo extends JPanel {
 	JTextField tf_location;
 	JTextField tf_budget;
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelMemberInfo(ArrayList<Member> memberList) {
 		setLayout(null);
 		setOpaque(false);
@@ -146,4 +188,66 @@ public class PanelMemberInfo extends JPanel {
 
 	}
 
+}
+
+class PanelTopButton extends JPanel implements ActionListener{
+	private JButton btnMakeList;
+	private JButton btnCreateMember;
+	private MemberCheckGUI memberCheckGUI;
+	private FoodListMaking foodListMaking;
+	
+	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
+		this.memberCheckGUI = memberCheckGUI;
+		
+		setOpaque(false);
+		setLayout(null);
+		
+		btnMakeList = new JButton("식단보기");
+		btnMakeList.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btnMakeList.setBounds(28, 4, 72, 23);
+		btnMakeList.setForeground(Color.WHITE);
+		btnMakeList.setBackground(new Color(44,103,156));
+		btnMakeList.setFocusPainted(false);
+		btnMakeList.setBorder(new LineBorder(new Color(102, 162, 212)));
+		add(btnMakeList);
+		
+		btnCreateMember = new JButton("회원등록");
+		btnCreateMember.setForeground(Color.WHITE);
+		btnCreateMember.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btnCreateMember.setFocusPainted(false);
+		btnCreateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
+		btnCreateMember.setBackground(new Color(44, 103, 156));
+		btnCreateMember.setBounds(200, 4, 72, 23);
+		add(btnCreateMember);
+		
+		btnMakeList.addActionListener(this);
+		btnCreateMember.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//식단 보기 버튼
+		if (e.getSource() == btnMakeList) {
+			//foodListAbsolute = new FoodListAbsolute(memberCheckGUI);
+			//foodListAbsolute .setVisible(true);
+			int no = memberCheckGUI.noForFoodList;
+			
+			if (MemberCheckGUI.tempMonthMenu.containsKey(no) == false) {
+				JOptionPane.showMessageDialog(null, "식단을 생성해주세요.");
+				
+				foodListMaking = new FoodListMaking(memberCheckGUI);
+				foodListMaking.setVisible(true);
+			}else{
+				foodListMaking = MemberCheckGUI.tempMakingFoodList.get(no);
+				foodListMaking.setMember(no); //저장된 회원의 정보 가져옴
+			}
+			
+		}
+		
+		//회원 등록 버튼
+		if (e.getSource() == btnCreateMember) {
+			SignupUI signupUI = new SignupUI();
+			signupUI.setVisible(true);
+		}
+	}
 }

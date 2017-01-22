@@ -6,9 +6,10 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
-public class PanelBgImage extends JPanel {
-	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
+public class PanelForSignUp extends JPanel {
+	public PanelForSignUp() {
+	}
+	ImageIcon bgImgTemp = new ImageIcon("images/bg_signup.png");
 	Image bgImg = bgImgTemp.getImage();
 	
 	@Override
