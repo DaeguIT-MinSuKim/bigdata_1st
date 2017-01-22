@@ -125,4 +125,7 @@ select zipcode, sido, sigungu, doro, building1, building2 from post where sido='
 
 delete from member;
 
+select * from member;
 select * from calorie;
+
+delete from member where no = 12 or no = 12;

@@ -51,7 +51,8 @@ public class Member {
 				no, name, gender, weight, age, phone, address, budget);
 	}
 
-	
-	
+	public String[] toArray(){
+		return new String[]{no+"", name, gender, weight+"", age+"", phone};
+	}
 	
 }

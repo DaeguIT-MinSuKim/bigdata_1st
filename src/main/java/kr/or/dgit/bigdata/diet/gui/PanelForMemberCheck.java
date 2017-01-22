@@ -24,8 +24,6 @@ import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
 public class PanelForMemberCheck extends JPanel {
-	public PanelForMemberCheck() {
-	}
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_membercheck.png");
 	Image bgImg = bgImgTemp.getImage();
 	
