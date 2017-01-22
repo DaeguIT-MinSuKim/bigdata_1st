@@ -2,9 +2,12 @@ package kr.or.dgit.bigdata.diet.gui;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
@@ -13,6 +16,10 @@ import javax.swing.border.LineBorder;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
+import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.MemberService;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -34,8 +41,10 @@ public class PanelTextField extends JPanel {
 		setOpaque(false);
 		
 		
-		//*****textfield부분
+		//textfield 생성
 		tf_no = new JTextField();
+		tf_no.setEditable(false);
+		tf_no.setBackground(Color.WHITE);
 		tf_name = new JTextField();
 		tf_weight = new JTextField();
 		tf_age = new JTextField();
@@ -75,7 +84,7 @@ public class PanelTextField extends JPanel {
 		tf_location.setBounds(0, 205, 120, 20);
 		tf_budget.setBounds(0, 234, 120, 20);
 		
-		tf_no.setBorder(new LineBorder(new Color(204,204,204)));
+		tf_no.setBorder(null);
 		tf_name.setBorder(new LineBorder(new Color(204,204,204)));
 		tf_weight.setBorder(new LineBorder(new Color(204,204,204)));
 		tf_age.setBorder(new LineBorder(new Color(204,204,204)));
@@ -91,13 +100,16 @@ public class PanelTextField extends JPanel {
 		add(tf_location);
 		add(tf_budget);
 		
+		//회원번호 자동 증가
+		tf_no.setText(getNo());
+		
+		//textfield 키 이벤트 발생 부분
 		tf_name.setName("tf_name");
 		tf_weight.setName("tf_weight");
 		tf_age.setName("tf_age");
 		tf_phone.setName("tf_phone");
 		tf_budget.setName("tf_budget");
 		
-		//textfield 키 이벤트 발생 부분
 		tf_name.addKeyListener(runKeyListener(tf_name));
 		tf_weight.addKeyListener(runKeyListener(tf_weight));
 		tf_age.addKeyListener(runKeyListener(tf_age));
@@ -126,12 +138,45 @@ public class PanelTextField extends JPanel {
 		rdbtnFemale.setOpaque(false);
 		add(rdbtnMale);
 		add(rdbtnFemale);
+	/*	
+		//라디오버튼 그룹화를 위한 버튼그룹 설정
+				ButtonGroup  group = new ButtonGroup(); 
+				rdbtnMale = new JRadioButton("남성");
+				rdbtnFemale = new JRadioButton("여성");
+				rdbtnMale.setBackground(Color.white);
+				rdbtnFemale.setBackground(Color.white);
+				//같은 그룹끼리는 그룹중에 1개만 선택된다.
+				//그룹에 그룹화시킬 버튼들을 추가
+				group.add(rdbtnMale);  group.add(rdbtnFemale); 
+				rdbtnMale.setBounds(275, 258, 54, 23);
+				rdbtnFemale.setBounds(333, 258, 54, 23);
+				 //라디오 버튼 frame에 추가
+				signPanel.add(rdbtnMale);
+				signPanel.add(rdbtnFemale);
+				
+				tf_location = new JTextField();
+				tf_location.setHorizontalAlignment(SwingConstants.CENTER);
+				tf_location.setBounds(263, 421, 76, 21);
+				signPanel.add(tf_location);
+				tf_location.setColumns(10);
+				
+				JButton btnLocation = new JButton("검색");
+				btnLocation.setBackground(Color.WHITE);
+				btnLocation.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						SearchPost searchPost = new SearchPost();
+						searchPost.setVisible(true);
+					}
+				});
+				btnLocation.setBounds(344, 420, 54, 23);
+				btnLocation.setBorder(null);
+				signPanel.add(btnLocation);*/
 		
 		
 		
 	}
 
-	//textfield key event 메소드
+	//키 이벤트 발생 메소드
 	private KeyListener runKeyListener(JTextField key) {
 		KeyAdapter keyAdapter = new KeyAdapter() {
 			@Override
@@ -198,6 +243,18 @@ public class PanelTextField extends JPanel {
 			}
 		};
 		return keyAdapter;
+	}
+	
+	
+	//회원번호 자동 증가
+	private String getNo() {
+		ArrayList<Member> list = MemberService.getInstance().selectAllMember();
+		
+		if (list.isEmpty()) {
+			return "001";
+		}else{
+			return String.format("%03d", list.get(list.size()-1).getNo()+1);
+		}
 	}
 	
 }
