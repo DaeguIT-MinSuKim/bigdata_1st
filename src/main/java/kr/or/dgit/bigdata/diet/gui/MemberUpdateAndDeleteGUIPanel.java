@@ -20,11 +20,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.CellEditorListener;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.DecorateService;
 import kr.or.dgit.bigdata.diet.service.MemberService;
+import kr.or.dgit.bigdata.diet.service.TableCellService;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -54,6 +57,8 @@ public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListe
 	private MemberService memberService;
 	private JCheckBox checkBox = new JCheckBox("보미");
 	private JPanel panelTable;
+	DecorateService decorateService = new DecorateService();
+	TableCellService tableCellSetting = new TableCellService();
 	
 	public MemberUpdateAndDeleteGUIPanel() {
 		setLayout(null);
@@ -61,28 +66,12 @@ public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListe
 		//멤버 모두 불러오기
 		memberService = MemberService.getInstance();
 		
-		
 		//button
 		btnDelete = new JButton("삭제");
 		btnUpdate = new JButton("수정");
 		
 		btnDelete.setBounds(25, 14, 72, 23);
 		btnUpdate.setBounds(108, 14, 72, 23);
-		
-		btnDelete.setForeground(Color.WHITE);
-		btnUpdate.setForeground(Color.WHITE);
-		
-		btnDelete.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnUpdate.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		
-		btnDelete.setFocusPainted(false);
-		btnUpdate.setFocusPainted(false);
-		
-		btnDelete.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnUpdate.setBorder(new LineBorder(new Color(102, 162, 212)));
-		
-		btnDelete.setBackground(new Color(44, 103, 156));
-		btnUpdate.setBackground(new Color(44, 103, 156));
 		
 		add(btnDelete);
 		add(btnUpdate);
@@ -101,10 +90,14 @@ public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListe
 		scrollPane.setViewportView(table);
 		panelTable.add(scrollPane, BorderLayout.CENTER);
 		
-		//스크롤페인 꾸미기
-		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.getViewport().setBorder(null);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		//		버튼꾸미기 메소드 호출
+		decorateService.decorateButton(btnDelete, btnUpdate);
+		
+		//		스크롤페인 꾸미기 메소드 호출
+		decorateService.decorateScrollPane(scrollPane);
+		
+		//		테이블 꾸미기 메소드 호출
+		decorateService.decorateTable(table);
 		
 		//테이블 메소드 호출
 		tableModel();
@@ -112,22 +105,23 @@ public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListe
 	
 	//테이블 메소드
 	private void tableModel() {
-		
-		
 		String[] colNames = new String[] {"회원 번호", "이름", "성별", "몸무게", "나이", "휴대전화"};
 		
 		DefaultTableModel model = new DefaultTableModel(getRows(), colNames);
 		table.setModel(model);
 		
 		table.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 			}
-			
 		});
 		
+		//테이블 셀 너비 및 정렬 메소드 호출
+		tableCellSetting.tableCellAlignment(table, SwingConstants.CENTER, 0,1,2,3,4,5);
+		tableCellSetting.tableSetWidth(table, 50, 0, 2, 3, 4);
+		tableCellSetting.tableSetWidth(table, 70, 1);
+		tableCellSetting.tableSetWidth(table, 150, 5);
 	}
 	
 	//행 데이터 메소드
@@ -164,7 +158,7 @@ public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListe
 				tableModel(); //테이블 다시 load
 			}
 		}
-		
+		//회원 수정
 		if (e.getSource() == btnUpdate) {
 			//선택된 회원이 없으면 return;
 			if (table.isRowSelected(table.getSelectedRow()) == false) {

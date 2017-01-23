@@ -15,7 +15,7 @@ public class MemberUpdateAndDeleteGUI extends JDialog {
 
 	public MemberUpdateAndDeleteGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 616, 438);
+		setBounds(100, 100, 606, 428);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

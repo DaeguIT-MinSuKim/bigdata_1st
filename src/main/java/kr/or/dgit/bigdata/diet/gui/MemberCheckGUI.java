@@ -35,7 +35,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 
 	private JPanel contentPane;
 	JTextField tf_no;
-	private JTextField tf_name;
+	JTextField tf_name;
 	private JButton btnLeft;
 	private JButton btnRight;
 	
@@ -115,23 +115,23 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		contentPane.add(panelBg);
 		panelBg.setLayout(null);
 		
+		//	좌 우 버튼
 		btnLeft = new JButton("");
-		btnLeft.setBackground(Color.WHITE);
-		btnLeft.setBounds(25, 320, 33, 33);
-		btnLeft.setBorder(null);
-		btnLeft.setOpaque(false);
-		btnLeft.setIcon(new ImageIcon("D:\\workspace\\workspace_mybatis\\dietfoodmanager\\images\\btn_left.png"));
-		panelBg.add(btnLeft);
-		btnLeft.addActionListener(this);
-		
-		
 		btnRight = new JButton("");
+		btnLeft.setBackground(Color.WHITE);
 		btnRight.setBackground(Color.WHITE);
+		btnLeft.setBounds(25, 320, 33, 33);
 		btnRight.setBounds(243, 320, 33, 33);
+		btnLeft.setBorder(null);
 		btnRight.setBorder(null);
+		btnLeft.setOpaque(false);
 		btnRight.setOpaque(false);
+		btnLeft.setIcon(new ImageIcon("D:\\workspace\\workspace_mybatis\\dietfoodmanager\\images\\btn_left.png"));
 		btnRight.setIcon(new ImageIcon("D:\\workspace\\workspace_mybatis\\dietfoodmanager\\images\\btn_right.png"));
+		panelBg.add(btnLeft);
 		panelBg.add(btnRight);
+		//버튼 이벤트 호출
+		btnLeft.addActionListener(this);
 		btnRight.addActionListener(this);
 		
 		//MemberService객체 얻어오기
@@ -149,21 +149,9 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 			//화면에  member 출력
 			panelNumber.lbl_number.setText("1"); //member의 첫째 record를 가져와 화면에 출력
 			
-			DecimalFormat df = new DecimalFormat("000");
+			//텍스트필드 세팅 메소드 호출
+			setTextAboutMember(memberList);
 			
-			//FoodListMaking에 보내기 위한 변수.
-			//tf_no가 ###형식이어서
-			noForFoodList = memberList.get(0).getNo();
-			
-			tf_no.setText( df.format(memberList.get(0).getNo()) );
-			tf_name.setText(memberList.get(0).getName());
-			
-			panelInfo.tf_gender.setText(memberList.get(0).getGender());
-			panelInfo.tf_weight.setText(memberList.get(0).getWeight()+"");
-			panelInfo.tf_age.setText(memberList.get(0).getAge()+"");
-			panelInfo.tf_phone.setText(memberList.get(0).getPhone());
-			panelInfo.tf_location.setText(memberList.get(0).getAddress());
-			panelInfo.tf_budget.setText(memberList.get(0).getBudget()+"");
 		}else{
 			JOptionPane.showMessageDialog(null,"등록된 사용자가 없습니다.");
 			dispose();
@@ -186,23 +174,41 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 			}
 		}
 		
+		//화면에  member 출력
 		panelNumber.lbl_number.setText((memberIndex+1)+"");
-		Member temp = memberList.get(memberIndex);
+		
+		//텍스트필드 세팅 메소드 호출
+		setTextAboutMember(memberIndex);
+	}
+	
+
+	//텍스트필드 세팅 메소드
+	private <T> void setTextAboutMember(T t) {
+		DecimalFormat df = new DecimalFormat("000");
+		
+		Member member = null;
+		
+		//memberList 0일 때 설정 됨
+		if (t == memberList) {
+			member = memberList.get(0);
+		}else{
+			member = memberList.get(memberIndex);
+		}
 		
 		//FoodListMaking에 보내기 위한 변수.
 		//tf_no가 ###형식이어서
-		noForFoodList = temp.getNo(); 
+		noForFoodList = member.getNo();
 		
-		DecimalFormat df = new DecimalFormat("000");
+		tf_no.setText( df.format(member.getNo()) );
+		tf_name.setText(member.getName());
 		
-		tf_no.setText( df.format(temp.getNo()) );
-		tf_name.setText(temp.getName());
+		panelInfo.tf_gender.setText(member.getGender());
+		panelInfo.tf_weight.setText(member.getWeight()+"");
+		panelInfo.tf_age.setText(member.getAge()+"");
+		panelInfo.tf_phone.setText(member.getPhone());
+		panelInfo.tf_location.setText(member.getAddress());
+		panelInfo.tf_budget.setText(member.getBudget()+"");
 		
-		panelInfo.tf_gender.setText(temp.getGender());
-		panelInfo.tf_weight.setText(temp.getWeight()+"");
-		panelInfo.tf_age.setText(temp.getAge()+"");
-		panelInfo.tf_phone.setText(temp.getPhone());
-		panelInfo.tf_location.setText(temp.getAddress());
-		panelInfo.tf_budget.setText(temp.getBudget()+"");
 	}
+
 }

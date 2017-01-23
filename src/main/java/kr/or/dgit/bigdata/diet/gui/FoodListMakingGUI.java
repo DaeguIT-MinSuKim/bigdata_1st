@@ -77,88 +77,67 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 		//크기조정불가
 		setResizable(false);
 		
-		setBounds(865, 220, 900, 720);
+		setBounds(100, 100, 900, 720);
 		getContentPane().setLayout(new BorderLayout());
 		bgImagePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(bgImagePanel, BorderLayout.CENTER);
 		bgImagePanel.setLayout(null);
 		
 		lblNo = new JLabel("001");
-		lblNo.setText(memberCheckGUI.tf_no.getText());
-		lblNo.setFont(new Font("굴림", Font.PLAIN, 12));
-		lblNo.setBounds(159, 77, 48, 22);
-		bgImagePanel.add(lblNo);
-		
 		lblAge = new JLabel("22");
-		lblAge.setText(member.getAge()+"");
-		lblAge.setFont(new Font("굴림", Font.PLAIN, 12));
-		lblAge.setBounds(274, 77, 48, 22);
-		bgImagePanel.add(lblAge);
-		
 		lblGender = new JLabel("여");
-		lblGender.setText(member.getGender());
-		lblGender.setFont(new Font("굴림", Font.PLAIN, 12));
-		lblGender.setBounds(381, 77, 48, 22);
-		bgImagePanel.add(lblGender);
-		
 		lblName = new JLabel("강보미");
-		lblName.setText(member.getName());
-		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblName.setFont(new Font("HY견고딕", Font.PLAIN, 36));
-		lblName.setForeground(Color.BLACK);
-		lblName.setBounds(206, 148, 172, 52);
-		bgImagePanel.add(lblName);
-		
 		lblOneDayCal = new JLabel("2100");
+		lblOneDayCost = new JLabel();//1일 평균 소비금액 : 동적으로 받아옴
+		lblMonthCost = new JLabel();//월 총경비 : 동적으로 받아옴
+		
+		lblNo.setText(memberCheckGUI.tf_no.getText());
+		lblAge.setText(member.getAge()+"");
+		lblGender.setText(member.getGender());
+		lblName.setText(member.getName());
 		lblOneDayCal.setText(dayCal+"");
-		lblOneDayCal.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		lblNo.setFont(new Font("굴림", Font.PLAIN, 12));
+		lblAge.setFont(new Font("굴림", Font.PLAIN, 12));
+		lblGender.setFont(new Font("굴림", Font.PLAIN, 12));
+		lblName.setFont(new Font("HY견고딕", Font.PLAIN, 36));
 		lblOneDayCal.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		lblOneDayCal.setBounds(165, 578, 69, 22);
-		bgImagePanel.add(lblOneDayCal);
-		
-		//1일 평균 소비금액 : 동적으로 받아옴
-		lblOneDayCost = new JLabel();
-		lblOneDayCost.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblOneDayCost.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		lblOneDayCost.setBounds(385, 578, 69, 22);
-		bgImagePanel.add(lblOneDayCost);
-		
-		//월 총경비 : 동적으로 받아옴
-		lblMonthCost = new JLabel();
-		lblMonthCost.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMonthCost.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		
+		lblNo.setBounds(159, 77, 48, 22);
+		lblAge.setBounds(274, 77, 48, 22);
+		lblGender.setBounds(381, 77, 48, 22);
+		lblName.setBounds(206, 148, 172, 52);
+		lblOneDayCal.setBounds(165, 578, 69, 22);
+		lblOneDayCost.setBounds(385, 578, 69, 22);
 		lblMonthCost.setBounds(535, 578, 95, 22);
+		
+		bgImagePanel.add(lblNo);
+		bgImagePanel.add(lblAge);
+		bgImagePanel.add(lblGender);
+		bgImagePanel.add(lblName);
+		bgImagePanel.add(lblOneDayCal);
+		bgImagePanel.add(lblOneDayCost);
 		bgImagePanel.add(lblMonthCost);
 		
+		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblOneDayCal.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblOneDayCost.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMonthCost.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		lblName.setForeground(Color.BLACK);
+		
 		btnSave = new JButton("CSV저장");
-		btnSave.setBounds(595, 615, 100, 30);
-		btnSave.setForeground(Color.WHITE);
-		btnSave.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		btnSave.setFocusPainted(false);
-		btnSave.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnSave.setBackground(new Color(69, 126, 175));
-		bgImagePanel.add(btnSave);
-		btnSave.addActionListener(this);
-		
 		btnPrint = new JButton("식단출력");
-		btnPrint.setBounds(700, 615, 100, 30);
-		btnPrint.setForeground(Color.WHITE);
-		btnPrint.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		btnPrint.setFocusPainted(false);
-		btnPrint.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnPrint.setBackground(new Color(69, 126, 175));
-		bgImagePanel.add(btnPrint);
-		btnPrint.addActionListener(this);
-		
 		btnCreate = new JButton("식단생성");
-		btnCreate.setForeground(Color.WHITE);
-		btnCreate.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		btnCreate.setFocusPainted(false);
-		btnCreate.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnCreate.setBackground(new Color(69, 126, 175));
+		
+		btnSave.setBounds(595, 615, 100, 30);
+		btnPrint.setBounds(700, 615, 100, 30);
 		btnCreate.setBounds(700, 225, 100, 30);
-		bgImagePanel.add(btnCreate);
-		btnCreate.addActionListener(this);
+		
+		//button 공통 부분
+		settingButton(btnSave, btnPrint, btnCreate);
 		
 		//btnDays를 담을 panel선언
 		JPanel panelCenterButton = new JPanel();
@@ -177,6 +156,18 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 			panelCenterButton.add(btnDays[i]);
 			
 			btnDays[i].addActionListener(this);
+		}
+	}
+
+	private void settingButton(JButton ...button) {
+		for (JButton jButton : button) {
+			jButton.setForeground(Color.WHITE);
+			jButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+			jButton.setFocusPainted(false);
+			jButton.setBorder(new LineBorder(new Color(102, 162, 212)));
+			jButton.setBackground(new Color(69, 126, 175));
+			bgImagePanel.add(jButton);
+			jButton.addActionListener(this);
 		}
 	}
 

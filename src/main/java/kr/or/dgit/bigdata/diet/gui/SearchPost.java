@@ -30,6 +30,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.dgit.bigdata.diet.dto.Post;
+import kr.or.dgit.bigdata.diet.service.DecorateService;
 import kr.or.dgit.bigdata.diet.service.PostService;
 
 public class SearchPost extends JDialog {
@@ -39,25 +40,31 @@ public class SearchPost extends JDialog {
 	private JTable table;
 	private JComboBox cmbSido;
 	PanelInput panelInput;
+	DecorateService decorateService = new DecorateService();
 
 	public SearchPost(PanelInput panelTextField) {
 		this.panelInput = panelTextField;
 		
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("주소 검색");
-		setBounds(100, 100, 450, 400);
-		getContentPane().setLayout(new BorderLayout());
+		setBounds(100, 100, 480, 400);
+		getContentPane().setLayout(null);
+		panelTop.setBounds(0, 0, 464, 43);
 		panelTop.setBackground(Color.WHITE);
-		panelTop.setLayout(new FlowLayout());
-		panelTop.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(panelTop, BorderLayout.NORTH);
+		panelTop.setBorder(null);
+		getContentPane().add(panelTop);
+		panelTop.setLayout(null);
 		JLabel lblSido = new JLabel("시도");
+		lblSido.setFont(new Font("굴림", Font.PLAIN, 12));
+		lblSido.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSido.setBounds(26, 10, 35, 20);
 		panelTop.add(lblSido);
 		
 		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
 		setModalityType(ModalityType.APPLICATION_MODAL);
 
 		cmbSido = new JComboBox();
+		cmbSido.setBounds(59, 10, 120, 21);
 		List<Post> sidoList = PostService.getInstance().selectSido();
 		for (int i = 0; i < sidoList.size(); i++) {
 			cmbSido.addItem(sidoList.get(i));
@@ -65,13 +72,17 @@ public class SearchPost extends JDialog {
 		panelTop.add(cmbSido);
 
 		JLabel lblDoro = new JLabel("도로명");
+		lblDoro.setFont(new Font("굴림", Font.PLAIN, 12));
+		lblDoro.setBounds(202, 10, 45, 20);
 		panelTop.add(lblDoro);
 
 		tfDoro = new JTextField();
+		tfDoro.setBounds(248, 10, 120, 21);
 		tfDoro.setColumns(10);
 		panelTop.add(tfDoro);
 
 		JButton btnSearch = new JButton("검색");
+		btnSearch.setLocation(374, 9);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tfDoro.getText().equals("")) {
@@ -83,60 +94,25 @@ public class SearchPost extends JDialog {
 				}
 			}
 		});
+		btnSearch.setSize(57, 23);
+		
+		
 		panelTop.add(btnSearch);
 		
-		//		버튼꾸미기
-		btnSearch.setBackground(Color.PINK);
-
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(0, 43, 464, 318);
+		getContentPane().add(scrollPane);
 		
-		//		스크롤페인꾸미기
-		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.getViewport().setBorder(null);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		
-		//		스크롤바 width사이즈를 13으로 설정
-		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
-		
-		//		스크롤바의 ▲ ▼ 없앰
-		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
 
-			@Override
-			protected void configureScrollBarColors() {
-				this.thumbDarkShadowColor = Color.PINK;
-			}
-
-			@Override
-			protected JButton createDecreaseButton(int orientation) {
-				return createZeroButton();
-			}
-
-			@Override
-			protected JButton createIncreaseButton(int orientation) {
-				return createZeroButton();
-			}
-			
-			private JButton createZeroButton(){
-				JButton button = new JButton();
-				button.setPreferredSize(new Dimension(0, 0));
-				button.setMinimumSize(new Dimension(0, 0));
-				button.setMaximumSize(new Dimension(0, 0));
-				return button;
-			}
-			
-		});
-		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		//		table꾸미기
-		table.setGridColor(new Color(200,200,200)); //그리드 라인
-		table.setOpaque(false);
-		
-		JTableHeader tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.PINK);
-		tableHeader.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		//		버튼꾸미기 메소드 호출
+		decorateService.decorateButton(btnSearch);
+		//		스크롤페인꾸미기 메소드 호출
+		decorateService.decorateScrollPane(scrollPane);
+		//		table꾸미기 메소드 호출
+		decorateService.decorateTable(table);
 	}
 	
 	private void reload(){

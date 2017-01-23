@@ -18,8 +18,8 @@
 		values (#{grp}, #{item}, #{cal}, #{fat}, #{carbo}, #{protein}, #{cost}, #{con});
 	</insert>
 	
-	<delete id="deleteMenu" parameterType="int">
-		delete from menu where no = #{no}
+	<delete id="deleteMenu" parameterType="menu">
+		delete from menu where item = #{item}
 	</delete>
 
 </mapper>

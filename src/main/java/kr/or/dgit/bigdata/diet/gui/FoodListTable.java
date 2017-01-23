@@ -21,9 +21,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
+import com.ibm.icu.text.DecimalFormat;
+
 import kr.or.dgit.bigdata.diet.dto.Menu;
 import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.middle.OneDayMenu;
+import kr.or.dgit.bigdata.diet.service.DecorateService;
+import kr.or.dgit.bigdata.diet.service.TableCellService;
+
 import java.awt.Font;
 import java.awt.FlowLayout;
 
@@ -35,6 +40,8 @@ public class FoodListTable extends JDialog {
 	private int day;
 	int avgOneDayCost; //1일 평균 소비금액
 	int monthCost; //월 총 경비
+	DecorateService decorateService = new DecorateService();
+	TableCellService tableCellSetting = new TableCellService();
 
 	public FoodListTable(MonthMenu monthMenu, int day) {
 		this.monthMenu = monthMenu;
@@ -43,7 +50,7 @@ public class FoodListTable extends JDialog {
 		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setBounds(100, 100, 650, 450);
+		setBounds(100, 100, 700, 450);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,59 +79,15 @@ public class FoodListTable extends JDialog {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		//스크롤페인 꾸미기
-		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.getViewport().setBorder(null);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		
 		//테이블 불러옴
 		listTable(this.monthMenu, this.day);
 		
-		table.setGridColor(new Color(200,200,200)); //테이블 라인 색
-		table.setOpaque(false);
+		//		스크롤바 꾸미기 메소드 호출
+		decorateService.decorateScrollPane(scrollPane);
 		
-		JTableHeader tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.PINK);
-		tableHeader.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		//		테이블 꾸미기 메소드 호출
+		decorateService.decorateTable(table);
 		
-		//		각각 셀에 색깔 줄 수 있도록 함
-//		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-//		dtcr.setBackground(Color.GRAY);
-//		TableColumnModel tcm = table.getColumnModel();
-//		tcm.getColumn(0).setCellRenderer(dtcr);
-		
-		//		스크롤바 width를 아예없앰(눈에 안보임)
-		//scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,10));
-		//		스크롤바 width사이즈를 13으로 설정
-		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
-		
-		//		스크롤바의 ▲ ▼ 없앰
-		scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
-
-			@Override
-			protected void configureScrollBarColors() {
-				this.thumbDarkShadowColor = Color.PINK;
-			}
-
-			@Override
-			protected JButton createDecreaseButton(int orientation) {
-				return createZeroButton();
-			}
-
-			@Override
-			protected JButton createIncreaseButton(int orientation) {
-				return createZeroButton();
-			}
-			
-			private JButton createZeroButton(){
-				JButton button = new JButton();
-				button.setPreferredSize(new Dimension(0, 0));
-				button.setMinimumSize(new Dimension(0, 0));
-				button.setMaximumSize(new Dimension(0, 0));
-				return button;
-			}
-			
-		});
 	}
 
 	private void listTable(MonthMenu monthMenu, int day) {
@@ -144,36 +107,14 @@ public class FoodListTable extends JDialog {
 		
 		table.setModel(model);
 		
-		tableSetWidth(120,240,200); //셀 너비 메소드
-		tableCellAlignment(SwingConstants.CENTER, 0,1,2,3,4); //정렬메소드
-		tableCellAlignment(SwingConstants.RIGHT, 5,6,7,8,9); //정렬메소드
+		//테이블 셀 너비 및 정렬 메소드 호출
+		tableCellSetting.tableSetWidth(table, 120, 0, 1, 2);
+		tableCellSetting.tableSetWidth(table, 240, 3, 4);
+		tableCellSetting.tableSetWidth(table, 200, 5, 6, 7, 8, 9);
+		tableCellSetting.tableCellAlignment(table, SwingConstants.CENTER, 0,1,2,3,4);
+		tableCellSetting.tableCellAlignment(table, SwingConstants.RIGHT, 5,6,7,8,9);
 	}
-	//셀 정렬
-	private void tableCellAlignment(int align, int ...idx) {
-		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-		dtcr.setHorizontalAlignment(align);
-		
-		TableColumnModel model = table.getColumnModel();
-		
-		for (int i = 0; i < idx.length; i++) {
-			model.getColumn(idx[i]).setCellRenderer(dtcr);
-		}
-	}
-
-	//셀 너비
-	private void tableSetWidth(int ...width) {
-		TableColumnModel model = table.getColumnModel();
-		
-		model.getColumn(0).setPreferredWidth(width[0]);
-		model.getColumn(1).setPreferredWidth(width[0]);
-		model.getColumn(2).setPreferredWidth(width[0]);
-		model.getColumn(3).setPreferredWidth(width[1]);
-		model.getColumn(4).setPreferredWidth(width[1]);
-		for (int i = 5; i < 10; i++) {
-			model.getColumn(i).setPreferredWidth(width[2]);
-		}
-	}
-
+	
 	//하루치 테이블
 	private String[][] oneDayGetRows(MonthMenu monthMenu, int day) {
 		//한달값 받아오기
@@ -190,6 +131,8 @@ public class FoodListTable extends JDialog {
 		int oneDayFat = 0; //하루 총 지방
 		int oneDayCarbo = 0; //하루 총 탄수화물 
 		int oneDayProtein = 0; //하루 총 단백질
+		
+		DecimalFormat df = new DecimalFormat("#,###");
 		
 		for (int i = 0; i < day; i++) {
 
@@ -223,6 +166,8 @@ public class FoodListTable extends JDialog {
 
 					ttt++;
 
+					
+					
 					// "번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
 					rowDatas[ttt] = new String[] { 
 							(ttt + 1) + "",
@@ -234,7 +179,7 @@ public class FoodListTable extends JDialog {
 							templistoneday.get(j).getFat() + "", 
 							templistoneday.get(j).getCarbo() + "",
 							templistoneday.get(j).getProtein() + "", 
-							templistoneday.get(j).getCost() + "" 
+							df.format(templistoneday.get(j).getCost())
 					};
 
 					oneDayCost += templistoneday.get(j).getCost();
@@ -253,11 +198,11 @@ public class FoodListTable extends JDialog {
 					"합계",
 					"", 
 					"",
-					oneDayCal+"", 
+					df.format(oneDayCal), 
 					oneDayFat+"",
 					oneDayCarbo+"", 
 					oneDayProtein+"",
-					oneDayCost+"", 
+					df.format(oneDayCost), 
 			};
 		}
 		System.out.println(ttt);
@@ -280,6 +225,8 @@ public class FoodListTable extends JDialog {
 		int monthFat = 0; //월 지방
 		int monthCarbo = 0; //월 탄수화물 
 		int monthProtein = 0; //월 단백질
+		
+		DecimalFormat df = new DecimalFormat("#,###");
 		
 		for (int i = 0; i < list.size(); i++) { // 30일분..
 
@@ -321,7 +268,8 @@ public class FoodListTable extends JDialog {
 						templistoneday.get(j).getFat() + "", 
 						templistoneday.get(j).getCarbo() + "",
 						templistoneday.get(j).getProtein() + "", 
-						templistoneday.get(j).getCost() + "" };
+						df.format(templistoneday.get(j).getCost())
+						};
 				
 				//월 총경비
 				monthCost += templistoneday.get(j).getCost();

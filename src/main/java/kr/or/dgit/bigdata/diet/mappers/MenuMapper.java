@@ -8,5 +8,5 @@ public interface MenuMapper {
 	Menu getMenu(int no);
 	ArrayList<Menu> selectAllMenu();
 	int insertMenuAuto(Menu menu);
-	int deleteMenu(int no);
+	int deleteMenu(Menu menu);
 }

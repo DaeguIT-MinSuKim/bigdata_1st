@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.DecorateService;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
@@ -73,82 +74,51 @@ class PanelMemberInfo extends JPanel{
 	JTextField tf_location;
 	JTextField tf_budget;
 	private MemberService memberService;
+	private JPanel panelText;
 
 	public PanelMemberInfo(ArrayList<Member> memberList) {
 		setLayout(null);
 		setOpaque(false);
 		
 		JLabel lbl_kg = new JLabel("kg");
-		lbl_kg.setBounds(170, 44, 29, 14);
-		add(lbl_kg);
-		lbl_kg.setFont(new Font("굴림", Font.PLAIN, 11));
-		
 		JLabel lbl_won = new JLabel("원");
+		
+		lbl_kg.setBounds(170, 44, 29, 14);
 		lbl_won.setBounds(170, 175, 29, 14);
-		add(lbl_won);
+		
+		lbl_kg.setFont(new Font("굴림", Font.PLAIN, 11));
 		lbl_won.setFont(new Font("굴림", Font.PLAIN, 11));
 		
-		JPanel panelText = new JPanel();
+		panelText = new JPanel();
 		panelText.setBounds(80, 0, 115, 200);
-		add(panelText);
 		panelText.setLayout(new GridLayout(0, 1, 0, 0));
 		panelText.setOpaque(false);
 		
+		add(lbl_kg);
+		add(lbl_won);
+		add(panelText);
+		
 		tf_gender = new JTextField();
-		tf_gender.setText("여");
-		tf_gender.setOpaque(false);
-		tf_gender.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_gender.setEditable(false);
-		tf_gender.setColumns(10);
-		tf_gender.setBorder(null);
-		panelText.add(tf_gender);
-		
 		tf_weight = new JTextField();
-		tf_weight.setText("45");
-		tf_weight.setOpaque(false);
-		tf_weight.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_weight.setEditable(false);
-		tf_weight.setColumns(10);
-		tf_weight.setBorder(null);
-		panelText.add(tf_weight);
-		
 		tf_age = new JTextField();
-		tf_age.setText("23");
-		tf_age.setOpaque(false);
-		tf_age.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_age.setEditable(false);
-		tf_age.setColumns(10);
-		tf_age.setBorder(null);
-		panelText.add(tf_age);
-		
 		tf_phone = new JTextField();
-		tf_phone.setText("010-5108-4160");
-		tf_phone.setOpaque(false);
-		tf_phone.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_phone.setEditable(false);
-		tf_phone.setColumns(10);
-		tf_phone.setBorder(null);
-		panelText.add(tf_phone);
-		
 		tf_location = new JTextField();
-		tf_location.setText("완주");
-		tf_location.setOpaque(false);
-		tf_location.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_location.setEditable(false);
-		tf_location.setColumns(10);
-		tf_location.setBorder(null);
-		panelText.add(tf_location);
-		
 		tf_budget = new JTextField();
-		tf_budget.setText("316000");
-		tf_budget.setOpaque(false);
-		tf_budget.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_budget.setEditable(false);
-		tf_budget.setColumns(10);
-		tf_budget.setBorder(null);
-		panelText.add(tf_budget);
+		
+		//JTextField 세팅
+		textFieldSetting(tf_gender, tf_weight, tf_age, tf_phone, tf_location, tf_budget);
 	}
 
+	private void textFieldSetting(JTextField ...text) {
+		for (JTextField jTextField : text) {
+			jTextField.setOpaque(false);
+			jTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			jTextField.setEditable(false);
+			jTextField.setColumns(10);
+			jTextField.setBorder(null);
+			panelText.add(jTextField);
+		}
+	}
 }
 
 //버튼 패널
@@ -158,48 +128,28 @@ class PanelTopButton extends JPanel implements ActionListener{
 	private MemberCheckGUI memberCheckGUI;
 	private FoodListMakingGUI foodListMaking;
 	private JButton btnUpdateMember;
+	DecorateService decorateService = new DecorateService();
 	
 	public PanelTopButton(MemberCheckGUI memberCheckGUI) {
 		this.memberCheckGUI = memberCheckGUI;
 		
 		setOpaque(false);
 		setLayout(null);
-		/*
-		btnSign.setBounds(28, 4, 72, 23);
-		btnClear.setBounds(114, 4, 72, 23);
-		btnCancel.setBounds(200, 4, 72, 23);*/
 		
 		btnMakeList = new JButton("식단보기");
 		btnUpdateMember = new JButton("회원수정");
 		btnCreateMember = new JButton("회원등록");
 		
-		btnMakeList.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnUpdateMember.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnCreateMember.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		
 		btnMakeList.setBounds(28, 4, 72, 23);
 		btnUpdateMember.setBounds(114, 4, 72, 23);
 		btnCreateMember.setBounds(200, 4, 72, 23);
 		
-		btnMakeList.setForeground(Color.WHITE);
-		btnUpdateMember.setForeground(Color.WHITE);
-		btnCreateMember.setForeground(Color.WHITE);
-		
-		btnMakeList.setBackground(new Color(44,103,156));
-		btnUpdateMember.setBackground(new Color(44, 103, 156));
-		btnCreateMember.setBackground(new Color(44, 103, 156));
-		
-		btnMakeList.setFocusPainted(false);
-		btnUpdateMember.setFocusPainted(false);
-		btnCreateMember.setFocusPainted(false);
-		
-		btnMakeList.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnUpdateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnCreateMember.setBorder(new LineBorder(new Color(102, 162, 212)));
-		
 		add(btnMakeList);
 		add(btnUpdateMember);
 		add(btnCreateMember);
+		
+		//		버튼꾸미기 메소드 호출
+		decorateService.decorateButton(btnMakeList, btnUpdateMember, btnCreateMember);
 		
 		btnMakeList.addActionListener(this);
 		btnUpdateMember.addActionListener(this);

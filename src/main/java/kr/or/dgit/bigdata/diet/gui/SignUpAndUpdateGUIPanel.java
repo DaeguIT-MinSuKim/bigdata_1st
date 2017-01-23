@@ -23,9 +23,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.service.DataInputService;
+import kr.or.dgit.bigdata.diet.service.DecorateService;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 public class SignUpAndUpdateGUIPanel extends JPanel {
+	
+	
 	ImageIcon bgImgTemp = new ImageIcon("images/bg_signup.png");
 	Image bgImg = bgImgTemp.getImage();
 	
@@ -45,6 +49,8 @@ class PanelButton extends JPanel implements ActionListener {
 	private MemberService memberService;
 	private static SignUpAndUpdateGUI signUpAndUpdateGUI;
 	private static MemberCheckGUI memberCheckGUI;
+	DataInputService dataInputService = new DataInputService();
+	DecorateService decorateService = new DecorateService();
 	
 	public PanelButton(SignUpAndUpdateGUI signUpGUI) {
 		this.signUpAndUpdateGUI = signUpGUI;
@@ -60,25 +66,8 @@ class PanelButton extends JPanel implements ActionListener {
 		btnClear.setBounds(114, 4, 72, 23);
 		btnCancel.setBounds(200, 4, 72, 23);
 		
-		btnSign.setForeground(Color.WHITE);
-		btnClear.setForeground(Color.WHITE);
-		btnCancel.setForeground(Color.WHITE);
-		
-		btnSign.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnClear.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		btnCancel.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		
-		btnSign.setFocusPainted(false);
-		btnClear.setFocusPainted(false);
-		btnCancel.setFocusPainted(false);
-		
-		btnSign.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnClear.setBorder(new LineBorder(new Color(102, 162, 212)));
-		btnCancel.setBorder(new LineBorder(new Color(102, 162, 212)));
-	
-		btnSign.setBackground(new Color(44, 103, 156));
-		btnClear.setBackground(new Color(44, 103, 156));
-		btnCancel.setBackground(new Color(44, 103, 156));
+		//버튼꾸미기 메소드 호출
+		decorateService.decorateButton(btnSign, btnClear, btnCancel);
 		
 		add(btnSign);
 		add(btnClear);
@@ -153,13 +142,13 @@ class PanelButton extends JPanel implements ActionListener {
 			}					
 		}
 		
-		//초기화
+		//초기화버튼 클릭
 		if (e.getSource() == btnClear) {
 			//텍스트필드 초기화 메소드 호출
 			allTextFieldClear();
 		}
 		
-		//돌아가기
+		//돌아가기 버튼
 		if (e.getSource() == btnCancel) {
 			if (btnSign.getText().equals("회원수정")) {
 				signUpAndUpdateGUI.dispose();
@@ -176,29 +165,31 @@ class PanelButton extends JPanel implements ActionListener {
 
 	//초기화 메소드
 	private void allTextFieldClear() {
-		signUpAndUpdateGUI.panelInput.tf_name.setText("");
-		signUpAndUpdateGUI.panelInput.tf_weight.setText("");
-		signUpAndUpdateGUI.panelInput.tf_age.setText("");
-		signUpAndUpdateGUI.panelInput.tf_phone.setText("");
-		signUpAndUpdateGUI.panelInput.tf_location.setText("");
-		signUpAndUpdateGUI.panelInput.tf_budget.setText("");
+		dataInputService.allTextFieldClear(signUpAndUpdateGUI.panelInput.tf_name,
+				signUpAndUpdateGUI.panelInput.tf_weight,
+				signUpAndUpdateGUI.panelInput.tf_age,
+				signUpAndUpdateGUI.panelInput.tf_phone,
+				signUpAndUpdateGUI.panelInput.tf_location,
+				signUpAndUpdateGUI.panelInput.tf_budget);
 	}
 
 	//값 유효성 검사
 	private boolean validCheck() {
+		
 		try {
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_name);
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_weight);
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_age);
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_phone);
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_budget);
 			
-			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_name);
-			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_weight);
-			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_age);
-			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_phone);
-			isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_budget);
-			isValidCheck("[가-힣]{1,4}", signUpAndUpdateGUI.panelInput.tf_name,  "이름을 4글자 이하, 한글로 작성해주세요.");
-			isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_weight, "몸무게는 10~99kg이하로 작성해주세요.");
-			isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_age, "나이는 10~99세 이하로 작성해주세요.");
-			isValidCheck("^0[1-9]{1}[0-9]{1}-[0-9]{4}-[0-9]{4}$", signUpAndUpdateGUI.panelInput.tf_phone, "휴대전화 번호는 010-0000-0000형식으로 입력해주세요.");
-			isValidCheck("", signUpAndUpdateGUI.panelInput.tf_budget, "월 예산은 0~100만원 사이로 입력해주세요.");
-			
+			dataInputService.isValidCheck("[가-힣]{1,4}", signUpAndUpdateGUI.panelInput.tf_name,  "이름을 4글자 이하, 한글로 작성해주세요.");
+			dataInputService.isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_weight, "몸무게는 10~99kg이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_age, "나이는 10~99세 이하로 작성해주세요.");
+			dataInputService.isValidCheck("^0[1-9]{1}[0-9]{1}-[0-9]{4}-[0-9]{4}$", signUpAndUpdateGUI.panelInput.tf_phone, "휴대전화 번호는 010-0000-0000형식으로 입력해주세요.");
+			signUpAndUpdateGUI.panelInput.tf_budget.setName("tf_budget"); //네임 설정
+			dataInputService.isValidCheck("", signUpAndUpdateGUI.panelInput.tf_budget, "월 예산은 0~100만원 사이로 입력해주세요.");
+		
 			if (signUpAndUpdateGUI.panelInput.rdbtnMale.isSelected()==false 
 					&& signUpAndUpdateGUI.panelInput.rdbtnFemale.isSelected()==false){
 				JOptionPane.showMessageDialog(null, "성별을 선택해주세요.");
@@ -209,32 +200,6 @@ class PanelButton extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			return false;
-		}
-	}
-	
-	//공백여부검사
-	private boolean isEmptyCheck(JTextField text) throws Exception {
-		if(text.getText().trim().equals("")){
-			text.requestFocus();
-			throw new Exception("공백이 존재합니다.");
-		}else{
-			return true;
-		}
-	}
-	
-	// 정규표현 검사
-	private void isValidCheck(String pattern, JTextField text, String msg) throws Exception {
-		if (text == signUpAndUpdateGUI.panelInput.tf_budget) {
-			if (Integer.parseInt(text.getText().trim()) > 1000000 
-					|| Integer.parseInt(text.getText().trim()) < 0) {
-				text.setText("");
-				text.requestFocus();
-				throw new Exception(msg);
-			}
-		} else if (!Pattern.matches(pattern, text.getText().trim())) {
-			text.setText("");
-			text.requestFocus();
-			throw new Exception(msg);
 		}
 	}
 }
@@ -253,6 +218,7 @@ class PanelInput extends JPanel{
 	private ButtonGroup rdbtnGroup;
 	private JButton btnLocation;
 	private PanelInput panelTextField;
+	DataInputService dataInputService = new DataInputService();
 
 	public PanelInput() {
 		this.panelTextField = this;
@@ -377,75 +343,10 @@ class PanelInput extends JPanel{
 
 	//키 이벤트 발생 메소드
 	private KeyListener runKeyListener(JTextField key) {
-		KeyAdapter keyAdapter = new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				//특수문자 배제시킴
-				char t = e.getKeyChar();
-				
-				//공통 체크 부분
-				boolean digitCheck = Character.isDigit(t);
-				boolean backSpaceCheck = ( t == KeyEvent.VK_BACK_SPACE );
-				boolean deleteCheck = ( t == KeyEvent.VK_DELETE );
-				
-				switch (key.getName()) {
-				
-				case "tf_name":
-					if ( !(digitCheck || backSpaceCheck || deleteCheck || Character.isAlphabetic(t)) ) {
-						getToolkit().beep();
-						e.consume();
-					}
-					//한글 최대 8자까지 받음 
-					if(!Pattern.matches("^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{1,8}", key.getText()+t)){
-						e.consume();
-						getToolkit().beep();
-					}
-					break;
-					
-				case "tf_weight":
-				case "tf_age":
-					if ( !(digitCheck || backSpaceCheck || deleteCheck) ) {
-						getToolkit().beep();
-						e.consume();
-					}
-					//최대 3자까지 받음 			
-					if(!Pattern.matches("^[0-9]{1,3}", key.getText()+t)){
-						e.consume();
-						getToolkit().beep();
-					}
-					break;
-					
-				case "tf_budget":
-					if ( !(digitCheck || backSpaceCheck || deleteCheck) ) {
-						getToolkit().beep();
-						e.consume();
-					}
-					//최대 8자까지 받음 			
-					if(!Pattern.matches("^[0-9]{1,8}", key.getText()+t)){
-						e.consume();
-						getToolkit().beep();
-					}
-					break;
-					
-				case "tf_phone":
-					if ( !(digitCheck || backSpaceCheck || deleteCheck || (t == KeyEvent.VK_MINUS)) ) {
-						getToolkit().beep();
-						e.consume();
-					}
-					//최대 15자까지 받음 			
-					if(!Pattern.matches("^[0-9-]{1,15}", key.getText()+t)){
-						e.consume();
-						getToolkit().beep();
-					}
-					break;
-				}
-			}
-		};
-		return keyAdapter;
+		return dataInputService.runKeyListener(key);
 	}
 	
-	
-	//회원번호 자동 증가
+	//회원번호 자동 증가 메소드
 	public String getNo() {
 		ArrayList<Member> list = MemberService.getInstance().selectAllMember();
 		
