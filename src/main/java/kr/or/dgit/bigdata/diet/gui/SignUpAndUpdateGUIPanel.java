@@ -30,7 +30,7 @@ import kr.or.dgit.bigdata.diet.service.MemberService;
 public class SignUpAndUpdateGUIPanel extends JPanel {
 	
 	
-	ImageIcon bgImgTemp = new ImageIcon("src/main/resources/images/bg_signup.png");
+	ImageIcon bgImgTemp = new ImageIcon(getClass().getClassLoader().getResource("images/bg_signup.png"));
 	Image bgImg = bgImgTemp.getImage();
 	
 	@Override

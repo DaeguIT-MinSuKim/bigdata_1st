@@ -92,8 +92,8 @@ public class OutputMenuList extends JDialog {
 		panel.add(jcb);
 		
 		//이미지아이콘
-		ImageIcon iconAdd = new ImageIcon("src/main/resources/pictogram/small_add_list.png");
-		ImageIcon iconTrash = new ImageIcon("src/main/resources/pictogram/small_trash.png");
+		ImageIcon iconAdd = new ImageIcon(getClass().getClassLoader().getResource("pictogram/small_add_list.png"));
+		ImageIcon iconTrash = new ImageIcon(getClass().getClassLoader().getResource("pictogram/small_trash.png"));
 		
 		//메뉴 삭제 버튼
 		JButton btnMenuDel = new JButton("");
@@ -158,7 +158,7 @@ public class OutputMenuList extends JDialog {
 }
 
 class NoteBg2 extends JPanel {
-	ImageIcon bgIcon2 = new ImageIcon("src/main/resources/images/info.jpg");
+	ImageIcon bgIcon2 = new ImageIcon(getClass().getClassLoader().getResource("images/info.jpg"));
 	Image bgImg2 = bgIcon2.getImage();
 
 	public void paintComponent(Graphics g) {

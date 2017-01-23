@@ -157,6 +157,14 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 			
 			btnDays[i].addActionListener(this);
 		}
+		
+		if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
+			btnCreate.setVisible(false);
+			for (int i = 0; i < btnDays.length; i++) {
+				btnDays[i].setForeground(new Color(255, 102, 0));
+			}
+			return;
+		}
 	}
 
 	private void settingButton(JButton ...button) {
@@ -177,6 +185,10 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 		if (e.getSource() == btnCreate) {
 			//식단이 아직 생성되어있지 않을 때 호출하도록
 			if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
+				btnCreate.setVisible(false);
+				for (int i = 0; i < btnDays.length; i++) {
+					btnDays[i].setForeground(new Color(255, 102, 0));
+				}
 				JOptionPane.showMessageDialog(null, "식단이 존재합니다.");
 				return;
 			}else{
@@ -191,7 +203,13 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 				
 				lblOneDayCost.setText(foodListTable.avgOneDayCost+"");
 				lblMonthCost.setText(foodListTable.monthCost+"");
+				
+				btnCreate.setVisible(false);
+				for (int i = 0; i < btnDays.length; i++) {
+					btnDays[i].setForeground(new Color(255, 102, 0));
+				}
 			}
+			
 			
 		}
 		
@@ -294,7 +312,7 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 }
 
 class BgImageForFoodMakingDialog extends JPanel{
-	ImageIcon bgImgTemp = new ImageIcon("src/main/resources/images/bg_makingfoodlist.png");
+	ImageIcon bgImgTemp = new ImageIcon(getClass().getClassLoader().getResource("images/bg_makingfoodlist.png"));
 	Image bgImg = bgImgTemp.getImage();
 	
 	@Override

@@ -1,5 +1,6 @@
 package kr.or.dgit.bigdata.diet.gui;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -8,14 +9,23 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -145,19 +155,106 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		 MouseEventListener mouseListener = new MouseEventListener(this);
 		 addMouseListener(mouseListener);
 		 addMouseMotionListener(mouseListener);
+		 
+///////////윈도우 최소화 경우 트레이 이벤트 처리 		 
+		 addWindowListener(new WindowListener() {
+			    public void windowOpened(WindowEvent e) {
+			    }
+			    public void windowClosing(WindowEvent e) {
+			    }
+			    public void windowClosed(WindowEvent e) {
+			    }
+			    public void windowIconified(WindowEvent e) {
+			       setVisible(false);
+			       displayTrayIcon();
+			    }
+			    private void displayTrayIcon() {
+					
+			    	final TrayIcon trayIcon;
+			        if (SystemTray.isSupported()) {
+			           final SystemTray tray = SystemTray.getSystemTray();
+			           ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource("images/info.png"));
+
+			           MouseListener mouseListener = new MouseListener() {
+			              public void mouseClicked(MouseEvent e) {
+			                 System.out.println("Tray Icon - Mouse clicked!");
+			                 
+			              }
+			              public void mouseReleased(MouseEvent e) {
+			                 System.out.println("Tray Icon - Mouse released!");
+			              }
+			              public void mouseEntered(MouseEvent e) {
+			                 System.out.println("Tray Icon - Mouse entered!");
+			              }
+			              public void mouseExited(MouseEvent e) {
+			                 System.out.println("Tray Icon - Mouse exited!");
+			              }
+			              
+			              public void mousePressed(MouseEvent e) {
+			                 if (e.getClickCount() == 2) {
+			                                   
+			                    tray.remove(tray.getTrayIcons()[0]);
+			                    setVisible(true);
+			                    setExtendedState(JFrame.NORMAL);
+			                    //setAlwaysOnTop(true);
+			                 }else System.out.println("Tray Icon - Mouse Pressed!");
+			                 
+			              }            
+			           };
+			           
+			           ActionListener exitListener = new ActionListener() {
+			              public void actionPerformed(ActionEvent e) {
+			                 //System.out.println("Exiting...");
+			                 System.exit(0);
+			              }
+			           };
+			           PopupMenu popup = new PopupMenu();
+			           MenuItem defaultItem = new MenuItem("Exit");
+			           defaultItem.addActionListener(exitListener);
+			           popup.add(defaultItem);
+			           trayIcon = new TrayIcon(image.getImage(), "Tray Demo", popup);
+			           /*ActionListener actionListener = new ActionListener() {
+			              public void actionPerformed(ActionEvent e) {
+			                 trayIcon.displayMessage("Action Event", "An Action Event Has Been Peformed!",
+			                       TrayIcon.MessageType.INFO);
+			              }
+			           };*/
+
+			           trayIcon.setImageAutoSize(true);
+			           //trayIcon.addActionListener(actionListener);
+			           trayIcon.addMouseListener(mouseListener);
+
+			           try {
+			              tray.add(trayIcon);
+			           } catch (AWTException e) {
+			              System.err.println("TrayIcon could not be added.");
+			           }
+			        } else {
+			           System.err.println("System tray is currently not supported.");
+			        }
+
+				}
+				public void windowDeiconified(WindowEvent e) {
+			    }
+			    public void windowActivated(WindowEvent e) {
+			       System.out.println("windowActivated");
+			    }
+			    public void windowDeactivated(WindowEvent e) {
+			    }
+			 });
 	}
 
 	//버튼에 넣을 이미지 아이콘 생성
 	private void createImages(ImageIcon[] origin, Image[] originImg, Image[] changeImg, ImageIcon[] change) {
 		String[] imgNames = new String[]{
-				"src/main/resources/pictogram/icon_userinput1.png","src/main/resources/pictogram/icon_userinput2.png","src/main/resources/pictogram/icon_userinput3.png",
-				"src/main/resources/pictogram/icon_alluserinput1.png","src/main/resources/pictogram/icon_alluserinput2.png","src/main/resources/pictogram/icon_alluserinput3.png",
-				"src/main/resources/pictogram/icon_listcreate1.png", "src/main/resources/pictogram/icon_listcreate2.png", "src/main/resources/pictogram/icon_listcreate3.png",
-				"src/main/resources/pictogram/icon_menuadd1.png", "src/main/resources/pictogram/icon_menuadd2.png", "src/main/resources/pictogram/icon_menuadd3.png",
+				"pictogram/icon_userinput1.png","pictogram/icon_userinput2.png","pictogram/icon_userinput3.png",
+				"pictogram/icon_alluserinput1.png","pictogram/icon_alluserinput2.png","pictogram/icon_alluserinput3.png",
+				"pictogram/icon_listcreate1.png", "pictogram/icon_listcreate2.png", "pictogram/icon_listcreate3.png",
+				"pictogram/icon_menuadd1.png", "pictogram/icon_menuadd2.png", "pictogram/icon_menuadd3.png",
 		};
 		//[0, 1, 2]	[3, 4, 5] [6, 7, 8] [9, 10, 11]
 		for (int i = 0; i < 12; i++) {
-			origin[i] = new ImageIcon(imgNames[i]);
+			origin[i] = new ImageIcon(getClass().getClassLoader().getResource(imgNames[i]));
 			originImg[i] = origin[i].getImage();
 			changeImg[i] = originImg[i].getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 			change[i] = new ImageIcon(changeImg[i]);
@@ -258,12 +355,13 @@ public class MainStartGUI extends JFrame implements ActionListener {
 			mmgui.setVisible(true);
 		}
 	}
+
 }
 
 
 ////////그림 패널//////////////
 class bgPanel extends JPanel{
-	ImageIcon bgIcon = new ImageIcon("src/main/resources/images/healthy_food (7).jpg");
+	ImageIcon bgIcon = new ImageIcon(getClass().getClassLoader().getResource("images/healthy_food (7).jpg"));
 	Image bgImg = bgIcon.getImage();
 	
 	public void paintComponent(Graphics g){
@@ -332,3 +430,4 @@ class MouseEventListener implements MouseInputListener {
          @Override
          public void mouseMoved(MouseEvent e) {}
      }
+

@@ -25,7 +25,7 @@ import kr.or.dgit.bigdata.diet.service.MemberService;
 
 
 public class MemberCheckGUIPanel extends JPanel {
-	ImageIcon bgImgTemp = new ImageIcon("src/main/resources/images/bg_membercheck.png");
+	ImageIcon bgImgTemp = new ImageIcon(getClass().getClassLoader().getResource("images/bg_membercheck.png"));
 	Image bgImg = bgImgTemp.getImage();
 	
 	@Override

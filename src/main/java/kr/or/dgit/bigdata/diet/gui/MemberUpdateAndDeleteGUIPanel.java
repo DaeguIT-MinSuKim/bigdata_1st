@@ -39,7 +39,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class MemberUpdateAndDeleteGUIPanel extends JPanel implements ActionListener{
-	ImageIcon bgImgTemp = new ImageIcon("src/main/resources/images/bg_memberupdate.png");
+	ImageIcon bgImgTemp = new ImageIcon(getClass().getClassLoader().getResource("images/bg_memberupdate.png"));
 	Image bgImg = bgImgTemp.getImage();
 	
 	@Override

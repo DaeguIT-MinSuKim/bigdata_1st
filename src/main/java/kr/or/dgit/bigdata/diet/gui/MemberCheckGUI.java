@@ -126,8 +126,8 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 		btnRight.setBorder(null);
 		btnLeft.setOpaque(false);
 		btnRight.setOpaque(false);
-		btnLeft.setIcon(new ImageIcon("src/main/resources/images/btn_left.png"));
-		btnRight.setIcon(new ImageIcon("src/main/resources/images/btn_right.png"));
+		btnLeft.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/btn_left.png")));
+		btnRight.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/btn_right.png")));
 		panelBg.add(btnLeft);
 		panelBg.add(btnRight);
 		//버튼 이벤트 호출

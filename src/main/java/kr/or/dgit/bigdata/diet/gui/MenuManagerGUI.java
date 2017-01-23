@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
 
 import com.sun.prism.paint.Color;
 
@@ -26,12 +27,16 @@ import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class MenuManagerGUI extends JDialog implements ActionListener {
+public class MenuManagerGUI extends JDialog implements ActionListener, KeyListener{
 	private static MenuService menuService;
 
 	Container contentPane;
@@ -70,8 +75,8 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 		nb.setLayout(null);
 
 		// 이미지아이콘
-		ImageIcon iconAdd = new ImageIcon("src/main/resources/pictogram/small_add_list.png");
-		ImageIcon iconTrash = new ImageIcon("src/main/resources/pictogram/small_trash.png");
+		ImageIcon iconAdd = new ImageIcon(getClass().getClassLoader().getResource("pictogram/small_add_list.png"));
+		ImageIcon iconTrash = new ImageIcon(getClass().getClassLoader().getResource("pictogram/small_trash.png"));
 
 		// 콤보박스, 텍스트필드
 		// 식품군
@@ -92,6 +97,7 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 		tfItem.setBorder(null);
 		tfItem.setBounds(290, 188, 120, 30);
 		nb.add(tfItem);
+		tfItem.addKeyListener(this);
 
 		tfCal = new JTextField();
 		tfCal.setForeground(new java.awt.Color(220, 20, 60));
@@ -146,6 +152,14 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 		tfCon.setBorder(null);
 		tfCon.setBounds(290, 467, 120, 30);
 		nb.add(tfCon);
+		
+		tfItem.addKeyListener(this);
+		tfCal.addKeyListener(this);
+		tfFat.addKeyListener(this);
+		tfCarbo.addKeyListener(this);
+		tfProtein.addKeyListener(this);
+		tfCost.addKeyListener(this);
+		tfCon.addKeyListener(this);
 
 		btnAdd = new JButton("");
 		btnAdd.setIcon(iconAdd);
@@ -171,6 +185,17 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 		nb.add(btnSub);
 
 		setSize(800, 730);
+	}
+
+	private KeyListener getKeyListener(JTextField key) {
+		KeyAdapter keyAdapter = new KeyAdapter() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+		};
+		return keyAdapter;
 	}
 
 	@Override
@@ -233,12 +258,11 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 			dataInputService.isEmptyCheck(tfCon);
 
 			dataInputService.isValidCheck("[가-힣]{1,10}", tfItem, "항목은 1글자 이상 10글자 이하로 한글로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]{1,3}", tfCal, "칼로리는 999kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,2}", tfFat, "지방은 99kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,2}", tfCarbo, "탄수화물은 99kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,2}", tfProtein, "단백질은 99kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,2}", tfProtein, "단백질은 99kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("[0-9]{2,4}", tfCost, "비용은 100~9999원 이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[1-9]{1}[0-9]{2,3}", tfCal, "칼로리는 999kcal이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfFat, "지방은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfCarbo, "탄수화물은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfProtein, "단백질은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[1-9]{1}[0-9]{2,4}", tfCost, "비용은 100~9999원 이하로 작성해주세요.");
 			dataInputService.isValidCheck("^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{1,10}", tfCon, "조건은 10글자 이하로 작성해주세요.");
 
 			return true;
@@ -247,10 +271,54 @@ public class MenuManagerGUI extends JDialog implements ActionListener {
 			return false;
 		}
 	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// 키 가져오기
+		char t = e.getKeyChar();
+		//공통 체크 부분
+		boolean digitCheck = Character.isDigit(t);
+		boolean backSpaceCheck = ( t == KeyEvent.VK_BACK_SPACE );
+		boolean deleteCheck = ( t == KeyEvent.VK_DELETE );
+		boolean dotCheck = ( t == KeyEvent.VK_PERIOD );
+		
+		if( e.getSource() == tfItem || e.getSource() == tfCon){
+			if ( !(digitCheck || backSpaceCheck || deleteCheck || Character.isAlphabetic(t) ) ) {
+				e.consume();
+			}
+			//한글 최대 10자까지 받음 
+			if(!Pattern.matches("^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{1,10}", ((JTextComponent) e.getSource()).getText()+t)){
+				e.consume();
+			}
+		}else if (e.getSource() == tfCarbo || e.getSource() == tfProtein || e.getSource() == tfFat ){
+			if ( !(digitCheck || backSpaceCheck || deleteCheck || dotCheck) ) {
+				e.consume();
+			}
+			if(!Pattern.matches("^[0-9.]{1,6}", ((JTextComponent) e.getSource()).getText()+t)){
+				e.consume();
+			}
+		}else if (e.getSource() == tfCal || e.getSource() == tfCost){
+			if ( !(digitCheck || backSpaceCheck || deleteCheck) ) {
+				e.consume();
+			}
+			if(!Pattern.matches("^[0-9.]{1,6}", ((JTextComponent) e.getSource()).getText()+t)){
+				e.consume();
+			}
+		}
+	}
+
+	
+		
 }
 	// 배경 패널
 class NoteBg extends JPanel{
-	ImageIcon bgIcon = new ImageIcon("src/main/resources/images/note2.jpg");
+	ImageIcon bgIcon = new ImageIcon(getClass().getClassLoader().getResource("images/note2.jpg"));
 	Image bgImg = bgIcon.getImage();
 	
 	public void paintComponent(Graphics g){
