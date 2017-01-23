@@ -79,5 +79,33 @@ public class MemberService {
 		}
 	}
 
+	public int deleteMember(int no){
+		if (logger.isDebugEnabled()) {
+			logger.debug("deleteMember(int) - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			int res = memberMapper.deleteMember(no);
+			sqlSession.commit();
+			return res;
+		}finally{
+			sqlSession.close();
+		}
+	}
 	
+	public int updateMember(Member member){
+		if (logger.isDebugEnabled()) {
+			logger.debug("updateMember(Member) - start"); 
+		}
+		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
+		try{
+			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+			int res = memberMapper.updateMember(member);
+			sqlSession.commit();
+			return res;
+		}finally{
+			sqlSession.close();
+		}
+	}	
 }

@@ -12,7 +12,7 @@ tasks.withType(JavaCompile) {
 } 
 
 jar {
-	mainClassName = 'kr.or.dgit.bigdata.dietfoodmanager.TeatMain'
+	mainClassName = 'kr.or.dgit.bigdata.diet.gui.MainStartGUI'
 
     manifest {
         attributes 'Implementation-Title': 'DietFoodManager',

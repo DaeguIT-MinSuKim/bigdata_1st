@@ -2,6 +2,7 @@ package kr.or.dgit.bigdata.diet.util;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,33 +25,26 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 
-public class PrnMenu extends JFrame {
+public class PrnMenu extends JDialog {
 
 	private JPanel contentPane;
 	private String[][] table;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Test frame = new Test(table);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	
+	private String numberNo;
+	private String name;
+	private String cal;
+	public void setNumberNo(String numberNo,String name, String cal) {
+		this.numberNo = numberNo;
+		this.name = name;
+		this.cal = cal;
+	}
 
-	/**
-	 * Create the frame.
-	 * @param table 
-	 */
-	public PrnMenu(String[][] table) {
+	public PrnMenu(String[][] table,String numberNo,String name, String cal) {
+		this.numberNo = numberNo;
+		this.name = name;
+		this.cal = cal;
 		this.table = table;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,7 +55,9 @@ public class PrnMenu extends JFrame {
 		revalidate();
 		repaint();
 		setSize(900, 800);
-		setVisible(true);
+		
+		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
+		setModalityType(ModalityType.APPLICATION_MODAL);
 	}
 	private void ShowReport(){
 		try {
@@ -70,15 +67,18 @@ public class PrnMenu extends JFrame {
 			for(int i=0 ; i< table.length ;i++ ){							 
 				Map<String, Object> m=new HashMap<>();
 				//m.put("no",	table[i][0]);
-				m.put("day",	table[i][1]);System.out.print(m.get("day")+", ");
-				m.put("time",	table[i][2]);System.out.print(m.get("time")+", ");
-				m.put("grp",	table[i][3]);System.out.print(m.get("grp")+", ");
-				m.put("menu",	table[i][4]);System.out.print(m.get("menu")+", ");
-				m.put("cal",	table[i][5]);System.out.print(m.get("cla")+", ");
-				m.put("ing1",	table[i][6]);System.out.print(m.get("ing1")+", ");
-				m.put("ing2",	table[i][7]);System.out.print(m.get("ing2")+", ");
-				m.put("ing3",	table[i][8]);System.out.print(m.get("ing3")+", ");
-				m.put("cost",	table[i][9]);System.out.println(m.get("cost"));
+				m.put("day",	table[i][1]); //System.out.print(m.get("day")+", ");
+				m.put("time",	table[i][2]); //System.out.print(m.get("time")+", ");
+				m.put("grp",	table[i][3]); //System.out.print(m.get("grp")+", ");
+				m.put("menu",	table[i][4]); //System.out.print(m.get("menu")+", ");
+				m.put("cal",	table[i][5]); //System.out.print(m.get("cla")+", ");
+				m.put("ing1",	table[i][6]); //System.out.print(m.get("ing1")+", ");
+				m.put("ing2",	table[i][7]); //System.out.print(m.get("ing2")+", ");
+				m.put("ing3",	table[i][8]); //System.out.print(m.get("ing3")+", ");
+				m.put("cost",	table[i][9]); //System.out.println(m.get("cost"));
+				m.put("number", numberNo);
+				m.put("name", name);
+				m.put("daycal", cal);
 				//m.put("name",person.getName());
 				//m.put("day", person.getDay());				
 				dataSource.add(m);

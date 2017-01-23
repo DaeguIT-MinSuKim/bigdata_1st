@@ -9,27 +9,33 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
 import kr.or.dgit.bigdata.diet.service.MemberService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
-public class MemberCheckGUI extends JFrame implements ActionListener{
+public class MemberCheckGUI extends JDialog implements ActionListener{
 
-	JPanel contentPane;
+	private JPanel contentPane;
 	JTextField tf_no;
-	private JTextField tf_name;
+	JTextField tf_name;
 	private JButton btnLeft;
 	private JButton btnRight;
 	
@@ -37,21 +43,28 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 	private int sumNumber; //회원 총 수
 	private int memberIndex = 0;
 	private ArrayList<Member> memberList;
-	private PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
+	PanelBottomNumber panelNumber; //panel 현재 회원 / 전체 회원
 	private PanelMemberInfo panelInfo; //panel label, texfield
+	static HashMap<Integer, MonthMenu> tempMonthMenu = new HashMap<>(); //회원번호와 식단정보 저장
+	static HashMap<Integer, FoodListTable> tempFoodList = new HashMap<>(); //회원번호와 식단정보에 따른 테이블 정보 
+	static HashMap<Integer, FoodListMakingGUI> tempMakingFoodList = new HashMap<>(); //회원번호와 추천식단 프레임 정보
 	
-	int noForFoodList;
+	int noForFoodList; //식단 테이블에 던져주기 위한 번호
 	
 
 	public MemberCheckGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
+		//크기조정불가
 		setResizable(false);
+		
+		//현재 다이얼로그를 띄웠을 때 다른 프레임은 움직이지 못하도록 처리
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		JLabel lblNo = new JLabel("No.");
 		lblNo.setBounds(35, 198, 20, 17);
@@ -81,7 +94,7 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		
 		//panel label, textfield
 		panelInfo = new PanelMemberInfo(memberList);
-		panelInfo.setBounds(56, 249, 200, 230);
+		panelInfo.setBounds(44, 252, 225, 227);
 		contentPane.add(panelInfo);
 		
 		//panel bottom
@@ -97,42 +110,38 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 		contentPane.add(panelButton);
 		
 		//	panel 배경화면 이미지
-		PanelBgImage panelBg = new PanelBgImage();
+		MemberCheckGUIPanel panelBg = new MemberCheckGUIPanel();
 		panelBg.setBounds(0, 0, 300, 500);
 		contentPane.add(panelBg);
 		panelBg.setLayout(null);
 		
+		//	좌 우 버튼
 		btnLeft = new JButton("");
-		btnLeft.setBackground(Color.WHITE);
-		btnLeft.setBounds(25, 320, 33, 33);
-		btnLeft.setBorder(null);
-		btnLeft.setOpaque(false);
-		btnLeft.setIcon(new ImageIcon("D:\\workspace\\workspace_mybatis\\dietfoodmanager\\images\\btn_left.png"));
-		panelBg.add(btnLeft);
-		btnLeft.addActionListener(this);
-		
-		
 		btnRight = new JButton("");
+		btnLeft.setBackground(Color.WHITE);
 		btnRight.setBackground(Color.WHITE);
+		btnLeft.setBounds(25, 320, 33, 33);
 		btnRight.setBounds(243, 320, 33, 33);
+		btnLeft.setBorder(null);
 		btnRight.setBorder(null);
+		btnLeft.setOpaque(false);
 		btnRight.setOpaque(false);
-		btnRight.setIcon(new ImageIcon("D:\\workspace\\workspace_mybatis\\dietfoodmanager\\images\\btn_right.png"));
+		btnLeft.setIcon(new ImageIcon("src/main/resources/images/btn_left.png"));
+		btnRight.setIcon(new ImageIcon("src/main/resources/images/btn_right.png"));
+		panelBg.add(btnLeft);
 		panelBg.add(btnRight);
+		//버튼 이벤트 호출
+		btnLeft.addActionListener(this);
 		btnRight.addActionListener(this);
-		
-		memberService = MemberService.getInstance();
-		memberList = (ArrayList<Member>) memberService.selectAllMember();
 		
 		//MemberService객체 얻어오기
 		memberService = MemberService.getInstance();
+		//모든 member객체 가져오기
+		memberList = memberService.selectAllMember();
 		
 		//JFRAME 생성시
 		sumNumber = memberService.selectMemberSum();
 		panelNumber.lbl_sum.setText(sumNumber+"");
-		
-		//모든 member객체 가져오기
-		memberList = memberService.selectAllMember();
 		
 		//데이터가 있으면 1로 시작
 		if(memberList.size() != 0) {
@@ -140,21 +149,9 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 			//화면에  member 출력
 			panelNumber.lbl_number.setText("1"); //member의 첫째 record를 가져와 화면에 출력
 			
-			DecimalFormat df = new DecimalFormat("000");
+			//텍스트필드 세팅 메소드 호출
+			setTextAboutMember(memberList);
 			
-			//FoodListAbsolute에 보내기 위한 변수.
-			//tf_no가 ###형식이어서
-			noForFoodList = 1;
-			
-			tf_no.setText( df.format(memberList.get(0).getNo()) );
-			tf_name.setText(memberList.get(0).getName());
-			
-			panelInfo.tf_gender.setText(memberList.get(0).getGender());
-			panelInfo.tf_weight.setText(memberList.get(0).getWeight()+"");
-			panelInfo.tf_age.setText(memberList.get(0).getAge()+"");
-			panelInfo.tf_phone.setText(memberList.get(0).getPhone());
-			panelInfo.tf_location.setText(memberList.get(0).getAddress());
-			panelInfo.tf_budget.setText(memberList.get(0).getBudget()+"");
 		}else{
 			JOptionPane.showMessageDialog(null,"등록된 사용자가 없습니다.");
 			dispose();
@@ -177,27 +174,41 @@ public class MemberCheckGUI extends JFrame implements ActionListener{
 			}
 		}
 		
+		//화면에  member 출력
 		panelNumber.lbl_number.setText((memberIndex+1)+"");
-		Member temp = memberList.get(memberIndex);
 		
-		//FoodListAbsolute에 보내기 위한 변수.
-		//tf_no가 ###형식이어서
-		noForFoodList = temp.getNo(); 
-		
-		DecimalFormat df = new DecimalFormat("000");
-		
-		tf_no.setText( df.format(temp.getNo()) );
-		tf_name.setText(temp.getName());
-		
-		panelInfo.tf_gender.setText(temp.getGender());
-		panelInfo.tf_weight.setText(temp.getWeight()+"");
-		panelInfo.tf_age.setText(temp.getAge()+"");
-		panelInfo.tf_phone.setText(temp.getPhone());
-		panelInfo.tf_location.setText(temp.getAddress());
-		panelInfo.tf_budget.setText(temp.getBudget()+"");
+		//텍스트필드 세팅 메소드 호출
+		setTextAboutMember(memberIndex);
 	}
 	
-	public static void main(String[] args) {
-		new MemberCheckGUI().setVisible(true);
+
+	//텍스트필드 세팅 메소드
+	private <T> void setTextAboutMember(T t) {
+		DecimalFormat df = new DecimalFormat("000");
+		
+		Member member = null;
+		
+		//memberList 0일 때 설정 됨
+		if (t == memberList) {
+			member = memberList.get(0);
+		}else{
+			member = memberList.get(memberIndex);
+		}
+		
+		//FoodListMaking에 보내기 위한 변수.
+		//tf_no가 ###형식이어서
+		noForFoodList = member.getNo();
+		
+		tf_no.setText( df.format(member.getNo()) );
+		tf_name.setText(member.getName());
+		
+		panelInfo.tf_gender.setText(member.getGender());
+		panelInfo.tf_weight.setText(member.getWeight()+"");
+		panelInfo.tf_age.setText(member.getAge()+"");
+		panelInfo.tf_phone.setText(member.getPhone());
+		panelInfo.tf_location.setText(member.getAddress());
+		panelInfo.tf_budget.setText(member.getBudget()+"");
+		
 	}
+
 }

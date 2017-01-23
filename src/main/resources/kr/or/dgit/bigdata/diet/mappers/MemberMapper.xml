@@ -3,8 +3,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dgit.bigdata.diet.mappers.MemberMapper">
 	
-	
-	
 	<insert id="insertMember" parameterType="member">
 		 insert into member(name,gender,weight,age,phone,address,budget) 
 		 			 values(#{name},#{gender},#{weight},#{age},#{phone},#{address},#{budget});
@@ -24,7 +22,14 @@
 		 from member ;
 	</select>
 
+	<delete id="deleteMember" parameterType="int">
+		delete from member where no = #{no}
+ 	</delete>
 
-
+	<update id="updateMember" parameterType="Member">
+		update member set name=#{name}, weight=#{weight}, age=#{age},
+		phone=#{phone}, address=#{address}, budget=#{budget}
+		where no=#{no};
+	</update>
 
 </mapper>

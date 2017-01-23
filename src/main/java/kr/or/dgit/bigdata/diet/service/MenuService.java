@@ -66,12 +66,12 @@ public class MenuService {
 		}
 	}
 	
-	public int deleteMenu(int no){
-		logger.debug("deleteMenu(no) - start");
+	public int deleteMenu(Menu menu){
+		logger.debug("deleteMenu(menu) - start");
 		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();
 		try {
 			MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
-			int res = menuMapper.deleteMenu(no);
+			int res = menuMapper.deleteMenu(menu);
 			sqlSession.commit();
 			return res;
 		}catch(Exception e){

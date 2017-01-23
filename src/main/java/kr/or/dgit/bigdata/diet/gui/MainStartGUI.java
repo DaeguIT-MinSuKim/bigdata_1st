@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -44,16 +45,12 @@ public class MainStartGUI extends JFrame implements ActionListener {
 	private Container contentPane;
 	private JButton btnSignup;
 	private JButton btnSignupGroup;
-	private JButton btnSearch;
-	private JButton btnMakePlan;
-	private JButton btnprn;
-	private static MemberService memberService;		//db연결
+	private JButton btnCreateList;
+	private JButton btnCreateMenu;
+	private MemberService memberService;		//db연결
 	private ArrayList<Member> memberList;			//회원 명부
+	private bgPanel panel;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -67,189 +64,136 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MainStartGUI() {
 		setTitle("다이어트식단프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = getContentPane();
-		bgPanel panel = new bgPanel();
+		panel = new bgPanel();
 				
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		//이미지 아이콘
-		ImageIcon originSignUp = new ImageIcon("pictogram/signup.png");
-		Image originSignUpImg = originSignUp.getImage();
-		Image changeSignUpImg = originSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeSignUp = new ImageIcon(changeSignUpImg);
-		ImageIcon originSignUp2 = new ImageIcon("pictogram/signup2.png");
-		Image originSignUpImg2 = originSignUp2.getImage();
-		Image changeSignUpImg2 = originSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		ImageIcon changeSignUp2 = new ImageIcon(changeSignUpImg2);
-		ImageIcon originSignUp3 = new ImageIcon("pictogram/signup3.png");
-		Image originSignUpImg3 = originSignUp3.getImage();
-		Image changeSignUpImg3 = originSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeSignUp3 = new ImageIcon(changeSignUpImg3);
+		ImageIcon[] origin = new ImageIcon[12];
+		Image[] originImg = new Image[12];
+		Image[] changeImg = new Image[12];
+		ImageIcon[] change = new ImageIcon[12];
 		
-		ImageIcon originGroupSignUp = new ImageIcon("pictogram/group.png");
-		Image originGroupSignUpImg = originGroupSignUp.getImage();
-		Image changeGroupSignUpImg = originGroupSignUpImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeGroupSignUp = new ImageIcon(changeGroupSignUpImg);
-		ImageIcon originGroupSignUp2 = new ImageIcon("pictogram/group2.png");
-		Image originGroupSignUpImg2 = originGroupSignUp2.getImage();
-		Image changeGroupSignUpImg2 = originGroupSignUpImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		ImageIcon changeGroupSignUp2 = new ImageIcon(changeGroupSignUpImg2);
-		ImageIcon originGroupSignUp3 = new ImageIcon("pictogram/group3.png");
-		Image originGroupSignUpImg3 = originGroupSignUp3.getImage();
-		Image changeGroupSignUpImg3 = originGroupSignUpImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeGroupSignUp3 = new ImageIcon(changeGroupSignUpImg3);
-		
-		ImageIcon originSearch = new ImageIcon("pictogram/search.png");
-		Image originSearchImg = originSearch.getImage();
-		Image changeSearchImg = originSearchImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeSearch = new ImageIcon(changeSearchImg);
-		ImageIcon originSearch2 = new ImageIcon("pictogram/search2.png");
-		Image originSearchImg2 = originSearch2.getImage();
-		Image changeSearchImg2 = originSearchImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		ImageIcon changeSearch2 = new ImageIcon(changeSearchImg2);
-		ImageIcon originSearch3 = new ImageIcon("pictogram/search3.png");
-		Image originSearchImg3 = originSearch3.getImage();
-		Image changeSearchImg3 = originSearchImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeSearch3 = new ImageIcon(changeSearchImg3);
-		
-		ImageIcon originDiet = new ImageIcon("pictogram/diet.png");
-		Image originDietImg = originDiet.getImage();
-		Image changeDietImg = originDietImg.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeDiet = new ImageIcon(changeDietImg);		
-		ImageIcon originDiet2 = new ImageIcon("pictogram/diet2.png");
-		Image originDietImg2 = originDiet2.getImage();
-		Image changeDietImg2 = originDietImg2.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		ImageIcon changeDiet2 = new ImageIcon(changeDietImg2);
-		ImageIcon originDiet3 = new ImageIcon("pictogram/diet3.png");
-		Image originDietImg3 = originDiet3.getImage();
-		Image changeDietImg3 = originDietImg3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		ImageIcon changeDiet3 = new ImageIcon(changeDietImg3);
-		
-		
+		//이미지 아이콘 생성 메소드
+		createImages(origin, originImg, changeImg, change);
 		
 		btnSignup = new JButton("");
-		btnSignup.setFocusable(false);
-		btnSignup.setBorder(null);
-		btnSignup.setBackground(Color.WHITE);
-		btnSignup.addActionListener(this);
-		btnSignup.setBounds(150, 180, 120, 120);
-		btnSignup.setBorderPainted(false);
-        btnSignup.setFocusPainted(false);
-        btnSignup.setContentAreaFilled(false);
-		btnSignup.setIcon(changeSignUp);
-		btnSignup.setPressedIcon(changeSignUp2);
-		btnSignup.setRolloverIcon(changeSignUp3);
-		panel.add(btnSignup);
-		
 		btnSignupGroup = new JButton("");
-		btnSignupGroup.addActionListener(this);
-		btnSignupGroup.setFocusable(false);
-		btnSignupGroup.setBorder(null);
-		btnSignupGroup.setBackground(Color.WHITE);
+		btnCreateList = new JButton("");
+		btnCreateMenu = new JButton("");
+		
+		btnSignup.setBounds(150, 180, 120, 120);
 		btnSignupGroup.setBounds(280, 180, 120, 120);
-		btnSignupGroup.setBorderPainted(false);
-        btnSignupGroup.setFocusPainted(false);
-        btnSignupGroup.setContentAreaFilled(false);
-		btnSignupGroup.setIcon(changeGroupSignUp);
-		btnSignupGroup.setPressedIcon(changeGroupSignUp2);
-		btnSignupGroup.setRolloverIcon(changeGroupSignUp3);
-		panel.add(btnSignupGroup);
+		btnCreateList.setBounds(410, 180, 120, 120);
+		btnCreateMenu.setBounds(540, 180, 120, 120);
 		
-		btnSearch = new JButton("");
-		btnSearch.addActionListener(this);
-		btnSearch.setFocusable(false);
-		btnSearch.setBorder(null);
-		btnSearch.setBackground(Color.WHITE);
-		btnSearch.setBounds(410, 180, 120, 120);
-		btnSearch.setBorderPainted(false);
-        btnSearch.setFocusPainted(false);
-        btnSearch.setContentAreaFilled(false);
-		btnSearch.setIcon(changeSearch);
-		btnSearch.setPressedIcon(changeSearch2);
-		btnSearch.setRolloverIcon(changeSearch3);
-		panel.add(btnSearch);
+		btnSignup.setIcon(change[0]);
+		btnSignup.setPressedIcon(change[1]);
+		btnSignup.setRolloverIcon(change[2]);
 		
-		btnMakePlan = new JButton("");
-		btnMakePlan.addActionListener(this);
-		btnMakePlan.setFocusable(false);
-		btnMakePlan.setBorder(null);
-		btnMakePlan.setBackground(Color.WHITE);
-		btnMakePlan.setBounds(540, 180, 120, 120);
-		btnMakePlan.setBorderPainted(false);
-        btnMakePlan.setFocusPainted(false);
-        btnMakePlan.setContentAreaFilled(false);
-		btnMakePlan.setIcon(changeDiet);
-		btnMakePlan.setPressedIcon(changeDiet2);
-		btnMakePlan.setRolloverIcon(changeDiet3);
-		panel.add(btnMakePlan);
+		btnSignupGroup.setIcon(change[3]);
+		btnSignupGroup.setPressedIcon(change[4]);
+		btnSignupGroup.setRolloverIcon(change[5]);
+		
+		btnCreateList.setIcon(change[6]);
+		btnCreateList.setPressedIcon(change[7]);
+		btnCreateList.setRolloverIcon(change[8]);
+		
+		btnCreateMenu.setIcon(change[9]);
+		btnCreateMenu.setPressedIcon(change[10]);
+		btnCreateMenu.setRolloverIcon(change[11]);
+		
+		//공통 버튼 메소드 호출
+		settingSameBtn(btnSignup, btnSignupGroup, btnCreateList, btnCreateMenu);
 		
 		//라벨
-		
 		JLabel lblSignup = new JLabel("회원등록");
 		lblSignup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSignup.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSignup.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lblSignup.setBounds(150, 310, 120, 20);
 		panel.add(lblSignup);
 		
 		JLabel lblGroupSignup = new JLabel("단체회원등록");
 		lblGroupSignup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGroupSignup.setFont(new Font("10X10", Font.PLAIN, 20));
-		lblGroupSignup.setBounds(280, 310, 120, 20);
+		lblGroupSignup.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		lblGroupSignup.setBounds(281, 310, 120, 20);
 		panel.add(lblGroupSignup);
 		
-		JLabel lblSearch = new JLabel("회원검색");
+		JLabel lblSearch = new JLabel("식단생성");
 		lblSearch.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSearch.setFont(new Font("10X10", Font.PLAIN, 20));
+		lblSearch.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lblSearch.setBounds(410, 310, 120, 20);
 		panel.add(lblSearch);
 		
-		JLabel lblDiet = new JLabel("식단추가");
+		JLabel lblDiet = new JLabel("메뉴추가");
 		lblDiet.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDiet.setFont(new Font("10X10", Font.PLAIN, 20));
-		lblDiet.setBounds(535, 310, 120, 20);
+		lblDiet.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		lblDiet.setBounds(542, 310, 120, 20);
 		panel.add(lblDiet);
 		
-		btnprn = new JButton("출력");
-		btnprn.addActionListener(this);
-		btnprn.setBounds(614, 374, 97, 23);
-		panel.add(btnprn);
-		
-		setResizable(false);
+		setResizable(false); //사이즈 조정 불가
 		setSize(800, 600);
 		setVisible(true);
+		setLocationRelativeTo(null); //중앙 위치토록 함수 호출
 		
 ///////////마우스 이벤트 처리 클래스
 		 MouseEventListener mouseListener = new MouseEventListener(this);
 		 addMouseListener(mouseListener);
 		 addMouseMotionListener(mouseListener);
-		
-		//GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();  //풀 스크린
-		//GraphicsDevice gd = ge.getDefaultScreenDevice();							   //풀 스크린
-		//gd.setFullScreenWindow(this);
-		
-		//setUndecorated(true);        //상태줄 없애기
-		setLocationRelativeTo(null); //중앙 위치토록 함수 호출
-		setVisible(true);
 	}
 
+	//버튼에 넣을 이미지 아이콘 생성
+	private void createImages(ImageIcon[] origin, Image[] originImg, Image[] changeImg, ImageIcon[] change) {
+		String[] imgNames = new String[]{
+				"src/main/resources/pictogram/icon_userinput1.png","src/main/resources/pictogram/icon_userinput2.png","src/main/resources/pictogram/icon_userinput3.png",
+				"src/main/resources/pictogram/icon_alluserinput1.png","src/main/resources/pictogram/icon_alluserinput2.png","src/main/resources/pictogram/icon_alluserinput3.png",
+				"src/main/resources/pictogram/icon_listcreate1.png", "src/main/resources/pictogram/icon_listcreate2.png", "src/main/resources/pictogram/icon_listcreate3.png",
+				"src/main/resources/pictogram/icon_menuadd1.png", "src/main/resources/pictogram/icon_menuadd2.png", "src/main/resources/pictogram/icon_menuadd3.png",
+		};
+		//[0, 1, 2]	[3, 4, 5] [6, 7, 8] [9, 10, 11]
+		for (int i = 0; i < 12; i++) {
+			origin[i] = new ImageIcon(imgNames[i]);
+			originImg[i] = origin[i].getImage();
+			changeImg[i] = originImg[i].getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+			change[i] = new ImageIcon(changeImg[i]);
+		}
+		//클릭하면 이미지가 조금 작아지도록
+		changeImg[1] = originImg[1].getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+		changeImg[4] = originImg[4].getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+		changeImg[7] = originImg[7].getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+	}
+
+	//버튼 세팅 메소드
+	private void settingSameBtn(JButton ...button) {
+		for (JButton jButton : button) {
+			jButton.setFocusable(false);
+			jButton.setBorder(null);
+			jButton.setBackground(Color.WHITE);
+			jButton.addActionListener(this);
+			jButton.setBorderPainted(false);
+			jButton.setFocusPainted(false);
+			jButton.setContentAreaFilled(false);
+			panel.add(jButton);
+		}
+	}
 	
 ///////////////////////////////////////
 /////////////이벤트 처리 ///////////////////
 	
+	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 //////////회원등록
 		if(e.getSource() == btnSignup ){
 			
-			new SignupUI();
+			new SignUpAndUpdateGUI().setVisible(true);
 		}
 		
 //////////그룹 등록
@@ -291,93 +235,35 @@ public class MainStartGUI extends JFrame implements ActionListener {
 		}
 		
 //////////회원찾기
-		if(e.getSource() == btnSearch ){
-	
-			new MemberCheckGUI().setVisible(true);
+		if(e.getSource() == btnCreateList ){
+			//MemberService객체 얻어오기
+			memberService = MemberService.getInstance();
+			
+			//모든 member객체 가져오기
+			memberList = memberService.selectAllMember();
+			
+			//등록된 회원이 없으면 창 띄우지 못하게 함
+			if (memberList.size() == 0) {
+				JOptionPane.showMessageDialog(null,"등록된 회원이 없습니다.");
+				return;
+			}else{
+				new MemberCheckGUI().setVisible(true);
+			}
+			
 		}
 		
 //////////식단 짜기
-		if(e.getSource() == btnMakePlan ){
-			
+		if(e.getSource() == btnCreateMenu ){
 			MenuManagerGUI mmgui = new MenuManagerGUI();
 			mmgui.setVisible(true);
-			
 		}
-		
-/////////////////////jasper report 띄우기 //////////////////////////////////////////////////////////////////////		
-		if(e.getSource() == btnprn ){
-			PrnMenu test = new PrnMenu(getRows());
-			
-			
-		}
-		
-	}
-
-	private String[][] getRows() {
-		MonthMenu monthMenu = new MonthMenu(2100, 950000);    ///new MonthMenu(2000, 760000);
-		ArrayList<OneDayMenu> list = monthMenu.monthMenuList;
-		
-		String[][] rowDatas = new String[monthMenu.count][];
-		//ArrayList<String[]> temp = new ArrayList<>();
-		//rowDatas[i] = temp.get(i).toArray();
-		
-		//System.out.println("한달리스트 사이즈 : " + list.size());
-		int ttt=-1;
-		for (int i = 0; i < list.size(); i++) {     //30일분..
-			
-			//하루치 가져오기
-			ArrayList<Menu> templistoneday = list.get(i).menuList;
-
-			for(int j=0;j<templistoneday.size();j++){
-				int quo = templistoneday.size() / 3; // (하루치 메뉴 개수 / 아침,점심,저녁)
-				int rem = templistoneday.size() % 3; // (하루치 메뉴 개수 / 아침,점심,저녁)의
-														// 나머지 개수
-				String str = ""; // 아침 점심 저녁을 저장할 변수
-
-				/*
-				 * 6만약 메뉴 개수가 7개일 때 몫 = 2, 나머지 =1 
-				 * 아침 2개, 점심 3개, 저녁 2개 
-				 * 아침 = 1, 2
-				 * 점심 = 2, 3, 4 
-				 * 저녁 = 5, 6 
-				 */
-				if (j < quo) {
-					str = "아침";
-				} else if (j < (quo + quo + rem)) {
-					str = "점심";
-				} else if (j < (quo + quo + quo + rem)) {
-					str = "저녁";
-				}
-
-				ttt++;
-				
-				   //"번호","일자","식사","항목", "메뉴", "칼로리(cal)", "지방", "탄수화물", "단백질", "비용"
-				rowDatas[ttt] = new String[]{
-						(ttt+1)+"",
-						(i+1)+"",
-						str,
-						templistoneday.get(j).getGrp()+ "",
-						templistoneday.get(j).getItem()+ "",
-						templistoneday.get(j).getCal()+ "",
-						templistoneday.get(j).getFat()+ "",
-						templistoneday.get(j).getCarbo() +"",
-						templistoneday.get(j).getProtein() +"",
-						templistoneday.get(j).getCost() +""};
-				//
-				//rowDatas[ttt] = templistoneday.get(j).toArray();
-					
-			}
-		}
-		//System.out.println(ttt);
-		return rowDatas;
-
 	}
 }
 
 
 ////////그림 패널//////////////
 class bgPanel extends JPanel{
-	ImageIcon bgIcon = new ImageIcon("images/healthy_food (7).jpg");
+	ImageIcon bgIcon = new ImageIcon("src/main/resources/images/healthy_food (7).jpg");
 	Image bgImg = bgIcon.getImage();
 	
 	public void paintComponent(Graphics g){
@@ -445,5 +331,4 @@ class MouseEventListener implements MouseInputListener {
  
          @Override
          public void mouseMoved(MouseEvent e) {}
-         
      }
