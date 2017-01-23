@@ -73,6 +73,8 @@ compile group: 'commons-digester', name: 'commons-digester', version: '2.1'
 compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
 // https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
 compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.2'
+// https://mvnrepository.com/artifact/com.itextpdf/itext-asian
+compile group: 'com.itextpdf', name: 'itext-asian', version: '5.1.0'
     
     //jasper report/////////////////////////
     
