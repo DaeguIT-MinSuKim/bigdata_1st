@@ -31,6 +31,5 @@ public abstract class AbstractDataInput<T> {
 	//key이벤트 발생
 	public KeyListener runKeyListener(JTextField key) {
 		return null;
-		
 	}
 }

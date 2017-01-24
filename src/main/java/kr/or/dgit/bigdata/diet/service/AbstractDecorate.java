@@ -71,6 +71,5 @@ public abstract class AbstractDecorate {
 			jButton.setBorder(new LineBorder(new Color(102, 162, 212)));
 			jButton.setBackground(new Color(44, 103, 156));
 		}
-		
 	}
 }

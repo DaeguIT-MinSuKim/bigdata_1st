@@ -165,7 +165,8 @@ class PanelButton extends JPanel implements ActionListener {
 
 	//초기화 메소드
 	private void allTextFieldClear() {
-		dataInputService.allTextFieldClear(signUpAndUpdateGUI.panelInput.tf_name,
+		dataInputService.allTextFieldClear(
+				signUpAndUpdateGUI.panelInput.tf_name,
 				signUpAndUpdateGUI.panelInput.tf_weight,
 				signUpAndUpdateGUI.panelInput.tf_age,
 				signUpAndUpdateGUI.panelInput.tf_phone,

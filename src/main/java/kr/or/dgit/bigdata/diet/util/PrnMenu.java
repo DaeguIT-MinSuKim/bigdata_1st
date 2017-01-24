@@ -84,8 +84,8 @@ public class PrnMenu extends JDialog {
 				dataSource.add(m);
 			}
 			JRDataSource jrDataSource=new JRBeanCollectionDataSource(dataSource);
+			//String sourceName= getClass().getClassLoader().getResource("Silhouette.jrxml").toURI()+"";
 			String sourceName="Silhouette.jrxml";
-			//String sourceName="personReport.jrxml";
 			
 			JasperReport report=JasperCompileManager.compileReport(sourceName);
 			JasperPrint filledReport=JasperFillManager.fillReport(report, null,jrDataSource);
