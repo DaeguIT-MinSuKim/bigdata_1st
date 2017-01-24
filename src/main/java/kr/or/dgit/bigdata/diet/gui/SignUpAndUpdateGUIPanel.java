@@ -183,6 +183,8 @@ class PanelButton extends JPanel implements ActionListener {
 			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_age);
 			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_phone);
 			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_budget);
+			signUpAndUpdateGUI.panelInput.tf_location.setName("tf_location");
+			dataInputService.isEmptyCheck(signUpAndUpdateGUI.panelInput.tf_location);
 			
 			dataInputService.isValidCheck("[가-힣]{1,4}", signUpAndUpdateGUI.panelInput.tf_name,  "이름을 4글자 이하, 한글로 작성해주세요.");
 			dataInputService.isValidCheck("^[1-9][0-9]", signUpAndUpdateGUI.panelInput.tf_weight, "몸무게는 10~99kg이하로 작성해주세요.");

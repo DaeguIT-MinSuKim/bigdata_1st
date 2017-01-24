@@ -209,7 +209,7 @@ public class MenuManagerGUI extends JDialog implements ActionListener, KeyListen
 
 			} else {
 				Menu menu = new Menu();
-
+				menu.setNo(1);
 				menu.setGrp(boxGrp.getSelectedItem() + "");
 				menu.setItem(tfItem.getText());
 				menu.setCal(Integer.parseInt(tfCal.getText()));
@@ -258,10 +258,10 @@ public class MenuManagerGUI extends JDialog implements ActionListener, KeyListen
 			dataInputService.isEmptyCheck(tfCon);
 
 			dataInputService.isValidCheck("[가-힣]{1,10}", tfItem, "항목은 1글자 이상 10글자 이하로 한글로 작성해주세요.");
-			dataInputService.isValidCheck("^[1-9]{1}[0-9]{2,3}", tfCal, "칼로리는 999kcal이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfFat, "지방은 999이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfCarbo, "탄수화물은 999이하로 작성해주세요.");
-			dataInputService.isValidCheck("^[0-9]+(.[0-9]+)?{1,3}", tfProtein, "단백질은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[1-9]{1}[0-9]{1,2}", tfCal, "칼로리는 10~999사이로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]{1,2}[.]*?[0-9]{1}", tfFat, "지방은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]{1,2}[.]*?[0-9]{1}", tfCarbo, "탄수화물은 999이하로 작성해주세요.");
+			dataInputService.isValidCheck("^[0-9]{1,2}[.]*?[0-9]{1}", tfProtein, "단백질은 999이하로 작성해주세요.");
 			dataInputService.isValidCheck("^[1-9]{1}[0-9]{2,4}", tfCost, "비용은 100~9999원 이하로 작성해주세요.");
 			dataInputService.isValidCheck("^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{1,10}", tfCon, "조건은 10글자 이하로 작성해주세요.");
 
@@ -300,14 +300,14 @@ public class MenuManagerGUI extends JDialog implements ActionListener, KeyListen
 			if ( !(digitCheck || backSpaceCheck || deleteCheck || dotCheck) ) {
 				e.consume();
 			}
-			if(!Pattern.matches("^[0-9.]{1,6}", ((JTextComponent) e.getSource()).getText()+t)){
+			if(!Pattern.matches("^[0-9.]{1,4}", ((JTextComponent) e.getSource()).getText()+t)){
 				e.consume();
 			}
 		}else if (e.getSource() == tfCal || e.getSource() == tfCost){
 			if ( !(digitCheck || backSpaceCheck || deleteCheck) ) {
 				e.consume();
 			}
-			if(!Pattern.matches("^[0-9.]{1,6}", ((JTextComponent) e.getSource()).getText()+t)){
+			if(!Pattern.matches("^[0-9]{1,6}", ((JTextComponent) e.getSource()).getText()+t)){
 				e.consume();
 			}
 		}

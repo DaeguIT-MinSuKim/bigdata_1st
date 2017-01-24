@@ -11,8 +11,12 @@ public abstract class AbstractDataInput<T> {
 	//공백여부
 	public boolean isEmptyCheck(JTextField text) throws Exception {
 		if(text.getText().trim().equals("")){
-			text.requestFocus();
-			throw new Exception("공백이 존재합니다.");
+			if (text.getName() == "tf_location") {
+				throw new Exception("주소를 입력해 주세요");
+			}else{
+				text.requestFocus();
+				throw new Exception("공백이 존재합니다.");
+			}
 		}else{
 			return true;
 		}

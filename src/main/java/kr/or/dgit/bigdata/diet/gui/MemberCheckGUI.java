@@ -1,35 +1,26 @@
 package kr.or.dgit.bigdata.diet.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import kr.or.dgit.bigdata.diet.dto.Member;
-import kr.or.dgit.bigdata.diet.middle.MonthMenu;
-import kr.or.dgit.bigdata.diet.service.MemberService;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.ImageIcon;
-import javax.swing.border.LineBorder;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import kr.or.dgit.bigdata.diet.dto.Member;
+import kr.or.dgit.bigdata.diet.middle.MonthMenu;
+import kr.or.dgit.bigdata.diet.service.MemberService;
 
 public class MemberCheckGUI extends JDialog implements ActionListener{
 

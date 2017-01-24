@@ -135,7 +135,7 @@ public class SearchPost extends JDialog {
 					if (res == 0) {
 						setVisible(false);
 						List<Post> list = PostService.getInstance().searchSidoSigungu(getPost());
-						panelInput.tf_location.setText(list.get(0).getSido()+" "+list.get(0).getSigungu()); //선택된 주소 전달
+						panelInput.tf_location.setText(model.getValueAt(table.getSelectedRow(), 1)+"");//주소전달
 					}
 				}
 				

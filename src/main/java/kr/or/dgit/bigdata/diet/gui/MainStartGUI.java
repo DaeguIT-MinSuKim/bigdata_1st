@@ -321,14 +321,13 @@ public class MainStartGUI extends JFrame implements ActionListener {
 								
 						memberService = MemberService.getInstance();
 						memberService.insertMember(mem);	
-						
 					}
 					in.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				
-			}	
+			}
+			JOptionPane.showMessageDialog(null, "단체 회원 등록이 완료되었습니다.");	
 		}
 		
 //////////회원찾기

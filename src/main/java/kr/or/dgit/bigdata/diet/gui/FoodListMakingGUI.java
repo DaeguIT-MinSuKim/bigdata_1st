@@ -16,6 +16,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -158,12 +160,23 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 			btnDays[i].addActionListener(this);
 		}
 		
+		//회원의 식단을 가지고 있으면 버튼색 변경 및 식단 생성버튼 비활성화
 		if (MemberCheckGUI.tempMonthMenu.containsKey(no)) {
 			btnCreate.setVisible(false);
 			for (int i = 0; i < btnDays.length; i++) {
 				btnDays[i].setForeground(new Color(255, 102, 0));
 			}
 			return;
+		}else{
+			//식단이 존재하지 않으면 식단을 띄운 후 식단을 생성하라는 메시지가 보이도록 timer클래스 사용
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					JOptionPane.showMessageDialog(null, "식단을 생성해주세요.");
+				}
+			}, 500);
 		}
 	}
 
@@ -201,13 +214,17 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 				MemberCheckGUI.tempFoodList.put(no, foodListTable);
 				MemberCheckGUI.tempMakingFoodList.put(no, this);
 				
+				//1일 평균 소비금액, 월총경비 전달
 				lblOneDayCost.setText(foodListTable.avgOneDayCost+"");
 				lblMonthCost.setText(foodListTable.monthCost+"");
 				
+				//버튼 숨기기 및 버튼 색 주황으로
 				btnCreate.setVisible(false);
 				for (int i = 0; i < btnDays.length; i++) {
 					btnDays[i].setForeground(new Color(255, 102, 0));
 				}
+				
+				JOptionPane.showMessageDialog(null, "식단을 생성하였습니다.");
 			}
 			
 			
