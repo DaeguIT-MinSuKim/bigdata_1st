@@ -17,6 +17,16 @@ CREATE TABLE diet.Member (
 )
 COMMENT 'Member';
 
+-- Member
+ALTER TABLE diet.Member
+	ADD CONSTRAINT PK_Member -- Member 기본키
+		PRIMARY KEY (
+			no -- 회원번호
+
+		);
+		
+ALTER TABLE diet.`member` MODIFY COLUMN `no` int(4) NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
 -- Calorie
 CREATE TABLE diet.Calorie (
 	minage    INT(3) NOT NULL COMMENT '최소나이', -- 최소나이
@@ -54,14 +64,8 @@ ALTER TABLE diet.Menu
 		);
 
 
--- Member
-ALTER TABLE diet.Member
-	ADD CONSTRAINT PK_Member -- Member 기본키
-		PRIMARY KEY (
-			no -- 회원번호
 
-		);
 
-ALTER TABLE diet.`member` MODIFY COLUMN `no` int(4) NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
 
 

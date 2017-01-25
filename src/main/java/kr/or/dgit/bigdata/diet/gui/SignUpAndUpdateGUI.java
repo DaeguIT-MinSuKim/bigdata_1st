@@ -29,7 +29,7 @@ public class SignUpAndUpdateGUI extends JDialog {
 	//메인 페이지에서 연결됨
 	public SignUpAndUpdateGUI() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 306, 526);
+		setBounds(320, 200, 306, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);

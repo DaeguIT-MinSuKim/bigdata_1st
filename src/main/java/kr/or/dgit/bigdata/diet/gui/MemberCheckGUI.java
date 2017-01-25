@@ -45,7 +45,7 @@ public class MemberCheckGUI extends JDialog implements ActionListener{
 
 	public MemberCheckGUI() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 300, 526);
+		setBounds(320, 200, 300, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);

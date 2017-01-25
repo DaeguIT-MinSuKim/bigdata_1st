@@ -79,7 +79,7 @@ public class FoodListMakingGUI extends JDialog implements ActionListener {
 		//크기조정불가
 		setResizable(false);
 		
-		setBounds(100, 100, 900, 720);
+		setBounds(520, 200, 900, 720);
 		getContentPane().setLayout(new BorderLayout());
 		bgImagePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(bgImagePanel, BorderLayout.CENTER);
